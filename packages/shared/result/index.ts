@@ -1,25 +1,25 @@
-export interface ISuccessResult<T> {
+export interface IOk<T> {
   isOk: true;
-  isError: false;
+  isNotOk: false;
   value: T;
 }
 
-export interface IFailureResult<E = Error> {
+export interface INotOk<E = Error> {
   isOk: false;
-  isError: true;
+  isNotOk: true;
   error: E;
 }
 
-export type IResult<T, E = Error> = ISuccessResult<T> | IFailureResult<E>;
+export type IResult<T, E = Error> = IOk<T> | INotOk<E>;
 
-export class SuccessResult<T> implements ISuccessResult<T> {
+export class Ok<T> implements IOk<T> {
   public readonly isOk: true = true;
-  public readonly isError: false = false;
+  public readonly isNotOk: false = false;
   constructor(public readonly value: T) {}
 }
 
-export class FailureResult<E = Error> implements IFailureResult<E> {
+export class NotOk<E = Error> implements INotOk<E> {
   public readonly isOk: false = false;
-  public readonly isError: true = true;
+  public readonly isNotOk: true = true;
   constructor(public readonly error: E) {}
 }
