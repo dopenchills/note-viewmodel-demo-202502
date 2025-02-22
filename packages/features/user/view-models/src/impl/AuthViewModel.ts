@@ -12,10 +12,7 @@ export class AuthViewModel extends ViewModelBase implements IAuthViewModel {
 
   constructor(@inject(EventAggregatorTypes.EventAggregator) ea: IEventAggregator) {
     super(ea)
-    this.subscribeToSignInEvents()
-  }
 
-  private subscribeToSignInEvents(): void {
     this.subscribe<SignedInEvent>(SignedInEvent, async () => {
       this._isSignedIn.next(true)
     })
