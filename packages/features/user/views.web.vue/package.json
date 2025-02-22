@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "vue": "catalog:",
+    "di": "workspace:*",
+    "features__user__view-models": "workspace:*",
     "features__shared__views.web.vue": "workspace:*"
   }
 }

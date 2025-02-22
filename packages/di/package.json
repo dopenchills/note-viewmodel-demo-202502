@@ -9,6 +9,7 @@
   "dependencies": {
     "reflect-metadata": "catalog:",
     "inversify": "catalog:",
+    "features__user__view-models": "workspace:*",
     "shared__event-aggregator": "workspace:*"
   }
 }

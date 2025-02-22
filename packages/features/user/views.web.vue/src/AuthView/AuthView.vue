@@ -9,18 +9,18 @@
       <div class="tab-content" role="tabpanel">
         <sign-in 
           v-if="type === 'sign-in'" 
-          @sign-in="handleSignIn"
-          @update:name="handleNameUpdate"
-          @update:email="handleEmailUpdate"
-          @update:password="handlePasswordUpdate"
+          @sign-in="signInViewModel.signIn()"
+          @update:name="signInViewModel.setName($event)"
+          @update:email="signInViewModel.setEmail($event)"
+          @update:password="signInViewModel.setPassword($event)"
         />
         <sign-up 
           v-else 
-          @sign-up="handleSignUp"
-          @update:name="handleNameUpdate"
-          @update:email="handleEmailUpdate"
-          @update:password="handlePasswordUpdate"
-          @update:confirmPassword="handleConfirmPasswordUpdate"
+          @sign-up="signUpViewModel.signUp()"
+          @update:name="signUpViewModel.setName($event)"
+          @update:email="signUpViewModel.setEmail($event)"
+          @update:password="signUpViewModel.setPassword($event)"
+          @update:confirmPassword="signUpViewModel.setConfirmPassword($event)"
         />
       </div>
     </div>
@@ -33,6 +33,8 @@ import { ref } from 'vue'
 import SignIn from './SignIn.vue'
 import SignUp from './SignUp.vue'
 import TabGroup from './TabGroup.vue'
+import { diContainer } from 'di'
+import { IAuthViewModel, ISignInViewModel, ISignUpViewModel, UserTypes } from 'features__user__view-models'
 
 type AuthType = 'sign-in' | 'sign-up'
 const type = ref<AuthType>('sign-in')
@@ -42,37 +44,9 @@ const tabs: { label: string; value: AuthType }[] = [
   { label: 'Sign Up', value: 'sign-up' }
 ]
 
-interface AuthForm {
-  name: string
-  email: string
-  password: string
-}
-
-const handleSignIn = (form: AuthForm) => {
-  // TODO: Implement sign in logic
-  console.log('Sign in:', form)
-}
-
-const handleSignUp = (form: AuthForm) => {
-  // TODO: Implement sign up logic
-  console.log('Sign up:', form)
-}
-
-const handleNameUpdate = (value: string) => {
-  console.log('Name updated:', value)
-}
-
-const handleEmailUpdate = (value: string) => {
-  console.log('Email updated:', value)
-}
-
-const handlePasswordUpdate = (value: string) => {
-  console.log('Password updated:', value)
-}
-
-const handleConfirmPasswordUpdate = (value: string) => {
-  console.log('Confirm password updated:', value)
-}
+const authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
+const signInViewModel = diContainer.get<ISignInViewModel>(UserTypes.SignInViewModel)
+const signUpViewModel = diContainer.get<ISignUpViewModel>(UserTypes.SignUpViewModel)
 </script>
 
 <style scoped lang="scss">
