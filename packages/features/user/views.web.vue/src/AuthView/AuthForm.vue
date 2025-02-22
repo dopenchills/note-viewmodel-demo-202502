@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="emit('submit', form)">
+  <form class="form" @submit.prevent="handleSubmit">
     <div class="form-group">
       <label for="name">Name</label>
       <input
@@ -80,32 +80,40 @@ const emit = defineEmits<{
   (e: 'update:email', value: string): void
   (e: 'update:password', value: string): void
 }>()
+
+const handleSubmit = () => {
+  emit('submit', {
+    name: form.name,
+    email: form.email,
+    password: form.password,
+  })
+}
 </script>
 
 <style scoped lang="scss">
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 
   label {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #1f2937;
   }
 }
 
 .input {
-  padding: 0.625rem 0.75rem;
+  padding: 0.875rem 1rem;
   border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
   transition: all 0.2s ease;
 
   &:focus {
@@ -122,25 +130,26 @@ const emit = defineEmits<{
 .error-messages {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.75rem;
+  gap: 0.75rem;
+  padding: 1rem;
   background-color: #fee2e2;
   border: 1px solid #fecaca;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
 }
 
 .error-message {
   color: #dc2626;
-  font-size: 0.875rem;
+  font-size: 1rem;
   margin: 0;
 }
 
 .submit-button {
   background-color: #3b82f6;
   color: white;
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
   border: none;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;

@@ -76,11 +76,13 @@ watch(
 .auth-container {
   margin: 2rem auto;
   padding: 0 1rem;
+  max-width: 480px;
+  width: 100%;
 }
 
 .tab-content {
   background-color: white;
   border-radius: 0.5rem;
-  padding: 1.5rem;
+  padding: 2rem;
 }
 </style>
