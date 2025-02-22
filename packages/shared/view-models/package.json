@@ -1,5 +1,5 @@
 {
-  "name": "shared__viewModels",
+  "name": "shared__view-models",
   "private": true,
   "type": "module",
   "main": "index.ts",
