@@ -19,6 +19,15 @@ export abstract class ViewModelBase implements IViewModel {
     this._isBusy = isBusy;
   }
 
+  load(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  unload(): Promise<void> {
+    this.unsubscribe();
+    return Promise.resolve();
+  }
+
   subscribe<Payload>(ea: IEventAggregator, event: IPubSubEvent<Payload>, callback: (e: IPubSubEvent<Payload>) => Promise<void>): void {
     this._subscriptions.push(ea.subscribe(event, callback));
   }
