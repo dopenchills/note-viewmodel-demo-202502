@@ -1,4 +1,4 @@
-import { computed, ComputedRef, ref } from 'vue'
+import { computed, ComputedRef, onUnmounted, ref } from 'vue'
 import { IViewModel } from 'shared__view-models'
 import { Observable } from 'rxjs'
 
@@ -31,11 +31,15 @@ export const useObservableProps = <
   const observable = viewModel[propertyName] as Observable<PickedPropType>
   const refProperty = ref<PickedPropType | undefined>(undefined)
 
-  observable.subscribe(value => {
+  const subscription = observable.subscribe(value => {
     refProperty.value = value
   })
 
   const computedProperty = computed<PickedPropType>(() => refProperty.value)
+
+  onUnmounted(() => {
+    subscription.unsubscribe()
+  })
 
   return computedProperty
 }
