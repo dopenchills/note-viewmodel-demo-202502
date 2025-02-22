@@ -2,20 +2,26 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { EventAggregator } from './EventAggregator';
 import { IPubSubEvent } from './interfaces/IPubSubEvent';
 
+class TestEvent<P = string> implements IPubSubEvent<P> {
+  constructor(public payload: P) {}
+}
+
+class NumberEvent<P = number> implements IPubSubEvent<P> {
+  constructor(public payload: P) {}
+}
+
 describe('EventAggregator', () => {
   let eventAggregator: EventAggregator;
-  let testEvent: IPubSubEvent<string>;
   let callback: (e: IPubSubEvent<string>) => Promise<void>;
 
   beforeEach(() => {
     eventAggregator = new EventAggregator();
-    testEvent = { payload: '' };
     callback = vi.fn().mockResolvedValue(undefined);
   });
 
   describe('subscribe', () => {
     it('should return a subscription with unsubscribe method', () => {
-      const subscription = eventAggregator.subscribe(testEvent, callback);
+      const subscription = eventAggregator.subscribe(TestEvent, callback);
       expect(subscription).toBeDefined();
       expect(subscription.unsubscribe).toBeTypeOf('function');
     });
@@ -23,11 +29,11 @@ describe('EventAggregator', () => {
     it('should allow multiple subscriptions to the same event', () => {
       const callback2 = vi.fn().mockResolvedValue(undefined);
       
-      eventAggregator.subscribe(testEvent, callback);
-      eventAggregator.subscribe(testEvent, callback2);
+      eventAggregator.subscribe(TestEvent, callback);
+      eventAggregator.subscribe(TestEvent, callback2);
       
-      testEvent.payload = 'test';
-      eventAggregator.publish(testEvent);
+      const event = new TestEvent('test');
+      eventAggregator.publish(event);
       
       expect(callback).toHaveBeenCalledTimes(1);
       expect(callback2).toHaveBeenCalledTimes(1);
@@ -36,39 +42,33 @@ describe('EventAggregator', () => {
 
   describe('publish', () => {
     it('should call subscriber callback with event and data', () => {
-      eventAggregator.subscribe(testEvent, callback);
-      testEvent.payload = 'test data';
-      eventAggregator.publish(testEvent);
+      eventAggregator.subscribe(TestEvent, callback);
+      const event = new TestEvent('test data');
+      eventAggregator.publish(event);
 
-      expect(callback).toHaveBeenCalledWith({
-        payload: 'test data'
-      });
+      expect(callback).toHaveBeenCalledWith(event);
     });
 
     it('should handle multiple events independently', () => {
-      const numberEvent: IPubSubEvent<number> = { payload: 0 };
       const numberCallback = vi.fn().mockResolvedValue(undefined);
 
-      eventAggregator.subscribe(testEvent, callback);
-      eventAggregator.subscribe(numberEvent, numberCallback);
+      eventAggregator.subscribe(TestEvent, callback);
+      eventAggregator.subscribe(NumberEvent, numberCallback);
 
-      testEvent.payload = 'string data';
-      numberEvent.payload = 42;
-      eventAggregator.publish(testEvent);
+      const stringEvent = new TestEvent('string data');
+      const numberEvent = new NumberEvent(42);
+      
+      eventAggregator.publish(stringEvent);
       eventAggregator.publish(numberEvent);
 
-      expect(callback).toHaveBeenCalledWith(expect.objectContaining({
-        payload: 'string data'
-      }));
-      expect(numberCallback).toHaveBeenCalledWith(expect.objectContaining({
-        payload: 42
-      }));
+      expect(callback).toHaveBeenCalledWith(stringEvent);
+      expect(numberCallback).toHaveBeenCalledWith(numberEvent);
     });
 
     it('should not fail when publishing to event with no subscribers', () => {
       expect(() => {
-        testEvent.payload = 'test';
-        eventAggregator.publish(testEvent);
+        const event = new TestEvent('test');
+        eventAggregator.publish(event);
       }).not.toThrow();
     });
 
@@ -76,11 +76,11 @@ describe('EventAggregator', () => {
       const errorCallback = vi.fn().mockRejectedValue(new Error('Test error'));
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       
-      eventAggregator.subscribe(testEvent, callback);
-      eventAggregator.subscribe(testEvent, errorCallback);
+      eventAggregator.subscribe(TestEvent, callback);
+      eventAggregator.subscribe(TestEvent, errorCallback);
       
-      testEvent.payload = 'test';
-      eventAggregator.publish(testEvent);
+      const event = new TestEvent('test');
+      eventAggregator.publish(event);
       
       // Wait for promises to resolve/reject
       await new Promise(resolve => setTimeout(resolve, 0));
@@ -95,11 +95,11 @@ describe('EventAggregator', () => {
 
   describe('unsubscribe', () => {
     it('should remove subscriber from event', () => {
-      eventAggregator.subscribe(testEvent, callback);
-      eventAggregator.unsubscribe(testEvent, callback);
+      eventAggregator.subscribe(TestEvent, callback);
+      eventAggregator.unsubscribe(TestEvent, callback);
       
-      testEvent.payload = 'test';
-      eventAggregator.publish(testEvent);
+      const event = new TestEvent('test');
+      eventAggregator.publish(event);
       
       expect(callback).not.toHaveBeenCalled();
     });
@@ -107,12 +107,13 @@ describe('EventAggregator', () => {
     it('should not affect other subscribers when unsubscribing', () => {
       const callback2 = vi.fn().mockResolvedValue(undefined);
       
-      eventAggregator.subscribe(testEvent, callback);
-      eventAggregator.subscribe(testEvent, callback2);
+      eventAggregator.subscribe(TestEvent, callback);
+      eventAggregator.subscribe(TestEvent, callback2);
       
-      eventAggregator.unsubscribe(testEvent, callback);
-      testEvent.payload = 'test';
-      eventAggregator.publish(testEvent);
+      eventAggregator.unsubscribe(TestEvent, callback);
+      
+      const event = new TestEvent('test');
+      eventAggregator.publish(event);
       
       expect(callback).not.toHaveBeenCalled();
       expect(callback2).toHaveBeenCalled();
@@ -120,16 +121,16 @@ describe('EventAggregator', () => {
 
     it('should not fail when unsubscribing from non-existent event', () => {
       expect(() => {
-        eventAggregator.unsubscribe(testEvent, callback);
+        eventAggregator.unsubscribe(TestEvent, callback);
       }).not.toThrow();
     });
 
     it('should work through subscription object', () => {
-      const subscription = eventAggregator.subscribe(testEvent, callback);
+      const subscription = eventAggregator.subscribe(TestEvent, callback);
       subscription.unsubscribe();
       
-      testEvent.payload = 'test';
-      eventAggregator.publish(testEvent);
+      const event = new TestEvent('test');
+      eventAggregator.publish(event);
       
       expect(callback).not.toHaveBeenCalled();
     });
