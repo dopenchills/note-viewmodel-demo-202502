@@ -70,6 +70,12 @@ importers:
       features__top__views.web.vue:
         specifier: workspace:*
         version: link:../../features/top/views.web.vue
+      features__user__views.web.vue:
+        specifier: workspace:*
+        version: link:../../features/user/views.web.vue
+      reflect-metadata:
+        specifier: 'catalog:'
+        version: 0.1.14
       shared__constants:
         specifier: workspace:*
         version: link:../../shared/constants
@@ -187,9 +193,15 @@ importers:
       features__user__view-models:
         specifier: workspace:*
         version: link:../view-models
+      shared__constants:
+        specifier: workspace:*
+        version: link:../../../shared/constants
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
 
   packages/shared/constants: {}
 

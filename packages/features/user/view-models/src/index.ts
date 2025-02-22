@@ -10,10 +10,13 @@ import { UserTypes } from "./di/UserTypes";
 export {
   userModule,
   UserTypes,
-  IAuthViewModel,
-  ISignInViewModel,
-  ISignUpViewModel,
   AuthViewModel,
   SignInViewModel,
   SignUpViewModel,
+}
+
+export type {
+  IAuthViewModel,
+  ISignInViewModel,
+  ISignUpViewModel,
 }

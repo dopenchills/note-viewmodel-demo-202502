@@ -5,4 +5,5 @@ import { IEventAggregator } from "./interfaces/IEventAggregator";
 import { IPubSubEvent } from "./interfaces/IPubSubEvent";
 import { ISubscription } from "./interfaces/ISubscription";
 
-export { EventAggregatorTypes, eventAggregatorModule, EventAggregator, IEventAggregator, IPubSubEvent, ISubscription };
+export { EventAggregatorTypes, eventAggregatorModule };
+export type {EventAggregator, IEventAggregator, IPubSubEvent, ISubscription}
