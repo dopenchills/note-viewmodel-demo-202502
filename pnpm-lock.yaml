@@ -122,6 +122,9 @@ importers:
 
   packages/di:
     dependencies:
+      features__user__view-models:
+        specifier: workspace:*
+        version: link:../features/user/view-models
       inversify:
         specifier: 'catalog:'
         version: 6.2.2(reflect-metadata@0.1.14)
@@ -134,6 +137,9 @@ importers:
 
   packages/features/shared/views.web.vue:
     dependencies:
+      shared__view-models:
+        specifier: workspace:*
+        version: link:../../../shared/view-models
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
@@ -169,9 +175,15 @@ importers:
 
   packages/features/user/views.web.vue:
     dependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../../di
       features__shared__views.web.vue:
         specifier: workspace:*
         version: link:../../shared/views.web.vue
+      features__user__view-models:
+        specifier: workspace:*
+        version: link:../view-models
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
