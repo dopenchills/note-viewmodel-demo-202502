@@ -29,12 +29,15 @@
 
 <script setup lang="ts">
 import { TopBarLayout } from 'features__shared__views.web.vue/layouts'
-import { ref } from 'vue'
+import { useObservableProps } from 'features__shared__views.web.vue/composables'
+import { ref, watch } from 'vue'
 import SignIn from './SignIn.vue'
 import SignUp from './SignUp.vue'
 import TabGroup from './TabGroup.vue'
 import { diContainer } from 'di'
+import { useRouter } from 'vue-router'
 import { IAuthViewModel, ISignInViewModel, ISignUpViewModel, UserTypes } from 'features__user__view-models'
+import { paths } from 'shared__constants'
 
 type AuthType = 'sign-in' | 'sign-up'
 const type = ref<AuthType>('sign-in')
@@ -44,9 +47,18 @@ const tabs: { label: string; value: AuthType }[] = [
   { label: 'Sign Up', value: 'sign-up' }
 ]
 
+const router = useRouter()
+
 const authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
 const signInViewModel = diContainer.get<ISignInViewModel>(UserTypes.SignInViewModel)
 const signUpViewModel = diContainer.get<ISignUpViewModel>(UserTypes.SignUpViewModel)
+
+const isSignedIn = useObservableProps(authViewModel, 'isSignedIn$')
+watch(isSignedIn, (_isSignedIn) => {
+  if (_isSignedIn) {
+    router.push(paths.top)
+  }
+})
 </script>
 
 <style scoped lang="scss">
