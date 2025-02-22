@@ -8,6 +8,10 @@ export interface IViewModel {
   load(): Promise<void>;
   unload(): Promise<void>;
 
-  subscribe<Payload>(ea: IEventAggregator, event: IPubSubEvent<Payload>, callback: (e: IPubSubEvent<Payload>) => Promise<void>): void;
+  subscribe<T extends IPubSubEvent<any>>(
+    eventClass: new (...args: any[]) => T,
+    callback: (e: T) => Promise<void>
+  ): void;
+
   unsubscribe(): void;
 }

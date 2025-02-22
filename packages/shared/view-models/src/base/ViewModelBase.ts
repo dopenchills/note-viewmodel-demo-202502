@@ -28,8 +28,16 @@ export abstract class ViewModelBase implements IViewModel {
     return Promise.resolve();
   }
 
-  subscribe<Payload>(ea: IEventAggregator, event: IPubSubEvent<Payload>, callback: (e: IPubSubEvent<Payload>) => Promise<void>): void {
-    this._subscriptions.push(ea.subscribe(event, callback));
+  subscribe<T extends IPubSubEvent<any>>(
+    eventClass: new (...args: any[]) => T,
+    callback: (e: T) => Promise<void>
+  ): void {
+    this._subscriptions.push(
+      this.ea.subscribe(
+        eventClass as new <P>(payload: P) => IPubSubEvent<P>,
+        callback as (e: IPubSubEvent<any>) => Promise<void>
+      )
+    );
   }
 
   unsubscribe(): void {
