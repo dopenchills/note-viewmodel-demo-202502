@@ -15,6 +15,7 @@
     "vue": "catalog:",
     "vue-router": "catalog:",
     "features__top__views.web.vue": "workspace:*",
+    "features__user__views.web.vue": "workspace:*",
     "shared__constants": "workspace:*"
   },
   "devDependencies": {

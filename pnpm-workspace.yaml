@@ -3,6 +3,7 @@ packages:
   - packages/features/top/*
   - packages/features/note/*
   - packages/features/user/*
+  - packages/features/shared/*
   - packages/shared/*
 
 catalog:
