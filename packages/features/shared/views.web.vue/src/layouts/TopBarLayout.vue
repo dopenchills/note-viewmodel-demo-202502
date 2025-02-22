@@ -4,7 +4,9 @@
       <h1>{{ title }}</h1>
     </div>
     <div class="content">
-      <slot></slot>
+      <main>
+        <slot></slot>
+      </main>
     </div>
   </div>
 </template>
@@ -32,5 +34,15 @@ withDefaults(defineProps<{
 .top-bar h1 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.content main {
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>
