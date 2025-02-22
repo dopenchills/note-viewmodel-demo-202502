@@ -1,4 +1,3 @@
-import { IResult } from 'shared__result'
 import { IViewModel, ObservableProps } from 'shared__view-models'
 
 export interface ISignInViewModelProps {
@@ -12,5 +11,5 @@ export interface ISignInViewModel extends IViewModel, ObservableProps<ISignInVie
   setName(name: string): void
   setEmail(email: string): void
   setPassword(password: string): void
-  signIn(): IResult<void>
+  signIn(): Promise<void>
 }

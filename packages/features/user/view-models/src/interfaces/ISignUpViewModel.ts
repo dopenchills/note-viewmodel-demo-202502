@@ -10,5 +10,5 @@ export interface ISignUpViewModel extends IViewModel, ObservableProps<ISignUpVie
   setName(name: string): void
   setEmail(email: string): void
   setPassword(password: string): void
-  signUp(): void
+  signUp(): Promise<void>
 }

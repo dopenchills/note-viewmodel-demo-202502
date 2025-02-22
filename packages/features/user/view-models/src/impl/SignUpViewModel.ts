@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify'
 import { BehaviorSubject } from 'rxjs'
+import { ApiType, IAuthApi } from 'shared__api'
 import { ViewModelBase } from 'shared__view-models'
 import { EventAggregatorTypes, IEventAggregator } from '../../../../../shared/event-aggregator/src'
 import { SignedUpEvent } from '../events/SignedUpEvent'
@@ -16,7 +17,10 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
   private _password: BehaviorSubject<string> = new BehaviorSubject('')
   public password$ = this._password.asObservable()
 
-  constructor(@inject(EventAggregatorTypes.EventAggregator) ea: IEventAggregator) {
+  constructor(
+    @inject(EventAggregatorTypes.EventAggregator) ea: IEventAggregator,
+    @inject(ApiType.AuthApi) private readonly authApi: IAuthApi
+  ) {
     super(ea)
   }
 
@@ -32,13 +36,23 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
     this._password.next(password)
   }
 
-  signUp(): void {
-    this.ea.publish(
-      new SignedUpEvent({
-        name: this._name.value,
-        email: this._email.value,
-        password: this._password.value,
-      })
+  async signUp(): Promise<void> {
+    const signUpResult = await this.authApi.signUp(
+      this._name.value,
+      this._email.value,
+      this._password.value
     )
+
+    if (signUpResult.isNotOk) {
+      return
+    } else {
+      this.ea.publish(
+        new SignedUpEvent({
+          name: this._name.value,
+          email: this._email.value,
+          password: this._password.value,
+        })
+      )
+    }
   }
 }

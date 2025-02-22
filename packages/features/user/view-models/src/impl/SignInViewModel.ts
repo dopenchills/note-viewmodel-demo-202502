@@ -1,10 +1,9 @@
 import { inject, injectable } from 'inversify'
 import { BehaviorSubject } from 'rxjs'
-import { IResult, NotOk, Ok } from 'shared__result'
+import { ApiType, IAuthApi } from 'shared__api'
 import { ViewModelBase } from 'shared__view-models'
 import { EventAggregatorTypes, IEventAggregator } from '../../../../../shared/event-aggregator/src'
 import { SignedInEvent } from '../events/SignedInEvent'
-import { SignedUpEvent } from '../events/SignedUpEvent'
 import { ISignInViewModel } from '../interfaces/ISignInViewModel'
 
 @injectable()
@@ -21,24 +20,11 @@ export class SignInViewModel extends ViewModelBase implements ISignInViewModel {
   private _errorMessages: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
   public errorMessages$ = this._errorMessages.asObservable()
 
-  private authStore: Set<{
-    name: string
-    email: string
-    password: string
-  }> = new Set([
-    {
-      name: 'やまだたろう',
-      email: 'yamada.taro@example.com',
-      password: 'pass',
-    },
-  ])
-
-  constructor(@inject(EventAggregatorTypes.EventAggregator) ea: IEventAggregator) {
+  constructor(
+    @inject(EventAggregatorTypes.EventAggregator) ea: IEventAggregator,
+    @inject(ApiType.AuthApi) private authApi: IAuthApi
+  ) {
     super(ea)
-
-    this.subscribe<SignedUpEvent>(SignedUpEvent, async (event) => {
-      this.authStore.add(event.payload)
-    })
   }
 
   setName(name: string): void {
@@ -56,19 +42,24 @@ export class SignInViewModel extends ViewModelBase implements ISignInViewModel {
     this._errorMessages.next([]) // Clear errors on input change
   }
 
-  signIn(): IResult<void> {
-    const user = Array.from(this.authStore).find(
-      (user) => user.name === this._name.value && user.password === this._password.value
-    )
+  async signIn(): Promise<void> {
+    const signInResult = await this.authApi.signIn(this._name.value, this._password.value)
 
-    if (user === undefined) {
-      const error = '認証に失敗しました'
-      this._errorMessages.next([error])
-      return new NotOk(new Error(error))
+    if (signInResult.isNotOk) {
+      const errorMessage = signInResult.error.message
+      this._errorMessages.next([errorMessage])
+      return
+    } else {
+      this._errorMessages.next([])
+
+      this.ea.publish(
+        new SignedInEvent({
+          name: this._name.value,
+          email: this._email.value,
+          password: this._password.value,
+        })
+      )
+      return
     }
-
-    this._errorMessages.next([])
-    this.ea.publish(new SignedInEvent(user))
-    return new Ok(undefined)
   }
 }

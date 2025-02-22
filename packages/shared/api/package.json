@@ -1,5 +1,5 @@
 {
-  "name": "shared__view-models",
+  "name": "shared__api",
   "private": true,
   "type": "module",
   "main": "src/index.ts",
@@ -8,9 +8,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "rxjs": "catalog:",
     "inversify": "catalog:",
-    "di": "workspace:*"
+    "di": "workspace:*",
+    "shared__result": "workspace:*",
+    "rxjs": "catalog:"
   },
   "devDependencies": {
     "vitest": "catalog:",
