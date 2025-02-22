@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "exports": {
+    "./composables": "./src/composables/index.ts",
     "./layouts": "./src/layouts/index.ts"
   },
   "scripts": {
@@ -12,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "shared__view-models": "workspace:*"
   }
 }
