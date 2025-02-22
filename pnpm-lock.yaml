@@ -95,15 +95,24 @@ importers:
 
   packages/app/web.vue:
     dependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../di
       features__top__views.web.vue:
         specifier: workspace:*
         version: link:../../features/top/views.web.vue
+      features__user__view-models:
+        specifier: workspace:*
+        version: link:../../features/user/view-models
       features__user__views.web.vue:
         specifier: workspace:*
         version: link:../../features/user/views.web.vue
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.1.14
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
       shared__constants:
         specifier: workspace:*
         version: link:../../shared/constants
