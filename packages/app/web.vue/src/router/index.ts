@@ -1,6 +1,11 @@
 import { HomeView } from 'features__top__views.web.vue'
 import { firstValueFrom } from 'rxjs'
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  type NavigationGuardNext,
+  type RouteLocationNormalizedGeneric,
+} from 'vue-router'
 
 import { diContainer } from 'di'
 import { type IAuthViewModel, UserTypes } from 'features__user__view-models'
@@ -22,7 +27,11 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach(async (to, from, next) => {
+const redirectIfNotSignedIn = async (
+  to: RouteLocationNormalizedGeneric,
+  from: RouteLocationNormalizedGeneric,
+  next: NavigationGuardNext
+): Promise<void> => {
   const authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
   const isSignedIn = await firstValueFrom(authViewModel.isSignedIn$)
 
@@ -41,8 +50,10 @@ router.beforeEach(async (to, from, next) => {
     next(paths.auth)
     return
   }
+}
 
-  next()
+router.beforeEach(async (to, from, next) => {
+  await redirectIfNotSignedIn(to, from, next)
 })
 
 export default router
