@@ -1,0 +1,22 @@
+{
+  "name": "features__user__view-models",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "features__shared__views.web.vue": "workspace:*",
+    "rxjs": "catalog:",
+    "shared__view-models": "workspace:*",
+    "vue": "catalog:",
+    "inversify": "catalog:",
+    "shared__result": "workspace:*",
+    "shared__event-aggregator": "workspace:*",
+    "di": "workspace:*"
+  }
+}
