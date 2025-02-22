@@ -5,7 +5,6 @@
     @update:name="$emit('update:name', $event)"
     @update:email="$emit('update:email', $event)"
     @update:password="$emit('update:password', $event)"
-    @update:confirmPassword="$emit('update:confirmPassword', $event)"
   />
 </template>
 
@@ -23,6 +22,5 @@ defineEmits<{
   (e: 'update:name', value: string): void
   (e: 'update:email', value: string): void
   (e: 'update:password', value: string): void
-  (e: 'update:confirmPassword', value: string): void
 }>()
 </script>

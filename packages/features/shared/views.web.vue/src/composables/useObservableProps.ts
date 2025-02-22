@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs'
-import { IViewModel } from 'shared__view-models'
-import { computed, ComputedRef, onUnmounted, ref } from 'vue'
+import type { IViewModel } from 'shared__view-models'
+import type { ComputedRef } from 'vue'
+import { computed, onUnmounted, ref } from 'vue'
 
 /**
  * PickObservableProps

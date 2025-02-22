@@ -36,18 +36,6 @@
         @input="emit('update:password', form.password)"
       />
     </div>
-    <div v-if="mode === 'sign-up'" class="form-group">
-      <label for="confirmPassword">Confirm Password</label>
-      <input
-        id="confirmPassword"
-        v-model="form.confirmPassword"
-        type="password"
-        required
-        class="input"
-        placeholder="Confirm your password"
-        @input="emit('update:confirmPassword', form.confirmPassword)"
-      />
-    </div>
     <div v-if="errorMessages?.length" class="error-messages">
       <p v-for="(error, index) in errorMessages" :key="index" class="error-message">
         {{ error }}
@@ -76,24 +64,21 @@ interface AuthForm {
   name: string
   email: string
   password: string
-  confirmPassword: string
 }
 
 const form = reactive<AuthForm>({
   name: '',
   email: '',
   password: '',
-  confirmPassword: '',
 })
 
 const submitText = computed(() => (props.mode === 'sign-up' ? 'Sign Up' : 'Sign In'))
 
 const emit = defineEmits<{
-  (e: 'submit', form: Omit<AuthForm, 'confirmPassword'>): void
+  (e: 'submit', form: AuthForm): void
   (e: 'update:name', value: string): void
   (e: 'update:email', value: string): void
   (e: 'update:password', value: string): void
-  (e: 'update:confirmPassword', value: string): void
 }>()
 </script>
 

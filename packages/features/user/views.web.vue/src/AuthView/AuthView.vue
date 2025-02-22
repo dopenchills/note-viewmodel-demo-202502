@@ -22,7 +22,6 @@
           @update:name="signUpViewModel.setName($event)"
           @update:email="signUpViewModel.setEmail($event)"
           @update:password="signUpViewModel.setPassword($event)"
-          @update:confirmPassword="signUpViewModel.setConfirmPassword($event)"
         />
       </div>
     </div>
