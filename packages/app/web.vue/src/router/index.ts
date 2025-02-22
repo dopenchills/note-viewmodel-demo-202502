@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { HomeView } from 'features__top__views.web.vue'
 import { paths } from 'shared__constants'
 
 const router = createRouter({
@@ -7,7 +7,6 @@ const router = createRouter({
   routes: [
     {
       path: paths.top,
-      name: 'home',
       component: HomeView
     }
   ]
