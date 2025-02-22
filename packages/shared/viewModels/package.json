@@ -1,0 +1,14 @@
+{
+  "name": "shared__viewModels",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "catalog:",
+    "typescript": "catalog:"
+  }
+}

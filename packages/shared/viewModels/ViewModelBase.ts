@@ -1,4 +1,4 @@
-export class ViewModelBase {
+export abstract class ViewModelBase {
   private _isBusy: boolean = false;
 
   get isBusy(): boolean {

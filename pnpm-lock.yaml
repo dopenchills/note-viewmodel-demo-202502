@@ -141,6 +141,15 @@ importers:
 
   packages/shared/result: {}
 
+  packages/shared/viewModels:
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.0.6(@types/node@22.13.4)(jsdom@26.0.0)(sass-embedded@1.85.0)(sass@1.85.0)
+
 packages:
 
   '@ampproject/remapping@2.3.0':
