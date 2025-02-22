@@ -26,7 +26,8 @@ describe('EventAggregator', () => {
       eventAggregator.subscribe(testEvent, callback);
       eventAggregator.subscribe(testEvent, callback2);
       
-      eventAggregator.publish(testEvent, 'test');
+      testEvent.payload = 'test';
+      eventAggregator.publish(testEvent);
       
       expect(callback).toHaveBeenCalledTimes(1);
       expect(callback2).toHaveBeenCalledTimes(1);
@@ -36,7 +37,8 @@ describe('EventAggregator', () => {
   describe('publish', () => {
     it('should call subscriber callback with event and data', () => {
       eventAggregator.subscribe(testEvent, callback);
-      eventAggregator.publish(testEvent, 'test data');
+      testEvent.payload = 'test data';
+      eventAggregator.publish(testEvent);
 
       expect(callback).toHaveBeenCalledWith({
         payload: 'test data'
@@ -50,8 +52,10 @@ describe('EventAggregator', () => {
       eventAggregator.subscribe(testEvent, callback);
       eventAggregator.subscribe(numberEvent, numberCallback);
 
-      eventAggregator.publish(testEvent, 'string data');
-      eventAggregator.publish(numberEvent, 42);
+      testEvent.payload = 'string data';
+      numberEvent.payload = 42;
+      eventAggregator.publish(testEvent);
+      eventAggregator.publish(numberEvent);
 
       expect(callback).toHaveBeenCalledWith(expect.objectContaining({
         payload: 'string data'
@@ -63,7 +67,8 @@ describe('EventAggregator', () => {
 
     it('should not fail when publishing to event with no subscribers', () => {
       expect(() => {
-        eventAggregator.publish(testEvent, 'test');
+        testEvent.payload = 'test';
+        eventAggregator.publish(testEvent);
       }).not.toThrow();
     });
 
@@ -74,7 +79,8 @@ describe('EventAggregator', () => {
       eventAggregator.subscribe(testEvent, callback);
       eventAggregator.subscribe(testEvent, errorCallback);
       
-      eventAggregator.publish(testEvent, 'test');
+      testEvent.payload = 'test';
+      eventAggregator.publish(testEvent);
       
       // Wait for promises to resolve/reject
       await new Promise(resolve => setTimeout(resolve, 0));
@@ -92,7 +98,8 @@ describe('EventAggregator', () => {
       eventAggregator.subscribe(testEvent, callback);
       eventAggregator.unsubscribe(testEvent, callback);
       
-      eventAggregator.publish(testEvent, 'test');
+      testEvent.payload = 'test';
+      eventAggregator.publish(testEvent);
       
       expect(callback).not.toHaveBeenCalled();
     });
@@ -104,7 +111,8 @@ describe('EventAggregator', () => {
       eventAggregator.subscribe(testEvent, callback2);
       
       eventAggregator.unsubscribe(testEvent, callback);
-      eventAggregator.publish(testEvent, 'test');
+      testEvent.payload = 'test';
+      eventAggregator.publish(testEvent);
       
       expect(callback).not.toHaveBeenCalled();
       expect(callback2).toHaveBeenCalled();
@@ -120,7 +128,8 @@ describe('EventAggregator', () => {
       const subscription = eventAggregator.subscribe(testEvent, callback);
       subscription.unsubscribe();
       
-      eventAggregator.publish(testEvent, 'test');
+      testEvent.payload = 'test';
+      eventAggregator.publish(testEvent);
       
       expect(callback).not.toHaveBeenCalled();
     });

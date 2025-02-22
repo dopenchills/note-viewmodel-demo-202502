@@ -1,7 +1,9 @@
+import { injectable } from "inversify";
 import { IEventAggregator } from "./interfaces/IEventAggregator";
 import { IPubSubEvent } from "./interfaces/IPubSubEvent";
 import { ISubscription } from "./interfaces/ISubscription";
 
+@injectable()
 export class EventAggregator implements IEventAggregator {
   private subscriptions: Map<IPubSubEvent<any>, Set<(e: IPubSubEvent<any>) => Promise<void>>> = new Map();
 
@@ -23,11 +25,9 @@ export class EventAggregator implements IEventAggregator {
     };
   }
 
-  publish<Payload>(event: IPubSubEvent<Payload>, data: Payload): void {
+  publish<Payload>(event: IPubSubEvent<Payload>): void {
     const callbacks = this.subscriptions.get(event);
     if (!callbacks) return;
-
-    event.payload = data;
     
     // Execute all callbacks asynchronously
     callbacks.forEach((callback) => {

@@ -7,6 +7,9 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "dependencies": {
+    "inversify": "catalog:"
+  },
   "devDependencies": {
     "vitest": "catalog:",
     "typescript": "catalog:"
