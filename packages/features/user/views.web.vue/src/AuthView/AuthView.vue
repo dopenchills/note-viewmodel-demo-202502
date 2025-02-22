@@ -58,12 +58,12 @@
 
   &:hover:not(.active) {
     background-color: rgba(255, 255, 255, 0.5);
-    color: #1f2937;
+    color: #3b82f6;
   }
 
   &.active {
     background-color: white;
-    color: #1f2937;
+    color: #3b82f6;
     font-weight: 600;
   }
 }

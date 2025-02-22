@@ -1,2 +1,2 @@
-import AuthView from "./AuthView.vue";
+import AuthView from "./src/AuthView/AuthView.vue";
 export { AuthView };
