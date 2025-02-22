@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="form">
+  <form class="form">
     <div class="form-group">
       <label for="name">Name</label>
       <input
@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-  import { reactive, computed } from 'vue'
+  import { computed, reactive } from 'vue'
 
   const props = defineProps<{
     mode: 'sign-in' | 'sign-up'
@@ -84,16 +84,6 @@
     (e: 'update:password', value: string): void
     (e: 'update:confirmPassword', value: string): void
   }>()
-
-  const handleSubmit = () => {
-    if (props.mode === 'sign-up' && form.password !== form.confirmPassword) {
-      alert('Passwords do not match')
-      return
-    }
-
-    const { confirmPassword, ...submitForm } = form
-    emit('submit', submitForm)
-  }
 </script>
 
 <style scoped lang="scss">

@@ -26,13 +26,16 @@ export abstract class ViewModelBase implements IViewModel {
     return Promise.resolve()
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subscribe<T extends IPubSubEvent<any>>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     eventClass: new (...args: any[]) => T,
     callback: (e: T) => Promise<void>
   ): void {
     this._subscriptions.push(
       this.ea.subscribe(
         eventClass as new <P>(payload: P) => IPubSubEvent<P>,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         callback as (e: IPubSubEvent<any>) => Promise<void>
       )
     )

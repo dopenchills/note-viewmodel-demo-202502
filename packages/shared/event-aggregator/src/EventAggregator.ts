@@ -7,6 +7,7 @@ import { ISubscription } from './interfaces/ISubscription'
 export class EventAggregator implements IEventAggregator {
   private subscriptions: Map<
     new <P>(payload: P) => IPubSubEvent<P>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Set<(e: IPubSubEvent<any>) => Promise<void>>
   > = new Map()
 
@@ -19,6 +20,7 @@ export class EventAggregator implements IEventAggregator {
     }
 
     const callbacks = this.subscriptions.get(eventClass)!
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     callbacks.add(callback as (e: IPubSubEvent<any>) => Promise<void>)
 
     return {
@@ -48,6 +50,7 @@ export class EventAggregator implements IEventAggregator {
     const callbacks = this.subscriptions.get(eventClass)
     if (!callbacks) return
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     callbacks.delete(callback as (e: IPubSubEvent<any>) => Promise<void>)
 
     // Clean up the event if there are no more subscribers

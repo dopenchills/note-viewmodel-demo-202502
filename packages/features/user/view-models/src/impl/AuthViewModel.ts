@@ -1,9 +1,9 @@
+import { inject, injectable } from 'inversify'
 import { BehaviorSubject } from 'rxjs'
-import { IAuthViewModel } from '../interfaces/IAuthViewModel'
 import { ViewModelBase } from 'shared__view-models'
-import { injectable, inject } from 'inversify'
 import { EventAggregatorTypes, IEventAggregator } from '../../../../../shared/event-aggregator/src'
-import { SignedInEvent, SignedInPayload } from '../events/SignedInEvent'
+import { SignedInEvent } from '../events/SignedInEvent'
+import { IAuthViewModel } from '../interfaces/IAuthViewModel'
 
 @injectable()
 export class AuthViewModel extends ViewModelBase implements IAuthViewModel {
@@ -16,7 +16,7 @@ export class AuthViewModel extends ViewModelBase implements IAuthViewModel {
   }
 
   private subscribeToSignInEvents(): void {
-    this.subscribe<SignedInEvent>(SignedInEvent, async (e) => {
+    this.subscribe<SignedInEvent>(SignedInEvent, async () => {
       this._isSignedIn.next(true)
     })
   }

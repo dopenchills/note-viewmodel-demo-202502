@@ -1,6 +1,6 @@
-import { computed, ComputedRef, onUnmounted, ref } from 'vue'
-import { IViewModel } from 'shared__view-models'
 import { Observable } from 'rxjs'
+import { IViewModel } from 'shared__view-models'
+import { computed, ComputedRef, onUnmounted, ref } from 'vue'
 
 /**
  * PickObservableProps
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs'
  * - Returns never if the props are not Observable
  */
 type PickObservableProps<VM> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [K in keyof VM as VM[K] extends Observable<any> ? K : never]: VM[K]
 }
 
