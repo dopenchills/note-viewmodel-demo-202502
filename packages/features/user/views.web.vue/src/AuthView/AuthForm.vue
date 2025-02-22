@@ -9,6 +9,7 @@
         required
         class="input"
         placeholder="Enter your name"
+        @input="emit('update:name', form.name)"
       />
     </div>
     <div v-if="mode === 'sign-up'" class="form-group">
@@ -20,6 +21,7 @@
         required
         class="input"
         placeholder="Enter your email"
+        @input="emit('update:email', form.email)"
       />
     </div>
     <div class="form-group">
@@ -31,6 +33,7 @@
         required
         class="input"
         :placeholder="mode === 'sign-up' ? 'Create a password' : 'Enter your password'"
+        @input="emit('update:password', form.password)"
       />
     </div>
     <div v-if="mode === 'sign-up'" class="form-group">
@@ -42,6 +45,7 @@
         required
         class="input"
         placeholder="Confirm your password"
+        @input="emit('update:confirmPassword', form.confirmPassword)"
       />
     </div>
     <button type="submit" class="submit-button">
@@ -77,6 +81,10 @@ const submitText = computed(() =>
 
 const emit = defineEmits<{
   (e: 'submit', form: Omit<AuthForm, 'confirmPassword'>): void
+  (e: 'update:name', value: string): void
+  (e: 'update:email', value: string): void
+  (e: 'update:password', value: string): void
+  (e: 'update:confirmPassword', value: string): void
 }>()
 
 const handleSubmit = () => {
