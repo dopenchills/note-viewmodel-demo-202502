@@ -137,6 +137,9 @@ importers:
 
   packages/features/shared/views.web.vue:
     dependencies:
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
       shared__view-models:
         specifier: workspace:*
         version: link:../../../shared/view-models
