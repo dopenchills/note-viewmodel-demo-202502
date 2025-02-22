@@ -24,12 +24,18 @@ catalogs:
     '@vue/tsconfig':
       specifier: ^0.7.0
       version: 0.7.0
+    inversify:
+      specifier: ^6.2.2
+      version: 6.2.2
     jsdom:
       specifier: ^26.0.0
       version: 26.0.0
     npm-run-all2:
       specifier: ^7.0.2
       version: 7.0.2
+    reflect-metadata:
+      specifier: ^0.2.2
+      version: 0.2.2
     sass-embedded:
       specifier: ^1.85.0
       version: 1.85.0
@@ -67,6 +73,12 @@ importers:
       features__user__views.web.vue:
         specifier: workspace:*
         version: link:../../features/user/views.web.vue
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata:
+        specifier: 'catalog:'
+        version: 0.2.2
       shared__constants:
         specifier: workspace:*
         version: link:../../shared/constants
@@ -119,6 +131,12 @@ importers:
       vue-tsc:
         specifier: 'catalog:'
         version: 2.2.2(typescript@5.7.3)
+
+  packages/di:
+    dependencies:
+      reflect-metadata:
+        specifier: ^0.1.13
+        version: 0.1.14
 
   packages/features/shared/views.web.vue:
     dependencies:
@@ -478,6 +496,17 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@inversifyjs/common@1.4.0':
+    resolution: {integrity: sha512-qfRJ/3iOlCL/VfJq8+4o5X4oA14cZSBbpAmHsYj8EsIit1xDndoOl0xKOyglKtQD4u4gdNVxMHx4RWARk/I4QA==}
+
+  '@inversifyjs/core@1.3.5':
+    resolution: {integrity: sha512-B4MFXabhNTAmrfgB+yeD6wd/GIvmvWC6IQ8Rh/j2C3Ix69kmqwz9pr8Jt3E+Nho9aEHOQCZaGmrALgtqRd+oEQ==}
+
+  '@inversifyjs/reflect-metadata-utils@0.2.4':
+    resolution: {integrity: sha512-u95rV3lKfG+NT2Uy/5vNzoDujos8vN8O18SSA5UyhxsGYd4GLQn/eUsGXfOsfa7m34eKrDelTKRUX1m/BcNX5w==}
+    peerDependencies:
+      reflect-metadata: 0.2.2
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -1195,6 +1224,11 @@ packages:
   ini@1.3.8:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
 
+  inversify@6.2.2:
+    resolution: {integrity: sha512-KB836KHbZ9WrUnB8ax5MtadOwnqQYa+ZJO3KWbPFgcr4RIEnHM621VaqFZzOZd9+U7ln6upt9n0wJei7x2BNqw==}
+    peerDependencies:
+      reflect-metadata: ~0.2.2
+
   is-docker@3.0.0:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -1466,6 +1500,12 @@ packages:
   readdirp@4.1.2:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
+
+  reflect-metadata@0.1.14:
+    resolution: {integrity: sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==}
+
+  reflect-metadata@0.2.2:
+    resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
@@ -2275,6 +2315,19 @@ snapshots:
   '@esbuild/win32-x64@0.24.2':
     optional: true
 
+  '@inversifyjs/common@1.4.0': {}
+
+  '@inversifyjs/core@1.3.5(reflect-metadata@0.2.2)':
+    dependencies:
+      '@inversifyjs/common': 1.4.0
+      '@inversifyjs/reflect-metadata-utils': 0.2.4(reflect-metadata@0.2.2)
+    transitivePeerDependencies:
+      - reflect-metadata
+
+  '@inversifyjs/reflect-metadata-utils@0.2.4(reflect-metadata@0.2.2)':
+    dependencies:
+      reflect-metadata: 0.2.2
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -3001,6 +3054,12 @@ snapshots:
 
   ini@1.3.8: {}
 
+  inversify@6.2.2(reflect-metadata@0.2.2):
+    dependencies:
+      '@inversifyjs/common': 1.4.0
+      '@inversifyjs/core': 1.3.5(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+
   is-docker@3.0.0: {}
 
   is-extglob@2.1.1:
@@ -3239,6 +3298,10 @@ snapshots:
 
   readdirp@4.1.2:
     optional: true
+
+  reflect-metadata@0.1.14: {}
+
+  reflect-metadata@0.2.2: {}
 
   rfdc@1.4.1: {}
 

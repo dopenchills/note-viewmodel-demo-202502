@@ -1,0 +1,12 @@
+{
+  "name": "di",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/inversify.config.ts",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}

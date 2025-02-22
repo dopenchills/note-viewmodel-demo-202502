@@ -5,6 +5,7 @@ packages:
   - packages/features/user/*
   - packages/features/shared/*
   - packages/shared/*
+  - packages/di
 
 catalog:
   "@tsconfig/node22": ^22.0.0
@@ -13,8 +14,11 @@ catalog:
   "@vitejs/plugin-vue": ^5.2.1
   "@vue/test-utils": ^2.4.6
   "@vue/tsconfig": ^0.7.0
+  inversify: ^6.2.2
   jsdom: ^26.0.0
   npm-run-all2: ^7.0.2
+  reflect-metadata: ^0.2.2
+  sass-embedded: ^1.85.0
   typescript: ~5.7.3
   vite: ^6.1.0
   vite-plugin-vue-devtools: ^7.7.2
@@ -22,4 +26,3 @@ catalog:
   vue: ^3.5.13
   vue-router: ^4.5.0
   vue-tsc: ^2.2.2
-  sass-embedded: "^1.85.0"

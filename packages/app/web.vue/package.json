@@ -14,6 +14,8 @@
   "dependencies": {
     "features__top__views.web.vue": "workspace:*",
     "features__user__views.web.vue": "workspace:*",
+    "inversify": "catalog:",
+    "reflect-metadata": "catalog:",
     "shared__constants": "workspace:*",
     "vue": "catalog:",
     "vue-router": "catalog:"
