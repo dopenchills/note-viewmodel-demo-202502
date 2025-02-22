@@ -84,7 +84,7 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/prefer-as-const': 'off', // Turn off const assertion requirement
+      '@typescript-eslint/prefer-as-const': 'error',
       'no-undef': 'off', // TypeScript handles this
     },
   },
