@@ -141,7 +141,7 @@ importers:
 
   packages/shared/result: {}
 
-  packages/shared/viewModels:
+  packages/shared/view-models:
     devDependencies:
       typescript:
         specifier: 'catalog:'

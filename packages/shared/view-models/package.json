@@ -2,7 +2,7 @@
   "name": "shared__view-models",
   "private": true,
   "type": "module",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest"
