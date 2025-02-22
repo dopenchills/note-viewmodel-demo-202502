@@ -1,10 +1,10 @@
 import { IViewModel, ObservableProps } from 'shared__view-models'
 
 export interface IAuthViewModelProps {
-  isSignedIn: boolean;
+  isSignedIn: boolean
 }
 
 export interface IAuthViewModel extends IViewModel, ObservableProps<IAuthViewModelProps> {
-  signIn(): void;
-  signOut(): void;
+  signIn(): void
+  signOut(): void
 }

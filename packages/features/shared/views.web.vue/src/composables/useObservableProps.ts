@@ -23,7 +23,7 @@ type PickObservableProps<VM> = {
 export const useObservableProps = <
   VM extends IViewModel,
   Key extends keyof PickObservableProps<VM>,
-  PickedPropType extends PickObservableProps<VM>[Key]
+  PickedPropType extends PickObservableProps<VM>[Key],
 >(
   viewModel: VM,
   propertyName: Key
@@ -31,7 +31,7 @@ export const useObservableProps = <
   const observable = viewModel[propertyName] as Observable<PickedPropType>
   const refProperty = ref<PickedPropType | undefined>(undefined)
 
-  const subscription = observable.subscribe(value => {
+  const subscription = observable.subscribe((value) => {
     refProperty.value = value
   })
 

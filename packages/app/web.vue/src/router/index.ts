@@ -9,13 +9,13 @@ const router = createRouter({
   routes: [
     {
       path: paths.top,
-      component: HomeView
+      component: HomeView,
     },
     {
       path: paths.auth,
-      component: AuthView
-    }
-  ]
+      component: AuthView,
+    },
+  ],
 })
 
 export default router

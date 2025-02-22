@@ -5,12 +5,12 @@ import { IEventAggregator, IPubSubEvent, ISubscription } from '../../../event-ag
 // Mock event aggregator
 const createMockEventAggregator = () => {
   const mockSubscription: ISubscription = {
-    unsubscribe: vi.fn()
+    unsubscribe: vi.fn(),
   }
-  
+
   return {
     subscribe: vi.fn().mockReturnValue(mockSubscription),
-    mockSubscription
+    mockSubscription,
   }
 }
 

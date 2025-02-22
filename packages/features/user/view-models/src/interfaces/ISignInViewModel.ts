@@ -1,14 +1,14 @@
-import { IViewModel, ObservableProps } from "shared__view-models";
+import { IViewModel, ObservableProps } from 'shared__view-models'
 
 export interface ISignInViewModelProps {
-  name: string;
-  email: string;
-  password: string;
+  name: string
+  email: string
+  password: string
 }
 
 export interface ISignInViewModel extends IViewModel, ObservableProps<ISignInViewModelProps> {
-  setName(name: string): void;
-  setEmail(email: string): void;
-  setPassword(password: string): void;
-  signIn(): void;
+  setName(name: string): void
+  setEmail(email: string): void
+  setPassword(password: string): void
+  signIn(): void
 }

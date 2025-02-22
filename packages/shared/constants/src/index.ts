@@ -1,2 +1,2 @@
-import { paths } from './paths';
-export { paths };
+import { paths } from './paths'
+export { paths }

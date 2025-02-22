@@ -1,31 +1,29 @@
-import { injectable } from 'inversify';
-import { IEventAggregator, IPubSubEvent, ISubscription } from '../../../event-aggregator/src';
-import { IViewModel } from '../interface/IViewModel';
+import { injectable } from 'inversify'
+import { IEventAggregator, IPubSubEvent, ISubscription } from '../../../event-aggregator/src'
+import { IViewModel } from '../interface/IViewModel'
 
 @injectable()
 export abstract class ViewModelBase implements IViewModel {
-  private _isBusy: boolean = false;
-  private _subscriptions: ISubscription[] = [];
+  private _isBusy: boolean = false
+  private _subscriptions: ISubscription[] = []
 
   get isBusy(): boolean {
-    return this._isBusy;
+    return this._isBusy
   }
 
-  constructor(
-    protected readonly ea: IEventAggregator
-  ) {}
+  constructor(protected readonly ea: IEventAggregator) {}
 
   setIsBusy(isBusy: boolean): void {
-    this._isBusy = isBusy;
+    this._isBusy = isBusy
   }
 
   load(): Promise<void> {
-    return Promise.resolve();
+    return Promise.resolve()
   }
 
   unload(): Promise<void> {
-    this.unsubscribe();
-    return Promise.resolve();
+    this.unsubscribe()
+    return Promise.resolve()
   }
 
   subscribe<T extends IPubSubEvent<any>>(
@@ -37,10 +35,10 @@ export abstract class ViewModelBase implements IViewModel {
         eventClass as new <P>(payload: P) => IPubSubEvent<P>,
         callback as (e: IPubSubEvent<any>) => Promise<void>
       )
-    );
+    )
   }
 
   unsubscribe(): void {
-    this._subscriptions.forEach((sub) => sub.unsubscribe());
+    this._subscriptions.forEach((sub) => sub.unsubscribe())
   }
 }

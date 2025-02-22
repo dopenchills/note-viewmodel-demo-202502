@@ -1,2 +1,2 @@
-import TopBarLayout from "./TopBarLayout.vue";
+import TopBarLayout from './TopBarLayout.vue'
 export { TopBarLayout }
