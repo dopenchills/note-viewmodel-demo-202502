@@ -7,9 +7,10 @@ const router = createRouter({
   routes: [
     {
       path: paths.top,
-      component: HomeView,
-    },
-  ],
+      name: 'home',
+      component: HomeView
+    }
+  ]
 })
 
 export default router
