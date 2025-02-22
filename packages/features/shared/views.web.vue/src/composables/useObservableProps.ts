@@ -14,6 +14,8 @@ type PickObservableProps<VM> = {
   [K in keyof VM as VM[K] extends Observable<any> ? K : never]: VM[K]
 }
 
+type UnwrapObservable<T> = T extends Observable<infer U> ? U : never
+
 /**
  * useObservableProps
  * - Arguments
@@ -24,7 +26,7 @@ type PickObservableProps<VM> = {
 export const useObservableProps = <
   VM extends IViewModel,
   Key extends keyof PickObservableProps<VM>,
-  PickedPropType extends PickObservableProps<VM>[Key],
+  PickedPropType extends UnwrapObservable<PickObservableProps<VM>[Key]>,
 >(
   viewModel: VM,
   propertyName: Key
