@@ -7,8 +7,13 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "dependencies": {
+    "rxjs": "catalog:"
+  },
   "devDependencies": {
     "vitest": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "inversify": "catalog:",
+    "di": "workspace:*"
   }
 }
