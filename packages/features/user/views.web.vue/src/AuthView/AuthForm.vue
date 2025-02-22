@@ -55,91 +55,91 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 
-  const props = defineProps<{
-    mode: 'sign-in' | 'sign-up'
-  }>()
+const props = defineProps<{
+  mode: 'sign-in' | 'sign-up'
+}>()
 
-  interface AuthForm {
-    name: string
-    email: string
-    password: string
-    confirmPassword: string
-  }
+interface AuthForm {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
-  const form = reactive<AuthForm>({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  })
+const form = reactive<AuthForm>({
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+})
 
-  const submitText = computed(() => (props.mode === 'sign-up' ? 'Sign Up' : 'Sign In'))
+const submitText = computed(() => (props.mode === 'sign-up' ? 'Sign Up' : 'Sign In'))
 
-  const emit = defineEmits<{
-    (e: 'submit', form: Omit<AuthForm, 'confirmPassword'>): void
-    (e: 'update:name', value: string): void
-    (e: 'update:email', value: string): void
-    (e: 'update:password', value: string): void
-    (e: 'update:confirmPassword', value: string): void
-  }>()
+const emit = defineEmits<{
+  (e: 'submit', form: Omit<AuthForm, 'confirmPassword'>): void
+  (e: 'update:name', value: string): void
+  (e: 'update:email', value: string): void
+  (e: 'update:password', value: string): void
+  (e: 'update:confirmPassword', value: string): void
+}>()
 </script>
 
 <style scoped lang="scss">
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-    label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #1f2937;
-    }
-  }
-
-  .input {
-    padding: 0.625rem 0.75rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
+  label {
     font-size: 0.875rem;
-    transition: all 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    &::placeholder {
-      color: #9ca3af;
-    }
-  }
-
-  .submit-button {
-    background-color: #3b82f6;
-    color: white;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 0.375rem;
     font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: #2563eb;
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
-    }
+    color: #1f2937;
   }
+}
+
+.input {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.submit-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #2563eb;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+  }
+}
 </style>

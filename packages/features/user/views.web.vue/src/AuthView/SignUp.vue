@@ -10,19 +10,19 @@
 </template>
 
 <script setup lang="ts">
-  import AuthForm from './AuthForm.vue'
+import AuthForm from './AuthForm.vue'
 
-  interface SignUpForm {
-    name: string
-    email: string
-    password: string
-  }
+interface SignUpForm {
+  name: string
+  email: string
+  password: string
+}
 
-  defineEmits<{
-    (e: 'sign-up', form: SignUpForm): void
-    (e: 'update:name', value: string): void
-    (e: 'update:email', value: string): void
-    (e: 'update:password', value: string): void
-    (e: 'update:confirmPassword', value: string): void
-  }>()
+defineEmits<{
+  (e: 'sign-up', form: SignUpForm): void
+  (e: 'update:name', value: string): void
+  (e: 'update:email', value: string): void
+  (e: 'update:password', value: string): void
+  (e: 'update:confirmPassword', value: string): void
+}>()
 </script>
