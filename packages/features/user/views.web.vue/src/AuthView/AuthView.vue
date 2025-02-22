@@ -58,7 +58,7 @@ watch(isSignedIn, (_isSignedIn) => {
   if (_isSignedIn) {
     router.push(paths.top)
   }
-})
+}, { immediate: true })
 </script>
 
 <style scoped lang="scss">
