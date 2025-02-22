@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@eslint/js':
+      specifier: ^9.21.0
+      version: 9.21.0
     '@tsconfig/node22':
       specifier: ^22.0.0
       version: 22.0.0
@@ -15,24 +18,45 @@ catalogs:
     '@types/node':
       specifier: ^22.13.4
       version: 22.13.4
+    '@typescript-eslint/eslint-plugin':
+      specifier: ^8.24.1
+      version: 8.24.1
+    '@typescript-eslint/parser':
+      specifier: ^8.24.1
+      version: 8.24.1
     '@vitejs/plugin-vue':
       specifier: ^5.2.1
       version: 5.2.1
+    '@vue/eslint-config-typescript':
+      specifier: ^14.4.0
+      version: 14.4.0
     '@vue/test-utils':
       specifier: ^2.4.6
       version: 2.4.6
     '@vue/tsconfig':
       specifier: ^0.7.0
       version: 0.7.0
+    eslint:
+      specifier: ^9.21.0
+      version: 9.21.0
+    eslint-plugin-vue:
+      specifier: ^9.32.0
+      version: 9.32.0
     inversify:
       specifier: ^6.2.2
       version: 6.2.2
+    jiti:
+      specifier: ^2.4.2
+      version: 2.4.2
     jsdom:
       specifier: ^26.0.0
       version: 26.0.0
     npm-run-all2:
       specifier: ^7.0.2
       version: 7.0.2
+    prettier:
+      specifier: ^3.5.2
+      version: 3.5.2
     reflect-metadata:
       specifier: ^0.1.13
       version: 0.1.14
@@ -40,7 +64,7 @@ catalogs:
       specifier: ^7.8.2
       version: 7.8.2
     typescript:
-      specifier: ~5.7.3
+      specifier: ~5.7.2
       version: 5.7.3
     vite:
       specifier: ^6.1.0
@@ -54,6 +78,9 @@ catalogs:
     vue:
       specifier: ^3.5.13
       version: 3.5.13
+    vue-eslint-parser:
+      specifier: ^9.4.3
+      version: 9.4.3
     vue-router:
       specifier: ^4.5.0
       version: 4.5.0
@@ -66,32 +93,41 @@ importers:
   .:
     devDependencies:
       '@eslint/js':
-        specifier: ^9.21.0
+        specifier: 'catalog:'
         version: 9.21.0
       '@typescript-eslint/eslint-plugin':
-        specifier: ^8.24.1
+        specifier: 'catalog:'
         version: 8.24.1(@typescript-eslint/parser@8.24.1(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3)
       '@typescript-eslint/parser':
-        specifier: ^8.24.1
+        specifier: 'catalog:'
         version: 8.24.1(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3)
       '@vue/eslint-config-typescript':
-        specifier: ^14.4.0
+        specifier: 'catalog:'
         version: 14.4.0(eslint-plugin-vue@9.32.0(eslint@9.21.0(jiti@2.4.2)))(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3)
       eslint:
-        specifier: ^9.21.0
+        specifier: 'catalog:'
         version: 9.21.0(jiti@2.4.2)
       eslint-plugin-vue:
-        specifier: ^9.32.0
+        specifier: 'catalog:'
         version: 9.32.0(eslint@9.21.0(jiti@2.4.2))
       jiti:
-        specifier: ^2.4.2
+        specifier: 'catalog:'
         version: 2.4.2
       prettier:
-        specifier: ^3.5.2
+        specifier: 'catalog:'
         version: 3.5.2
       vue-eslint-parser:
-        specifier: ^9.4.3
+        specifier: 'catalog:'
         version: 9.4.3(eslint@9.21.0(jiti@2.4.2))
+
+  packages/app/ai.voice:
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
+      vite:
+        specifier: 'catalog:'
+        version: 6.1.1(@types/node@22.13.4)(jiti@2.4.2)(sass-embedded@1.85.0)(sass@1.85.0)
 
   packages/app/web.vue:
     dependencies:

@@ -17,14 +17,14 @@
   "license": "ISC",
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "@typescript-eslint/eslint-plugin": "^8.24.1",
-    "@typescript-eslint/parser": "^8.24.1",
-    "@vue/eslint-config-typescript": "^14.4.0",
-    "eslint": "^9.21.0",
-    "eslint-plugin-vue": "^9.32.0",
-    "jiti": "^2.4.2",
-    "prettier": "^3.5.2",
-    "vue-eslint-parser": "^9.4.3"
+    "@eslint/js": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "@vue/eslint-config-typescript": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-vue": "catalog:",
+    "jiti": "catalog:",
+    "prettier": "catalog:",
+    "vue-eslint-parser": "catalog:"
   }
 }
