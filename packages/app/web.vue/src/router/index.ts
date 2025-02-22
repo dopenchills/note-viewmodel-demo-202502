@@ -54,6 +54,7 @@ const redirectIfNotSignedIn = async (
 
 router.beforeEach(async (to, from, next) => {
   await redirectIfNotSignedIn(to, from, next)
+  next()
 })
 
 export default router
