@@ -24,12 +24,21 @@ catalogs:
     '@vue/tsconfig':
       specifier: ^0.7.0
       version: 0.7.0
+    inversify:
+      specifier: ^6.2.2
+      version: 6.2.2
     jsdom:
       specifier: ^26.0.0
       version: 26.0.0
     npm-run-all2:
       specifier: ^7.0.2
       version: 7.0.2
+    reflect-metadata:
+      specifier: ^0.1.13
+      version: 0.1.14
+    rxjs:
+      specifier: ^7.8.2
+      version: 7.8.2
     typescript:
       specifier: ~5.7.3
       version: 5.7.3
@@ -113,9 +122,15 @@ importers:
 
   packages/di:
     dependencies:
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.1.14)
       reflect-metadata:
-        specifier: ^0.1.13
+        specifier: 'catalog:'
         version: 0.1.14
+      shared__event-aggregator:
+        specifier: workspace:*
+        version: link:../shared/event-aggregator
 
   packages/features/shared/views.web.vue:
     dependencies:
@@ -124,6 +139,33 @@ importers:
         version: 3.5.13(typescript@5.7.3)
 
   packages/features/top/views.web.vue: {}
+
+  packages/features/user/view-models:
+    dependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../../di
+      features__shared__views.web.vue:
+        specifier: workspace:*
+        version: link:../../shared/views.web.vue
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.1.14)
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
+      shared__event-aggregator:
+        specifier: workspace:*
+        version: link:../../../shared/event-aggregator
+      shared__result:
+        specifier: workspace:*
+        version: link:../../../shared/result
+      shared__view-models:
+        specifier: workspace:*
+        version: link:../../../shared/view-models
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.7.3)
 
   packages/features/user/views.web.vue:
     dependencies:
@@ -137,6 +179,10 @@ importers:
   packages/shared/constants: {}
 
   packages/shared/event-aggregator:
+    dependencies:
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.1.14)
     devDependencies:
       typescript:
         specifier: 'catalog:'
@@ -148,7 +194,17 @@ importers:
   packages/shared/result: {}
 
   packages/shared/view-models:
+    dependencies:
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
     devDependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../di
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.1.14)
       typescript:
         specifier: 'catalog:'
         version: 5.7.3
@@ -484,6 +540,17 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@inversifyjs/common@1.4.0':
+    resolution: {integrity: sha512-qfRJ/3iOlCL/VfJq8+4o5X4oA14cZSBbpAmHsYj8EsIit1xDndoOl0xKOyglKtQD4u4gdNVxMHx4RWARk/I4QA==}
+
+  '@inversifyjs/core@1.3.5':
+    resolution: {integrity: sha512-B4MFXabhNTAmrfgB+yeD6wd/GIvmvWC6IQ8Rh/j2C3Ix69kmqwz9pr8Jt3E+Nho9aEHOQCZaGmrALgtqRd+oEQ==}
+
+  '@inversifyjs/reflect-metadata-utils@0.2.4':
+    resolution: {integrity: sha512-u95rV3lKfG+NT2Uy/5vNzoDujos8vN8O18SSA5UyhxsGYd4GLQn/eUsGXfOsfa7m34eKrDelTKRUX1m/BcNX5w==}
+    peerDependencies:
+      reflect-metadata: 0.2.2
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -1200,6 +1267,11 @@ packages:
 
   ini@1.3.8:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
+
+  inversify@6.2.2:
+    resolution: {integrity: sha512-KB836KHbZ9WrUnB8ax5MtadOwnqQYa+ZJO3KWbPFgcr4RIEnHM621VaqFZzOZd9+U7ln6upt9n0wJei7x2BNqw==}
+    peerDependencies:
+      reflect-metadata: ~0.2.2
 
   is-docker@3.0.0:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
@@ -2285,6 +2357,19 @@ snapshots:
   '@esbuild/win32-x64@0.24.2':
     optional: true
 
+  '@inversifyjs/common@1.4.0': {}
+
+  '@inversifyjs/core@1.3.5(reflect-metadata@0.1.14)':
+    dependencies:
+      '@inversifyjs/common': 1.4.0
+      '@inversifyjs/reflect-metadata-utils': 0.2.4(reflect-metadata@0.1.14)
+    transitivePeerDependencies:
+      - reflect-metadata
+
+  '@inversifyjs/reflect-metadata-utils@0.2.4(reflect-metadata@0.1.14)':
+    dependencies:
+      reflect-metadata: 0.1.14
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -3015,6 +3100,12 @@ snapshots:
 
   ini@1.3.8: {}
 
+  inversify@6.2.2(reflect-metadata@0.1.14):
+    dependencies:
+      '@inversifyjs/common': 1.4.0
+      '@inversifyjs/core': 1.3.5(reflect-metadata@0.1.14)
+      reflect-metadata: 0.1.14
+
   is-docker@3.0.0: {}
 
   is-extglob@2.1.1:
@@ -3290,7 +3381,6 @@ snapshots:
   rxjs@7.8.2:
     dependencies:
       tslib: 2.8.1
-    optional: true
 
   safer-buffer@2.1.2: {}
 
@@ -3504,8 +3594,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  tslib@2.8.1:
-    optional: true
+  tslib@2.8.1: {}
 
   typescript@5.7.3: {}
 
