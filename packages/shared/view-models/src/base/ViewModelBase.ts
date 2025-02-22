@@ -12,7 +12,7 @@ export abstract class ViewModelBase implements IViewModel {
   }
 
   constructor(
-    private readonly ea: IEventAggregator
+    protected readonly ea: IEventAggregator
   ) {}
 
   setIsBusy(isBusy: boolean): void {
