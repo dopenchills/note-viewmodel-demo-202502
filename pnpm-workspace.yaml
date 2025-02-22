@@ -1,7 +1,10 @@
 packages:
   - packages/app/*
-  - packages/features/*
+  - packages/features/top/*
+  - packages/features/note/*
+  - packages/features/user/*
   - packages/shared/*
+
 catalog:
   "@tsconfig/node22": ^22.0.0
   "@types/jsdom": ^21.1.7
