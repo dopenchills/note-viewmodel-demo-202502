@@ -27,9 +27,9 @@ export class SignInViewModel extends ViewModelBase implements ISignInViewModel {
     password: string
   }> = new Set([
     {
-      name: 'John',
-      email: 'john@example.com',
-      password: 'password',
+      name: 'やまだたろう',
+      email: 'yamada.taro@example.com',
+      password: 'pass',
     },
   ])
 
