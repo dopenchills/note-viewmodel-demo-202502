@@ -48,6 +48,11 @@
         @input="emit('update:confirmPassword', form.confirmPassword)"
       />
     </div>
+    <div v-if="errorMessages?.length" class="error-messages">
+      <p v-for="(error, index) in errorMessages" :key="index" class="error-message">
+        {{ error }}
+      </p>
+    </div>
     <button type="submit" class="submit-button">
       {{ submitText }}
     </button>
@@ -57,9 +62,15 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
 
-const props = defineProps<{
-  mode: 'sign-in' | 'sign-up'
-}>()
+const props = withDefaults(
+  defineProps<{
+    mode: 'sign-in' | 'sign-up'
+    errorMessages?: string[]
+  }>(),
+  {
+    errorMessages: () => [],
+  }
+)
 
 interface AuthForm {
   name: string
@@ -121,6 +132,22 @@ const emit = defineEmits<{
   &::placeholder {
     color: #9ca3af;
   }
+}
+
+.error-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 0.375rem;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin: 0;
 }
 
 .submit-button {

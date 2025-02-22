@@ -5,6 +5,7 @@
       <div class="tab-content" role="tabpanel">
         <sign-in
           v-if="type === 'sign-in'"
+          :error-messages="signInErrorMessages"
           @sign-in="signInViewModel.signIn()"
           @update:name="signInViewModel.setName($event)"
           @update:email="signInViewModel.setEmail($event)"
@@ -12,7 +13,12 @@
         />
         <sign-up
           v-else
-          @sign-up="signUpViewModel.signUp()"
+          @sign-up="
+            () => {
+              signUpViewModel.signUp()
+              type = 'sign-in'
+            }
+          "
           @update:name="signUpViewModel.setName($event)"
           @update:email="signUpViewModel.setEmail($event)"
           @update:password="signUpViewModel.setPassword($event)"
@@ -24,14 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import { TopBarLayout } from 'features__shared__views.web.vue/layouts'
-import { useObservableProps } from 'features__shared__views.web.vue/composables'
-import { ref, watch } from 'vue'
-import SignIn from './SignIn.vue'
-import SignUp from './SignUp.vue'
-import TabGroup from './TabGroup.vue'
 import { diContainer } from 'di'
-import { useRouter } from 'vue-router'
+import { useObservableProps } from 'features__shared__views.web.vue/composables'
+import { TopBarLayout } from 'features__shared__views.web.vue/layouts'
 import {
   IAuthViewModel,
   ISignInViewModel,
@@ -39,6 +40,11 @@ import {
   UserTypes,
 } from 'features__user__view-models'
 import { paths } from 'shared__constants'
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import SignIn from './SignIn.vue'
+import SignUp from './SignUp.vue'
+import TabGroup from './TabGroup.vue'
 
 type AuthType = 'sign-in' | 'sign-up'
 const type = ref<AuthType>('sign-in')
@@ -55,6 +61,7 @@ const signInViewModel = diContainer.get<ISignInViewModel>(UserTypes.SignInViewMo
 const signUpViewModel = diContainer.get<ISignUpViewModel>(UserTypes.SignUpViewModel)
 
 const isSignedIn = useObservableProps(authViewModel, 'isSignedIn$')
+const signInErrorMessages = useObservableProps(signInViewModel, 'errorMessages$')
 watch(
   isSignedIn,
   (_isSignedIn) => {
