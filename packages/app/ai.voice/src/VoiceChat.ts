@@ -47,6 +47,8 @@ export class VoiceChat {
               // Update session with new page tools after navigation
               const sessionUpdate = this.dataChannelHandler.updateSession(this.getTools())
               this.dataChannelHandler.sendMessage(sessionUpdate)
+
+              await this.navigationHandler.getCurrentPage().load()
             }
 
             const responses = this.dataChannelHandler.createFunctionCallResponse(

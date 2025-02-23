@@ -25,10 +25,6 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
     @inject(ApiType.AuthApi) private readonly authApi: IAuthApi
   ) {
     super(ea)
-
-    this.subscribe<SignedOutEvent>(SignedOutEvent, async () => {
-      this.reset()
-    })
   }
 
   private reset(): void {
@@ -67,5 +63,11 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
         })
       )
     }
+  }
+
+  async load(): Promise<void> {
+    this.subscribe<SignedOutEvent>(SignedOutEvent, async () => {
+      this.reset()
+    })
   }
 }

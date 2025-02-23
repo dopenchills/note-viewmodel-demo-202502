@@ -42,6 +42,13 @@ export class AuthPage implements IPage {
     })
   }
 
+  async load(): Promise<void> {
+    await this.authViewModel.load()
+    await this.signInViewModel.load()
+    await this.signUpViewModel.load()
+    await this.signOutViewModel.load()
+  }
+
   getInstructions(): string {
     return `${commonInstruction}
 <page>

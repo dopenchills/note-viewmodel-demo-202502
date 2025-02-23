@@ -26,4 +26,8 @@ export class HomePage implements IPage {
       error: 'No tools available',
     }
   }
+
+  load(): Promise<void> {
+    return Promise.resolve()
+  }
 }

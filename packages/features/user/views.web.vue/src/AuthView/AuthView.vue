@@ -39,7 +39,7 @@ import type {
 } from 'features__user__view-models'
 import { UserTypes } from 'features__user__view-models'
 import { paths } from 'shared__constants'
-import { ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import SignIn from './SignIn.vue'
 import SignUp from './SignUp.vue'
@@ -70,6 +70,18 @@ watch(
   },
   { immediate: true }
 )
+
+onMounted(async () => {
+  await authViewModel.load()
+  await signInViewModel.load()
+  await signUpViewModel.load()
+})
+
+onUnmounted(async () => {
+  await authViewModel.unload()
+  await signInViewModel.unload()
+  await signUpViewModel.unload()
+})
 </script>
 
 <style scoped lang="scss">

@@ -33,22 +33,29 @@ const redirectIfNotSignedIn = async (
   next: NavigationGuardNext
 ): Promise<void> => {
   const authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
-  const isSignedIn = await firstValueFrom(authViewModel.isSignedIn$)
 
-  // Allow access to auth page when not signed in
-  if (to.path === paths.auth) {
-    if (isSignedIn) {
-      next(paths.top)
-    } else {
-      next()
+  try {
+    await authViewModel.load()
+
+    const isSignedIn = await firstValueFrom(authViewModel.isSignedIn$)
+
+    // Allow access to auth page when not signed in
+    if (to.path === paths.auth) {
+      if (isSignedIn) {
+        next(paths.top)
+      } else {
+        next()
+      }
+      return
     }
-    return
-  }
 
-  // Protect all other routes
-  if (!isSignedIn) {
-    next(paths.auth)
-    return
+    // Protect all other routes
+    if (!isSignedIn) {
+      next(paths.auth)
+      return
+    }
+  } finally {
+    await authViewModel.unload()
   }
 }
 

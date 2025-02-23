@@ -10,6 +10,11 @@ interface INavigationHandler {
   getCurrentPage(): IPage
 
   /**
+   * Initialization of page
+   */
+  load(): Promise<void>
+
+  /**
    * Get the navigation tool to be used for function calling
    */
   getNavigationTool(): Tool
@@ -47,5 +52,9 @@ export class NavigationHandler implements INavigationHandler {
       default:
         return { result: 'failure', error: 'Navigation rule is not defined' }
     }
+  }
+
+  async load(): Promise<void> {
+    await this._currentPage.load()
   }
 }

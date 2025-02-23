@@ -14,7 +14,9 @@ export class AuthViewModel extends ViewModelBase implements IAuthViewModel {
 
   constructor(@inject(EventAggregatorTypes.EventAggregator) ea: IEventAggregator) {
     super(ea)
+  }
 
+  async load(): Promise<void> {
     this.subscribe<SignedInEvent>(SignedInEvent, async () => {
       this._isSignedIn.next(true)
     })

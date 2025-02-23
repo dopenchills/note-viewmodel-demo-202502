@@ -18,6 +18,8 @@ export interface IPage {
    */
   readonly name: string
 
+  load(): Promise<void>
+
   /**
    * Get the instructions for the AI model
    * @returns Instructions string that defines the AI's behavior and personality
