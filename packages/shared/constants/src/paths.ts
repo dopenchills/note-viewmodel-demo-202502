@@ -1,5 +1,13 @@
-export const paths = {
+export type Paths = {
+  top: string
+  auth: string
+  notes: string
+  createNote: string
+}
+
+export const paths: Paths = {
   top: '/',
   auth: '/auth',
-  listNotes: '/notes',
+  notes: '/notes',
+  createNote: '/notes/new',
 }
