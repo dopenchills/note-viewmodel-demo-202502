@@ -7,6 +7,15 @@ class VoiceChat {
   private recordButton: HTMLButtonElement
   private audioContainer: HTMLDivElement
 
+  // Mock tools implementation
+  private tools = {
+    getWeather: () => {
+      const conditions = ['thunderstorms', 'rain', 'cloudy', 'sunny', 'snow']
+      const randomIndex = Math.floor(Math.random() * conditions.length)
+      return { success: true, weather: conditions[randomIndex] }
+    },
+  }
+
   constructor() {
     this.recordButton = document.querySelector<HTMLButtonElement>('#recordButton')!
     this.audioContainer = document.querySelector<HTMLDivElement>('#audioContainer')!
@@ -26,6 +35,35 @@ class VoiceChat {
       this.audioContainer.innerHTML = ''
       this.audioContainer.appendChild(audioElement)
     }
+
+    // Handle data channel messages
+    this.dataChannel.addEventListener('message', async (event) => {
+      const message = JSON.parse(event.data)
+
+      // Handle function calls
+      if (message.type === 'response.function_call_arguments.done') {
+        const fn = this.tools[message.name as keyof typeof this.tools]
+        if (fn) {
+          console.log(`Calling function ${message.name}`)
+          const result = await fn()
+          console.log('Function result:', result)
+
+          // Send function result back to OpenAI
+          const resultEvent = {
+            type: 'conversation.item.create',
+            item: {
+              type: 'function_call_output',
+              call_id: message.call_id,
+              output: JSON.stringify(result),
+            },
+          }
+          this.dataChannel.send(JSON.stringify(resultEvent))
+
+          // Request assistant to continue
+          this.dataChannel.send(JSON.stringify({ type: 'response.create' }))
+        }
+      }
+    })
 
     // Set up button click handler
     this.recordButton.addEventListener('click', () => this.toggleRecording())
@@ -64,7 +102,8 @@ class VoiceChat {
         },
         body: JSON.stringify({
           model: 'gpt-4o-realtime-preview-2024-12-17',
-          instructions: 'You are a helpful AI assistant who engages in natural conversation.',
+          instructions:
+            'You are a helpful AI assistant who engages in natural conversation. You can check the weather using the getWeather function.',
           voice: 'alloy',
         }),
       })
@@ -90,12 +129,24 @@ class VoiceChat {
         sdp: answer,
       })
 
-      // Configure data channel for text/audio modalities
+      // Configure data channel for text/audio modalities and tools
       this.dataChannel.addEventListener('open', () => {
         const event = {
           type: 'session.update',
           session: {
             modalities: ['text', 'audio'],
+            tools: [
+              {
+                type: 'function',
+                name: 'getWeather',
+                description: 'Get the current weather conditions',
+                parameters: {
+                  type: 'object',
+                  properties: {},
+                  required: [],
+                },
+              },
+            ],
           },
         }
         this.dataChannel.send(JSON.stringify(event))
