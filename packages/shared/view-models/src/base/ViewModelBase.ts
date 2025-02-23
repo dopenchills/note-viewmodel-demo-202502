@@ -1,6 +1,6 @@
 import { injectable } from 'inversify'
-import { IEventAggregator, IPubSubEvent, ISubscription } from 'shared__event-aggregator'
-import { IViewModel } from '../interface/IViewModel'
+import type { IEventAggregator, IPubSubEvent, ISubscription } from 'shared__event-aggregator'
+import type { IViewModel } from '../interface/IViewModel'
 
 @injectable()
 export abstract class ViewModelBase implements IViewModel {
