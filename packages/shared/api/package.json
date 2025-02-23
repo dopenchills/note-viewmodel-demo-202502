@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "inversify": "catalog:",
-    "di": "workspace:*",
     "shared__result": "workspace:*",
     "rxjs": "catalog:"
   },
