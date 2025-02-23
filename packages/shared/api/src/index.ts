@@ -1,6 +1,3 @@
-import { ApiType } from './di/ApiType'
-import { apiModule } from './di/apiModule'
-import type { IAuthApi } from './interface/IAuthApi'
-
-export { apiModule, ApiType }
-export type { IAuthApi }
+export { apiModule } from './di/apiModule'
+export { ApiType } from './di/ApiType'
+export type { IAuthApi } from './interface/IAuthApi'
