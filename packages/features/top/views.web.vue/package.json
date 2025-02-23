@@ -10,5 +10,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "vue": "catalog:",
+    "vue-router": "catalog:",
+    "shared__constants": "workspace:*"
+  }
 }
