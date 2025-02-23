@@ -246,9 +246,6 @@ importers:
 
   packages/features/user/view-models:
     dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../../di
       features__shared__views.web.vue:
         specifier: workspace:*
         version: link:../../shared/views.web.vue

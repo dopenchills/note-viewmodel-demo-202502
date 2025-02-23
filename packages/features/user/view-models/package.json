@@ -17,7 +17,6 @@
     "inversify": "catalog:",
     "shared__result": "workspace:*",
     "shared__event-aggregator": "workspace:*",
-    "di": "workspace:*",
     "shared__api": "workspace:*"
   }
 }
