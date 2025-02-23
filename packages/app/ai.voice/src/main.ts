@@ -11,41 +11,35 @@ class VoiceChat {
   private currentPage: IPage
 
   constructor() {
-    // Initialize with AuthPage
     this.currentPage = new AuthPage()
-
-    // Initialize UI elements
     this.recordButton = document.querySelector<HTMLButtonElement>('#recordButton')!
     this.audioContainer = document.querySelector<HTMLDivElement>('#audioContainer')!
 
-    // Initialize WebRTC
     this.peerConnection = new RTCPeerConnection()
     this.dataChannel = this.peerConnection.createDataChannel('oai-events')
 
-    // Handle incoming audio
+    this.setupAudioHandling()
+    this.setupDataChannel()
+    this.setupRecordButton()
+  }
+
+  private setupAudioHandling() {
     this.peerConnection.ontrack = (event) => {
       const audioElement = document.createElement('audio')
       audioElement.srcObject = event.streams[0]
       audioElement.autoplay = true
       audioElement.controls = true
-
-      // Clear previous audio elements
       this.audioContainer.innerHTML = ''
       this.audioContainer.appendChild(audioElement)
     }
+  }
 
-    // Handle data channel messages
+  private setupDataChannel() {
     this.dataChannel.addEventListener('message', async (event) => {
       const message = JSON.parse(event.data)
-
-      // Handle function calls
       if (message.type === 'response.function_call_arguments.done') {
         try {
-          console.log(`Calling function ${message.name}`)
           const result = await this.currentPage.runTool(message.name, JSON.parse(message.arguments))
-          console.log('Function result:', result)
-
-          // Send function result back to OpenAI
           this.sendToDataChannel({
             type: 'conversation.item.create',
             item: {
@@ -54,16 +48,15 @@ class VoiceChat {
               output: JSON.stringify(result),
             },
           })
-
-          // Request assistant to continue
           this.sendToDataChannel({ type: 'response.create' })
         } catch (error) {
           console.error('Error running tool:', error)
         }
       }
     })
+  }
 
-    // Set up button click handler
+  private setupRecordButton() {
     this.recordButton.addEventListener('click', () => this.toggleRecording())
   }
 
@@ -87,19 +80,14 @@ class VoiceChat {
 
   private async startRecording() {
     try {
-      // Get microphone access
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-
-      // Add audio track to peer connection
       stream
         .getTracks()
         .forEach((track) => this.peerConnection.addTransceiver(track, { direction: 'sendrecv' }))
 
-      // Create and set local description
       const offer = await this.peerConnection.createOffer()
       await this.peerConnection.setLocalDescription(offer)
 
-      // Connect to OpenAI Realtime API
       const response = await fetch('https://api.openai.com/v1/realtime/sessions', {
         method: 'POST',
         headers: {
@@ -115,7 +103,6 @@ class VoiceChat {
 
       const { client_secret } = await response.json()
 
-      // Connect WebRTC with OpenAI
       const answer = await fetch(
         `https://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17`,
         {
@@ -128,15 +115,12 @@ class VoiceChat {
         }
       ).then((r) => r.text())
 
-      // Set remote description
       await this.peerConnection.setRemoteDescription({
         type: 'answer',
         sdp: answer,
       })
 
-      // Configure data channel for text/audio modalities and tools
       this.dataChannel.addEventListener('open', () => {
-        // Send initial session configuration
         this.sendToDataChannel({
           type: 'session.update',
           session: {
@@ -152,15 +136,11 @@ class VoiceChat {
   }
 
   private async stopRecording() {
-    // Close data channel and peer connection
     this.dataChannel.close()
     this.peerConnection.close()
-
-    // Reinitialize for next session
     this.peerConnection = new RTCPeerConnection()
     this.dataChannel = this.peerConnection.createDataChannel('oai-events')
   }
 }
 
-// Initialize voice chat when page loads
 new VoiceChat()
