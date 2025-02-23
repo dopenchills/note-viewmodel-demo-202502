@@ -10,7 +10,9 @@
     "format": "prettier --write \"**/*.{js,ts,json,vue,css,md}\"",
     "format:check": "prettier --check \"**/*.{js,ts,json,vue,css,md}\"",
     "lint": "eslint . --ext .ts,.vue",
-    "lint:fix": "eslint . --ext .ts,.vue --fix"
+    "lint:fix": "eslint . --ext .ts,.vue --fix",
+    "web.vue": "pnpm -F \"app__web.vue\"",
+    "ai.voice": "pnpm -F \"app__ai.voice\""
   },
   "keywords": [],
   "author": "",
