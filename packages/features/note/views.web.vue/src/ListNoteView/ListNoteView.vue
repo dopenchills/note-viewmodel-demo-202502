@@ -3,12 +3,16 @@
     <div class="note-list-container">
       <div class="search-bar">
         <input
-          :model-value="searchQuery"
+          :value="searchQuery"
           type="text"
           placeholder="Search notes..."
           class="search-input"
-          @update:model-value="listNoteViewModel.setSearchQuery($event.target.value)"
-          @input="handleSearch"
+          @input="
+            (event: Event) => {
+              listNoteViewModel.setSearchQuery((event.target as HTMLInputElement).value)
+              listNoteViewModel.search()
+            }
+          "
         />
       </div>
 
@@ -25,7 +29,7 @@
         </div>
       </div>
 
-      <button class="create-button" @click="showCreateNote">Create New Note</button>
+      <button class="create-button" @click="router.push(paths.createNote)">Create New Note</button>
     </div>
   </top-bar-layout>
 </template>
@@ -46,14 +50,6 @@ const listNoteViewModel = diContainer.get<IListNoteViewModel>(NoteTypes.ListNote
 const searchQuery = useObservableProps(listNoteViewModel, 'searchQuery$')
 const notes = useObservableProps(listNoteViewModel, 'notes$')
 const isBusy = useObservableProps(listNoteViewModel, 'isBusy$')
-
-const handleSearch = async () => {
-  await listNoteViewModel.search()
-}
-
-const showCreateNote = () => {
-  router.push(paths.createNote)
-}
 
 const formatDate = (date: Date) => {
   return new Date(date).toLocaleDateString()
