@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "exports": {
-    "./interfaces": "./src/interfaces/index.ts"
+    "./interfaces": "./src/interfaces/index.ts",
+    "./pages": "./src/pages/index.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

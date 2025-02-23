@@ -1,7 +1,7 @@
 import { diContainer } from 'di'
 import { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
+import { commonInstruction } from 'features__shared__views.ai.voice/pages'
 import { IAuthViewModel, ISignInViewModel, UserTypes } from 'features__user__view-models'
-import { commonInstruction } from './commonInstruction'
 
 export class AuthPage implements IPage {
   readonly id = 'auth'
@@ -34,6 +34,9 @@ export class AuthPage implements IPage {
 ユーザーは認証ページにいます。あなたはユーザーから認証情報を受け取り、toolに渡すことでログインを試みます。
 ユーザーから情報を受け取るたびにgetCurrentStateを使って現在の状態を取得し、ユーザーに適切な指示を送信してください。
 </page>
+<objective>
+ユーザーが認証情報を入力し、正常にログインすること。
+</objective>
 `
   }
 
