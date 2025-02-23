@@ -1,7 +1,12 @@
 import { diContainer } from 'di'
 import { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
 import { commonInstruction } from 'features__shared__views.ai.voice/pages'
-import { IAuthViewModel, ISignInViewModel, UserTypes } from 'features__user__view-models'
+import {
+  IAuthViewModel,
+  ISignInViewModel,
+  ISignUpViewModel,
+  UserTypes,
+} from 'features__user__view-models'
 import { paths } from 'shared__constants'
 
 export class AuthPage implements IPage {
@@ -10,6 +15,7 @@ export class AuthPage implements IPage {
 
   private authViewModel: IAuthViewModel
   private signInViewModel: ISignInViewModel
+  private signUpViewModel: ISignUpViewModel
   private userName: string = ''
   private email: string = ''
   private isSignedIn: boolean = false
@@ -17,6 +23,7 @@ export class AuthPage implements IPage {
   constructor() {
     this.authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
     this.signInViewModel = diContainer.get<ISignInViewModel>(UserTypes.SignInViewModel)
+    this.signUpViewModel = diContainer.get<ISignUpViewModel>(UserTypes.SignUpViewModel)
 
     this.authViewModel.isSignedIn$.subscribe((isSignedIn) => {
       this.isSignedIn = isSignedIn
@@ -27,16 +34,22 @@ export class AuthPage implements IPage {
     this.signInViewModel.email$.subscribe((email) => {
       this.email = email
     })
+    this.signUpViewModel.email$.subscribe((email: string) => {
+      this.email = email
+    })
   }
 
   getInstructions(): string {
     return `${commonInstruction}
 <page>
-ユーザーは認証ページにいます。あなたはユーザーから認証情報を受け取り、toolに渡すことでログインを試みます。
+ユーザーは認証ページにいます。あなたはユーザーから認証情報を受け取り、toolに渡すことでログインまたはサインアップを試みます。
 ユーザーから情報を受け取るたびにgetCurrentStateを使って現在の状態を取得し、ユーザーに適切な指示を送信してください。
 </page>
 <objective>
-ユーザーが認証情報を入力し、正常にログインすること。
+ユーザーが認証情報を入力し、正常にサインインすること。
+
+新規登録の場合は、ユーザー名（ひらがな）、メールアドレス、パスワード（英数字4文字）が必要です。
+その後にサインインします。
 </objective>
 `
   }
@@ -73,6 +86,29 @@ export class AuthPage implements IPage {
           required: ['name', 'password'],
         },
       },
+      {
+        type: 'function',
+        name: 'signUp',
+        description: 'ユーザー名、メールアドレス、パスワードでサインアップを試みます。',
+        parameters: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'ユーザーの名前をひらがなで入力する',
+            },
+            email: {
+              type: 'string',
+              description: 'メールアドレスを入力する',
+            },
+            password: {
+              type: 'string',
+              description: 'ユーザーのパスワードを小文字の英数字4文字で入力する',
+            },
+          },
+          required: ['name', 'email', 'password'],
+        },
+      },
     ]
   }
 
@@ -94,6 +130,21 @@ export class AuthPage implements IPage {
         await this.signInViewModel.signIn()
         return {
           success: this.isSignedIn,
+        }
+      }
+
+      case 'signUp': {
+        const {
+          name: userName,
+          email,
+          password,
+        } = args as { name: string; email: string; password: string }
+        this.signUpViewModel.setName(userName)
+        this.signUpViewModel.setEmail(email)
+        this.signUpViewModel.setPassword(password)
+        await this.signUpViewModel.signUp()
+        return {
+          success: true,
         }
       }
 
