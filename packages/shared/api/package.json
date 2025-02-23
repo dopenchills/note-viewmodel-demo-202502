@@ -9,11 +9,6 @@
   },
   "dependencies": {
     "inversify": "catalog:",
-    "shared__result": "workspace:*",
-    "rxjs": "catalog:"
-  },
-  "devDependencies": {
-    "vitest": "catalog:",
-    "typescript": "catalog:"
+    "shared__result": "workspace:*"
   }
 }
