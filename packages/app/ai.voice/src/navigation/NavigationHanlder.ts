@@ -37,20 +37,40 @@ export class NavigationHandler implements INavigationHandler {
       type: 'function',
       name: 'next-page',
       description: '次のページに移動する。各ページの目的が果たされたら即時実行する',
-      parameters: {},
+      parameters: {
+        type: 'string',
+        enum: Object.keys(paths),
+        description:
+          '次のページのID。基本的には指定しなくていいが、特定のページに移動する場合は指定する',
+      },
     }
   }
 
-  runNavigationTool(): { result: 'success' } | { result: 'failure'; error: string } {
-    switch (this._currentPage.id) {
-      case paths.top:
-        this._currentPage = new AuthPage()
-        return { result: 'success' }
-      case paths.auth:
-        this._currentPage = new AuthPage()
-        return { result: 'success' }
-      default:
-        return { result: 'failure', error: 'Navigation rule is not defined' }
+  runNavigationTool(
+    nextPagePath?: keyof typeof paths
+  ): { result: 'success' } | { result: 'failure'; error: string } {
+    if (nextPagePath) {
+      switch (nextPagePath) {
+        case paths.top:
+          this._currentPage = new HomePage()
+          return { result: 'success' }
+        case paths.auth:
+          this._currentPage = new AuthPage()
+          return { result: 'success' }
+        default:
+          return { result: 'failure', error: 'Navigation rule is not defined' }
+      }
+    } else {
+      switch (this._currentPage.id) {
+        case paths.top:
+          this._currentPage = new AuthPage()
+          return { result: 'success' }
+        case paths.auth:
+          this._currentPage = new AuthPage()
+          return { result: 'success' }
+        default:
+          return { result: 'failure', error: 'Navigation rule is not defined' }
+      }
     }
   }
 
