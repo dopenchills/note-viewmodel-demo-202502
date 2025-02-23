@@ -4,6 +4,7 @@ interface SessionUpdateEvent {
   type: 'session.update'
   session: {
     modalities: string[]
+    instructions?: string
     tools?: {
       type: string
       name: string
@@ -39,6 +40,26 @@ class VoiceChat {
   private isRecording: boolean = false
   private recordButton: HTMLButtonElement
   private audioContainer: HTMLDivElement
+  private styleUpdateInterval: number | null = null
+  private isGalMode: boolean = true
+
+  private readonly GYARU_INSTRUCTIONS = `
+あなたはギャル口調で会話するAIアシスタントです。以下のような特徴を持って話してください：
+- 文末に「〜」「〜ね」「〜よ」などを多用
+- 「マジ」「やばい」「超」などのギャル語を使用
+- 「わかるー！」「それな！」などの共感表現を多用
+- 全体的に明るく、フレンドリーな口調
+- 時々英語の単語を日本語っぽく発音して使用（例：「ナイス！」「クール！」）
+`
+
+  private readonly NERER_INSTRUCTIONS = `
+あなたは2chねらー口調で会話するAIアシスタントです。以下のような特徴を持って話してください：
+- 「ワイ」「ワイ的には」などの一人称を使用
+- 「草」「で草」などのネットスラング
+- 「〜やで」「〜やな」などの関西弁風の語尾
+- 「ファッ!?」「は？」などの驚きの表現
+- 「〜定期」「〜やろ」などの2ch特有の言い回し
+`
 
   // Mock tools implementation
   private tools = {
@@ -117,6 +138,37 @@ class VoiceChat {
     }
   }
 
+  private startStyleUpdates() {
+    // Send initial style
+    this.updateConversationStyle()
+
+    // Set up interval for style updates
+    this.styleUpdateInterval = window.setInterval(() => {
+      this.isGalMode = !this.isGalMode // Toggle between styles
+      this.updateConversationStyle()
+    }, 20000) // Every 20 seconds
+  }
+
+  private updateConversationStyle() {
+    const instructions = this.isGalMode ? this.GYARU_INSTRUCTIONS : this.NERER_INSTRUCTIONS
+    console.log(`Switching to ${this.isGalMode ? 'ギャル' : '2chねらー'} mode`)
+
+    this.sendToDataChannel({
+      type: 'session.update',
+      session: {
+        modalities: ['text', 'audio'],
+        instructions,
+      },
+    })
+  }
+
+  private stopStyleUpdates() {
+    if (this.styleUpdateInterval !== null) {
+      clearInterval(this.styleUpdateInterval)
+      this.styleUpdateInterval = null
+    }
+  }
+
   private async toggleRecording() {
     if (!this.isRecording) {
       await this.startRecording()
@@ -141,10 +193,6 @@ class VoiceChat {
       const offer = await this.peerConnection.createOffer()
       await this.peerConnection.setLocalDescription(offer)
 
-      // Get current time for instructions
-      const now = new Date()
-      const currentTime = now.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' })
-
       // Connect to OpenAI Realtime API
       const response = await fetch('https://api.openai.com/v1/realtime/sessions', {
         method: 'POST',
@@ -154,7 +202,7 @@ class VoiceChat {
         },
         body: JSON.stringify({
           model: 'gpt-4o-realtime-preview-2024-12-17',
-          instructions: `You are a helpful AI assistant who engages in natural conversation. You are aware that this conversation started at ${currentTime} (Asia/Tokyo timezone). You can check the current time using the getCurrentTime function whenever you need to know the exact time.`,
+          instructions: this.GYARU_INSTRUCTIONS, // Start with ギャル mode
           voice: 'alloy',
         }),
       })
@@ -211,6 +259,9 @@ class VoiceChat {
             ],
           },
         })
+
+        // Start style updates after connection is established
+        this.startStyleUpdates()
       })
     } catch (error) {
       console.error('Error starting recording:', error)
@@ -219,6 +270,9 @@ class VoiceChat {
   }
 
   private async stopRecording() {
+    // Stop style updates
+    this.stopStyleUpdates()
+
     // Close data channel and peer connection
     this.dataChannel.close()
     this.peerConnection.close()
