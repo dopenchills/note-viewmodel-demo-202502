@@ -8,6 +8,10 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "di": "workspace:*",
+    "features__user__view-models": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "catalog:",
     "vite": "catalog:"

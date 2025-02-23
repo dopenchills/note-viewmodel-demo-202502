@@ -121,6 +121,13 @@ importers:
         version: 9.4.3(eslint@9.21.0(jiti@2.4.2))
 
   packages/app/ai.voice:
+    dependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../di
+      features__user__view-models:
+        specifier: workspace:*
+        version: link:../../features/user/view-models
     devDependencies:
       typescript:
         specifier: 'catalog:'
