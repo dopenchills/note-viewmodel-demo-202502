@@ -40,7 +40,8 @@ export class VoiceChat {
 
           // Handle navigation tool separately
           if (message.name === 'next-page') {
-            const result = this.navigationHandler.runNavigationTool()
+            const args = message.arguments ? JSON.parse(message.arguments) : {}
+            const result = this.navigationHandler.runNavigationTool(args.nextPage)
             this.logger.addResult(result)
 
             if (result.result === 'success') {
