@@ -5,6 +5,7 @@ import { ApiType } from 'shared__api'
 import type { IEventAggregator } from 'shared__event-aggregator'
 import { EventAggregatorTypes } from 'shared__event-aggregator'
 import { ViewModelBase } from 'shared__view-models'
+import { SignedOutEvent } from '../events/SignedOutEvent'
 import { SignedUpEvent } from '../events/SignedUpEvent'
 import type { ISignUpViewModel } from '../interfaces/ISignUpViewModel'
 
@@ -24,6 +25,16 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
     @inject(ApiType.AuthApi) private readonly authApi: IAuthApi
   ) {
     super(ea)
+
+    this.subscribe<SignedOutEvent>(SignedOutEvent, async () => {
+      this.reset()
+    })
+  }
+
+  private reset(): void {
+    this._name.next('')
+    this._email.next('')
+    this._password.next('')
   }
 
   setName(name: string): void {

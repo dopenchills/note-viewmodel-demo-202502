@@ -42,11 +42,12 @@ export class AuthPage implements IPage {
   getInstructions(): string {
     return `${commonInstruction}
 <page>
-ユーザーは認証ページにいます。あなたはユーザーから認証情報を受け取り、toolに渡すことでログインまたはサインアップを試みます。
+ユーザーは認証ページにいます。あなたはユーザーから認証情報を受け取り、toolに渡すことでログイン、サインアップ、またはサインアウトを試みます。
 ユーザーから情報を受け取るたびにgetCurrentStateを使って現在の状態を取得し、ユーザーに適切な指示を送信してください。
 </page>
 <objective>
 ユーザーが認証情報を入力し、正常にサインインすること。
+サインアウトを要求された場合は適切にサインアウトすること。
 
 新規登録の場合は、ユーザー名（ひらがな）、メールアドレス、パスワード（英数字4文字）が必要です。
 その後にサインインします。
@@ -109,6 +110,16 @@ export class AuthPage implements IPage {
           required: ['name', 'email', 'password'],
         },
       },
+      {
+        type: 'function',
+        name: 'signOut',
+        description: 'サインアウトを試みます。',
+        parameters: {
+          type: 'object',
+          properties: {},
+          required: [],
+        },
+      },
     ]
   }
 
@@ -143,6 +154,13 @@ export class AuthPage implements IPage {
         this.signUpViewModel.setEmail(email)
         this.signUpViewModel.setPassword(password)
         await this.signUpViewModel.signUp()
+        return {
+          success: true,
+        }
+      }
+
+      case 'signOut': {
+        this.authViewModel.signOut()
         return {
           success: true,
         }
