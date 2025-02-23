@@ -1,59 +1,14 @@
 import { diContainer } from 'di'
-import { IPage } from 'features__shared__views.ai.voice/interfaces'
+import { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
 import { IAuthViewModel, ISignInViewModel, UserTypes } from 'features__user__view-models'
 import { commonInstruction } from './commonInstruction'
 
-type AuthTool =
-  | {
-      type: 'function'
-      name: 'getCurrentState'
-      description: string
-      parameters: {
-        type: 'object'
-        properties: Record<never, never>
-        required: never[]
-      }
-    }
-  | {
-      type: 'function'
-      name: 'signIn'
-      description: string
-      parameters: {
-        type: 'object'
-        properties: {
-          name: {
-            type: 'string'
-            description: 'ユーザーの名前をひらがなで入力する'
-          }
-          password: {
-            type: 'string'
-            description: 'ユーザーのパスワードを小文字の英数字4文字で入力する'
-          }
-        }
-        required: ['name', 'password']
-      }
-    }
-
-type AuthToolResults = {
-  getCurrentState: {
-    state: {
-      name: string
-      email: string
-      isSignedIn: boolean
-    }
-  }
-  signIn: {
-    success: boolean
-  }
-}
-
-export class AuthPage implements IPage<AuthTool, AuthToolResults> {
+export class AuthPage implements IPage {
   readonly id = 'auth'
   readonly name = 'AuthPage'
 
   private authViewModel: IAuthViewModel
   private signInViewModel: ISignInViewModel
-
   private userName: string = ''
   private email: string = ''
   private isSignedIn: boolean = false
@@ -82,7 +37,7 @@ export class AuthPage implements IPage<AuthTool, AuthToolResults> {
 `
   }
 
-  getTools(): AuthTool[] {
+  getTools(): Tool[] {
     return [
       {
         type: 'function',
@@ -117,10 +72,7 @@ export class AuthPage implements IPage<AuthTool, AuthToolResults> {
     ]
   }
 
-  async runTool<N extends AuthTool['name']>(
-    name: N,
-    args: N extends 'signIn' ? { name: string; password: string } : Record<never, never>
-  ): Promise<AuthToolResults[N]> {
+  async runTool(name: string, args: unknown): Promise<unknown> {
     switch (name) {
       case 'getCurrentState':
         return {
@@ -129,16 +81,18 @@ export class AuthPage implements IPage<AuthTool, AuthToolResults> {
             email: this.email,
             isSignedIn: this.isSignedIn,
           },
-        } as AuthToolResults[N]
+        }
+
       case 'signIn': {
-        const signInArgs = args as { name: string; password: string }
-        this.signInViewModel.setName(signInArgs.name)
-        this.signInViewModel.setPassword(signInArgs.password)
+        const { name: userName, password } = args as { name: string; password: string }
+        this.signInViewModel.setName(userName)
+        this.signInViewModel.setPassword(password)
         await this.signInViewModel.signIn()
         return {
           success: this.isSignedIn,
-        } as AuthToolResults[N]
+        }
       }
+
       default:
         throw new Error(`Unknown tool: ${name}`)
     }
