@@ -125,9 +125,15 @@ importers:
       di:
         specifier: workspace:*
         version: link:../../di
+      features__shared__views.ai.voice:
+        specifier: workspace:*
+        version: link:../../features/shared/views.ai.voice
       features__user__view-models:
         specifier: workspace:*
         version: link:../../features/user/view-models
+      features__user__views.ai.voice:
+        specifier: workspace:*
+        version: link:../../features/user/views.ai.voice
     devDependencies:
       typescript:
         specifier: 'catalog:'

@@ -54,9 +54,9 @@ export class AuthPage implements IPage<AuthTool, AuthToolResults> {
   private authViewModel: IAuthViewModel
   private signInViewModel: ISignInViewModel
 
-  private userName: string
-  private email: string
-  private isSignedIn: boolean
+  private userName: string = ''
+  private email: string = ''
+  private isSignedIn: boolean = false
 
   constructor() {
     this.authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
@@ -95,10 +95,32 @@ export class AuthPage implements IPage<AuthTool, AuthToolResults> {
           required: [],
         },
       },
+      {
+        type: 'function',
+        name: 'signIn',
+        description: 'ユーザー名とパスワードでサインインを試みます。',
+        parameters: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'ユーザーの名前をひらがなで入力する',
+            },
+            password: {
+              type: 'string',
+              description: 'ユーザーのパスワードを小文字の英数字4文字で入力する',
+            },
+          },
+          required: ['name', 'password'],
+        },
+      },
     ]
   }
 
-  async runTool(name: string, args: unknown): Promise<unknown> {
+  async runTool<N extends AuthTool['name']>(
+    name: N,
+    args: N extends 'signIn' ? { name: string; password: string } : Record<never, never>
+  ): Promise<AuthToolResults[N]> {
     switch (name) {
       case 'getCurrentState':
         return {
@@ -107,7 +129,7 @@ export class AuthPage implements IPage<AuthTool, AuthToolResults> {
             email: this.email,
             isSignedIn: this.isSignedIn,
           },
-        }
+        } as AuthToolResults[N]
       case 'signIn': {
         const signInArgs = args as { name: string; password: string }
         this.signInViewModel.setName(signInArgs.name)
@@ -115,7 +137,7 @@ export class AuthPage implements IPage<AuthTool, AuthToolResults> {
         await this.signInViewModel.signIn()
         return {
           success: this.isSignedIn,
-        }
+        } as AuthToolResults[N]
       }
       default:
         throw new Error(`Unknown tool: ${name}`)

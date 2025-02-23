@@ -1,63 +1,6 @@
+import { IPage } from 'features__shared__views.ai.voice/interfaces'
+import { AuthPage } from 'features__user__views.ai.voice/pages'
 import './style.css'
-
-/**
- * これからこのソフトウェアをアップデートします。
- *
- * ページという概念を導入し、ページごとにLLMへの指示を変更できるようにします。
- * (実装はsession.updateイベントを送信することで実現します)
- *
- * ページは以下のようなプロパティを持ちます：
- * - instructions:
- *  - そのページでの指示を記述します。例えばユーザをあるサイトにログインさせるなど。
- *  - 指示には目的があり、その目的が果たされたら次のページを取得します。
- *  - 次のページの遷移はtoolsを使って行います。
- * - tools:
- *  - そのページで使用可能なツールを記述します。
- *
- * 流れは以下のようになります：
- * 1. ユーザーに指示を送信します。(例: 名前と合言葉を教えてください)
- * 2. ユーザーが指示に従って情報を提供します。
- * 3. ユーザーが提供した情報を使って、toolに認証情報を渡します。
- * 4. toolが認証情報を使ってログインします。
- * 5.A. ログインが成功したら、成功メッセージを発話します。
- *      toolを使って次のページに遷移します。(1に戻る)
- * 5.B. ログインが失敗したら、失敗メッセージを発話します。
- *      toolを使って再度ログインを試みます。(3に戻る)
- */
-
-interface SessionUpdateEvent {
-  type: 'session.update'
-  session: {
-    modalities: string[]
-    instructions?: string
-    tools?: {
-      type: string
-      name: string
-      description: string
-      parameters: {
-        type: string
-        properties: Record<string, unknown>
-        required: string[]
-      }
-    }[]
-  }
-}
-
-interface ConversationItemEvent {
-  type: 'conversation.item.create'
-  item: {
-    type: 'text' | 'function_call_output'
-    text?: string
-    call_id?: string
-    output?: string
-  }
-}
-
-interface ResponseCreateEvent {
-  type: 'response.create'
-}
-
-type DataChannelEvent = SessionUpdateEvent | ConversationItemEvent | ResponseCreateEvent
 
 class VoiceChat {
   private peerConnection: RTCPeerConnection
@@ -65,45 +8,13 @@ class VoiceChat {
   private isRecording: boolean = false
   private recordButton: HTMLButtonElement
   private audioContainer: HTMLDivElement
-  private styleUpdateInterval: number | null = null
-  private isGalMode: boolean = true
-
-  private readonly GYARU_INSTRUCTIONS = `
-あなたはギャル口調で会話するAIアシスタントです。以下のような特徴を持って話してください：
-- 文末に「〜」「〜ね」「〜よ」などを多用
-- 「マジ」「やばい」「超」などのギャル語を使用
-- 「わかるー！」「それな！」などの共感表現を多用
-- 全体的に明るく、フレンドリーな口調
-- 時々英語の単語を日本語っぽく発音して使用（例：「ナイス！」「クール！」）
-`
-
-  private readonly NERER_INSTRUCTIONS = `
-あなたは2chねらー口調で会話するAIアシスタントです。以下のような特徴を持って話してください：
-- 「ワイ」「ワイ的には」などの一人称を使用
-- 「草」「で草」などのネットスラング
-- 「〜やで」「〜やな」などの関西弁風の語尾
-- 「ファッ!?」「は？」などの驚きの表現
-- 「〜定期」「〜やろ」などの2ch特有の言い回し
-`
-
-  // Mock tools implementation
-  private tools = {
-    getWeather: () => {
-      const conditions = ['sunny', 'cloudy', 'rainy']
-      const randomIndex = Math.floor(Math.random() * conditions.length)
-      return { success: true, weather: conditions[randomIndex] }
-    },
-    getCurrentTime: () => {
-      const now = new Date()
-      return {
-        success: true,
-        time: now.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' }),
-        timezone: 'Asia/Tokyo',
-      }
-    },
-  }
+  private currentPage: IPage
 
   constructor() {
+    // Initialize with AuthPage
+    this.currentPage = new AuthPage()
+
+    // Initialize UI elements
     this.recordButton = document.querySelector<HTMLButtonElement>('#recordButton')!
     this.audioContainer = document.querySelector<HTMLDivElement>('#audioContainer')!
 
@@ -129,10 +40,9 @@ class VoiceChat {
 
       // Handle function calls
       if (message.type === 'response.function_call_arguments.done') {
-        const fn = this.tools[message.name as keyof typeof this.tools]
-        if (fn) {
+        try {
           console.log(`Calling function ${message.name}`)
-          const result = await fn()
+          const result = await this.currentPage.runTool(message.name, JSON.parse(message.arguments))
           console.log('Function result:', result)
 
           // Send function result back to OpenAI
@@ -147,6 +57,8 @@ class VoiceChat {
 
           // Request assistant to continue
           this.sendToDataChannel({ type: 'response.create' })
+        } catch (error) {
+          console.error('Error running tool:', error)
         }
       }
     })
@@ -155,42 +67,11 @@ class VoiceChat {
     this.recordButton.addEventListener('click', () => this.toggleRecording())
   }
 
-  private sendToDataChannel(data: DataChannelEvent) {
+  private sendToDataChannel(data: unknown) {
     if (this.dataChannel.readyState === 'open') {
       this.dataChannel.send(JSON.stringify(data))
     } else {
       console.warn('Data channel not ready, message not sent:', data)
-    }
-  }
-
-  private startStyleUpdates() {
-    // Send initial style
-    this.updateConversationStyle()
-
-    // Set up interval for style updates
-    this.styleUpdateInterval = window.setInterval(() => {
-      this.isGalMode = !this.isGalMode // Toggle between styles
-      this.updateConversationStyle()
-    }, 20000) // Every 20 seconds
-  }
-
-  private updateConversationStyle() {
-    const instructions = this.isGalMode ? this.GYARU_INSTRUCTIONS : this.NERER_INSTRUCTIONS
-    console.log(`Switching to ${this.isGalMode ? 'ギャル' : '2chねらー'} mode`)
-
-    this.sendToDataChannel({
-      type: 'session.update',
-      session: {
-        modalities: ['text', 'audio'],
-        instructions,
-      },
-    })
-  }
-
-  private stopStyleUpdates() {
-    if (this.styleUpdateInterval !== null) {
-      clearInterval(this.styleUpdateInterval)
-      this.styleUpdateInterval = null
     }
   }
 
@@ -227,7 +108,7 @@ class VoiceChat {
         },
         body: JSON.stringify({
           model: 'gpt-4o-realtime-preview-2024-12-17',
-          instructions: this.GYARU_INSTRUCTIONS, // Start with ギャル mode
+          instructions: this.currentPage.getInstructions(),
           voice: 'alloy',
         }),
       })
@@ -260,33 +141,9 @@ class VoiceChat {
           type: 'session.update',
           session: {
             modalities: ['text', 'audio'],
-            tools: [
-              {
-                type: 'function',
-                name: 'getWeather',
-                description: 'Get the current weather conditions',
-                parameters: {
-                  type: 'object',
-                  properties: {},
-                  required: [],
-                },
-              },
-              {
-                type: 'function',
-                name: 'getCurrentTime',
-                description: 'Get the current time in Asia/Tokyo timezone',
-                parameters: {
-                  type: 'object',
-                  properties: {},
-                  required: [],
-                },
-              },
-            ],
+            tools: this.currentPage.getTools(),
           },
         })
-
-        // Start style updates after connection is established
-        this.startStyleUpdates()
       })
     } catch (error) {
       console.error('Error starting recording:', error)
@@ -295,9 +152,6 @@ class VoiceChat {
   }
 
   private async stopRecording() {
-    // Stop style updates
-    this.stopStyleUpdates()
-
     // Close data channel and peer connection
     this.dataChannel.close()
     this.peerConnection.close()
