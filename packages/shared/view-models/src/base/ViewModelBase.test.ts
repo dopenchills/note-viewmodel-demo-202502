@@ -2,21 +2,34 @@ import { IEventAggregator, IPubSubEvent, ISubscription } from 'shared__event-agg
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ViewModelBase } from './ViewModelBase'
 
+// Mock event class for testing
+class TestEvent implements IPubSubEvent<string> {
+  constructor(public payload: string) {}
+}
+
 // Mock event aggregator
 const createMockEventAggregator = () => {
   const mockSubscription: ISubscription = {
     unsubscribe: vi.fn(),
   }
 
-  return {
+  const mockEa: IEventAggregator = {
     subscribe: vi.fn().mockReturnValue(mockSubscription),
+    unsubscribe: vi.fn(),
+    publish: vi.fn(),
+  }
+
+  return {
+    eventAggregator: mockEa,
     mockSubscription,
   }
 }
 
 // Concrete class for testing
 class TestViewModel extends ViewModelBase {
-  // Add any required abstract methods here if needed
+  constructor(ea: IEventAggregator) {
+    super(ea)
+  }
 }
 
 describe('ViewModelBase', () => {
@@ -25,7 +38,7 @@ describe('ViewModelBase', () => {
 
   beforeEach(() => {
     mockEa = createMockEventAggregator()
-    viewModel = new TestViewModel(mockEa as unknown as IEventAggregator)
+    viewModel = new TestViewModel(mockEa.eventAggregator)
   })
 
   describe('isBusy state', () => {
@@ -47,34 +60,45 @@ describe('ViewModelBase', () => {
 
   describe('event subscription', () => {
     it('should subscribe to events through event aggregator', async () => {
-      const mockEvent: IPubSubEvent<string> = { payload: 'test-event' }
       const mockCallback = async () => {}
 
-      viewModel.subscribe(mockEa as unknown as IEventAggregator, mockEvent, mockCallback)
+      viewModel.subscribe(TestEvent, mockCallback)
 
-      expect(mockEa.subscribe).toHaveBeenCalledWith(mockEvent, mockCallback)
+      expect(mockEa.eventAggregator.subscribe).toHaveBeenCalledWith(TestEvent, mockCallback)
     })
 
     it('should store subscriptions for cleanup', async () => {
-      const mockEvent: IPubSubEvent<string> = { payload: 'test-event' }
       const mockCallback = async () => {}
 
-      viewModel.subscribe(mockEa as unknown as IEventAggregator, mockEvent, mockCallback)
+      viewModel.subscribe(TestEvent, mockCallback)
       viewModel.unsubscribe()
 
       expect(mockEa.mockSubscription.unsubscribe).toHaveBeenCalled()
     })
 
     it('should unsubscribe from multiple subscriptions', async () => {
-      const mockEvent1: IPubSubEvent<string> = { payload: 'test-event-1' }
-      const mockEvent2: IPubSubEvent<string> = { payload: 'test-event-2' }
       const mockCallback = async () => {}
 
-      viewModel.subscribe(mockEa as unknown as IEventAggregator, mockEvent1, mockCallback)
-      viewModel.subscribe(mockEa as unknown as IEventAggregator, mockEvent2, mockCallback)
+      viewModel.subscribe(TestEvent, mockCallback)
+      viewModel.subscribe(TestEvent, mockCallback)
       viewModel.unsubscribe()
 
       expect(mockEa.mockSubscription.unsubscribe).toHaveBeenCalledTimes(2)
+    })
+  })
+
+  describe('lifecycle methods', () => {
+    it('should handle load', async () => {
+      await expect(viewModel.load()).resolves.toBeUndefined()
+    })
+
+    it('should handle unload and unsubscribe', async () => {
+      const mockCallback = async () => {}
+      viewModel.subscribe(TestEvent, mockCallback)
+
+      await viewModel.unload()
+
+      expect(mockEa.mockSubscription.unsubscribe).toHaveBeenCalled()
     })
   })
 })
