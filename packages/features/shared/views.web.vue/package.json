@@ -2,6 +2,8 @@
   "name": "features__shared__views.web.vue",
   "version": "1.0.0",
   "description": "",
+  "private": true,
+  "type": "module",
   "exports": {
     "./composables": "./src/composables/index.ts",
     "./layouts": "./src/layouts/index.ts"

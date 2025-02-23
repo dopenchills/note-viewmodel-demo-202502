@@ -2,6 +2,8 @@
   "name": "di",
   "version": "1.0.0",
   "description": "",
+  "private": true,
+  "type": "module",
   "main": "src/inversify.config.ts",
   "dependencies": {
     "reflect-metadata": "catalog:",

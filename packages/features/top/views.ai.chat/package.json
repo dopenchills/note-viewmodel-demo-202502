@@ -2,6 +2,8 @@
   "name": "features__top__views.ai.voice",
   "version": "1.0.0",
   "description": "",
+  "private": true,
+  "type": "module",
   "exports": {
     "./pages": "./src/pages/index.ts"
   },
