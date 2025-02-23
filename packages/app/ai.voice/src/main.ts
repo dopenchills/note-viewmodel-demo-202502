@@ -1,5 +1,38 @@
 import './style.css'
 
+interface SessionUpdateEvent {
+  type: 'session.update'
+  session: {
+    modalities: string[]
+    tools?: {
+      type: string
+      name: string
+      description: string
+      parameters: {
+        type: string
+        properties: Record<string, unknown>
+        required: string[]
+      }
+    }[]
+  }
+}
+
+interface ConversationItemEvent {
+  type: 'conversation.item.create'
+  item: {
+    type: 'text' | 'function_call_output'
+    text?: string
+    call_id?: string
+    output?: string
+  }
+}
+
+interface ResponseCreateEvent {
+  type: 'response.create'
+}
+
+type DataChannelEvent = SessionUpdateEvent | ConversationItemEvent | ResponseCreateEvent
+
 class VoiceChat {
   private peerConnection: RTCPeerConnection
   private dataChannel: RTCDataChannel
@@ -10,9 +43,17 @@ class VoiceChat {
   // Mock tools implementation
   private tools = {
     getWeather: () => {
-      const conditions = ['thunderstorms', 'rain', 'cloudy', 'sunny', 'snow']
+      const conditions = ['sunny', 'cloudy', 'rainy']
       const randomIndex = Math.floor(Math.random() * conditions.length)
       return { success: true, weather: conditions[randomIndex] }
+    },
+    getCurrentTime: () => {
+      const now = new Date()
+      return {
+        success: true,
+        time: now.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' }),
+        timezone: 'Asia/Tokyo',
+      }
     },
   }
 
@@ -49,24 +90,31 @@ class VoiceChat {
           console.log('Function result:', result)
 
           // Send function result back to OpenAI
-          const resultEvent = {
+          this.sendToDataChannel({
             type: 'conversation.item.create',
             item: {
               type: 'function_call_output',
               call_id: message.call_id,
               output: JSON.stringify(result),
             },
-          }
-          this.dataChannel.send(JSON.stringify(resultEvent))
+          })
 
           // Request assistant to continue
-          this.dataChannel.send(JSON.stringify({ type: 'response.create' }))
+          this.sendToDataChannel({ type: 'response.create' })
         }
       }
     })
 
     // Set up button click handler
     this.recordButton.addEventListener('click', () => this.toggleRecording())
+  }
+
+  private sendToDataChannel(data: DataChannelEvent) {
+    if (this.dataChannel.readyState === 'open') {
+      this.dataChannel.send(JSON.stringify(data))
+    } else {
+      console.warn('Data channel not ready, message not sent:', data)
+    }
   }
 
   private async toggleRecording() {
@@ -93,6 +141,10 @@ class VoiceChat {
       const offer = await this.peerConnection.createOffer()
       await this.peerConnection.setLocalDescription(offer)
 
+      // Get current time for instructions
+      const now = new Date()
+      const currentTime = now.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' })
+
       // Connect to OpenAI Realtime API
       const response = await fetch('https://api.openai.com/v1/realtime/sessions', {
         method: 'POST',
@@ -102,8 +154,7 @@ class VoiceChat {
         },
         body: JSON.stringify({
           model: 'gpt-4o-realtime-preview-2024-12-17',
-          instructions:
-            'You are a helpful AI assistant who engages in natural conversation. You can check the weather using the getWeather function.',
+          instructions: `You are a helpful AI assistant who engages in natural conversation. You are aware that this conversation started at ${currentTime} (Asia/Tokyo timezone). You can check the current time using the getCurrentTime function whenever you need to know the exact time.`,
           voice: 'alloy',
         }),
       })
@@ -131,7 +182,8 @@ class VoiceChat {
 
       // Configure data channel for text/audio modalities and tools
       this.dataChannel.addEventListener('open', () => {
-        const event = {
+        // Send initial session configuration
+        this.sendToDataChannel({
           type: 'session.update',
           session: {
             modalities: ['text', 'audio'],
@@ -146,10 +198,19 @@ class VoiceChat {
                   required: [],
                 },
               },
+              {
+                type: 'function',
+                name: 'getCurrentTime',
+                description: 'Get the current time in Asia/Tokyo timezone',
+                parameters: {
+                  type: 'object',
+                  properties: {},
+                  required: [],
+                },
+              },
             ],
           },
-        }
-        this.dataChannel.send(JSON.stringify(event))
+        })
       })
     } catch (error) {
       console.error('Error starting recording:', error)
