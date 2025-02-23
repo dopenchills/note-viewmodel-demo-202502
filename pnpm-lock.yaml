@@ -217,6 +217,9 @@ importers:
 
   packages/di:
     dependencies:
+      features__note__view-models:
+        specifier: workspace:*
+        version: link:../features/note/viewModels
       features__user__view-models:
         specifier: workspace:*
         version: link:../features/user/view-models
