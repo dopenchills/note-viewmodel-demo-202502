@@ -1,8 +1,9 @@
 import type { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
 import { commonInstruction } from 'features__shared__views.ai.voice/pages'
+import { paths } from 'shared__constants'
 
 export class HomePage implements IPage {
-  readonly id = 'home'
+  readonly id = paths.top
   readonly name = 'HomePage'
 
   getInstructions(): string {

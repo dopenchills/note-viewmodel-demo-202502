@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "features__shared__views.ai.voice": "workspace:*"
+    "features__shared__views.ai.voice": "workspace:*",
+    "shared__constants": "workspace:*"
   }
 }

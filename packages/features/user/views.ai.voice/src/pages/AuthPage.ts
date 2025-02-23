@@ -2,9 +2,10 @@ import { diContainer } from 'di'
 import { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
 import { commonInstruction } from 'features__shared__views.ai.voice/pages'
 import { IAuthViewModel, ISignInViewModel, UserTypes } from 'features__user__view-models'
+import { paths } from 'shared__constants'
 
 export class AuthPage implements IPage {
-  readonly id = 'auth'
+  readonly id = paths.auth
   readonly name = 'AuthPage'
 
   private authViewModel: IAuthViewModel

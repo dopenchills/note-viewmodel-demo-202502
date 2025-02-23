@@ -250,6 +250,9 @@ importers:
       features__shared__views.ai.voice:
         specifier: workspace:*
         version: link:../../shared/views.ai.voice
+      shared__constants:
+        specifier: workspace:*
+        version: link:../../../shared/constants
 
   packages/features/top/views.web.vue: {}
 
@@ -291,6 +294,9 @@ importers:
       features__user__view-models:
         specifier: workspace:*
         version: link:../view-models
+      shared__constants:
+        specifier: workspace:*
+        version: link:../../../shared/constants
     devDependencies:
       '@types/json-schema':
         specifier: ^7.0.15
