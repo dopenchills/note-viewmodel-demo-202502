@@ -346,9 +346,6 @@ importers:
 
   packages/shared/view-models:
     dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../di
       inversify:
         specifier: 'catalog:'
         version: 6.2.2(reflect-metadata@0.1.14)
