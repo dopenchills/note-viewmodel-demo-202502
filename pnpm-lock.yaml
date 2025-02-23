@@ -224,6 +224,12 @@ importers:
         specifier: workspace:*
         version: link:../shared/event-aggregator
 
+  packages/features/shared/views.ai.voice:
+    devDependencies:
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
+
   packages/features/shared/views.web.vue:
     dependencies:
       rxjs:
