@@ -14,9 +14,6 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
   private _name: BehaviorSubject<string> = new BehaviorSubject('')
   public name$ = this._name.asObservable()
 
-  private _email: BehaviorSubject<string> = new BehaviorSubject('')
-  public email$ = this._email.asObservable()
-
   private _password: BehaviorSubject<string> = new BehaviorSubject('')
   public password$ = this._password.asObservable()
 
@@ -29,7 +26,6 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
 
   private reset(): void {
     this._name.next('')
-    this._email.next('')
     this._password.next('')
   }
 
@@ -37,20 +33,12 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
     this._name.next(name)
   }
 
-  setEmail(email: string): void {
-    this._email.next(email)
-  }
-
   setPassword(password: string): void {
     this._password.next(password)
   }
 
   async signUp(): Promise<void> {
-    const signUpResult = await this.authApi.signUp(
-      this._name.value,
-      this._email.value,
-      this._password.value
-    )
+    const signUpResult = await this.authApi.signUp(this._name.value, this._password.value)
 
     if (signUpResult.isNotOk) {
       return
@@ -58,7 +46,6 @@ export class SignUpViewModel extends ViewModelBase implements ISignUpViewModel {
       this.ea.publish(
         new SignedUpEvent({
           name: this._name.value,
-          email: this._email.value,
           password: this._password.value,
         })
       )

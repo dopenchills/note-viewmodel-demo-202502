@@ -14,9 +14,6 @@ export class SignInViewModel extends ViewModelBase implements ISignInViewModel {
   private _name: BehaviorSubject<string> = new BehaviorSubject('')
   public name$ = this._name.asObservable()
 
-  private _email: BehaviorSubject<string> = new BehaviorSubject('')
-  public email$ = this._email.asObservable()
-
   private _password: BehaviorSubject<string> = new BehaviorSubject('')
   public password$ = this._password.asObservable()
 
@@ -32,18 +29,12 @@ export class SignInViewModel extends ViewModelBase implements ISignInViewModel {
 
   private reset(): void {
     this._name.next('')
-    this._email.next('')
     this._password.next('')
     this._errorMessages.next([])
   }
 
   setName(name: string): void {
     this._name.next(name)
-    this._errorMessages.next([]) // Clear errors on input change
-  }
-
-  setEmail(email: string): void {
-    this._email.next(email)
     this._errorMessages.next([]) // Clear errors on input change
   }
 
@@ -65,7 +56,6 @@ export class SignInViewModel extends ViewModelBase implements ISignInViewModel {
       this.ea.publish(
         new SignedInEvent({
           name: this._name.value,
-          email: this._email.value,
           password: this._password.value,
         })
       )

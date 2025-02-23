@@ -19,7 +19,6 @@ export class AuthPage implements IPage {
   private signUpViewModel: ISignUpViewModel
   private signOutViewModel: ISignOutViewModel
   private userName: string = ''
-  private email: string = ''
   private isSignedIn: boolean = false
 
   constructor() {
@@ -33,12 +32,6 @@ export class AuthPage implements IPage {
     })
     this.signInViewModel.name$.subscribe((name) => {
       this.userName = name
-    })
-    this.signInViewModel.email$.subscribe((email) => {
-      this.email = email
-    })
-    this.signUpViewModel.email$.subscribe((email: string) => {
-      this.email = email
     })
   }
 
@@ -108,16 +101,12 @@ export class AuthPage implements IPage {
               type: 'string',
               description: 'ユーザーの名前をひらがなで入力する',
             },
-            email: {
-              type: 'string',
-              description: 'メールアドレスを入力する',
-            },
             password: {
               type: 'string',
               description: 'ユーザーのパスワードを小文字の英数字4文字で入力する',
             },
           },
-          required: ['name', 'email', 'password'],
+          required: ['name', 'password'],
         },
       },
       {
@@ -139,7 +128,6 @@ export class AuthPage implements IPage {
         return {
           state: {
             name: this.userName,
-            email: this.email,
             isSignedIn: this.isSignedIn,
           },
         }
@@ -155,13 +143,11 @@ export class AuthPage implements IPage {
       }
 
       case 'signUp': {
-        const {
-          name: userName,
-          email,
-          password,
-        } = args as { name: string; email: string; password: string }
+        const { name: userName, password } = args as {
+          name: string
+          password: string
+        }
         this.signUpViewModel.setName(userName)
-        this.signUpViewModel.setEmail(email)
         this.signUpViewModel.setPassword(password)
         await this.signUpViewModel.signUp()
         return {

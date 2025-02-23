@@ -8,7 +8,6 @@
           :error-messages="signInErrorMessages"
           @sign-in="signInViewModel.signIn()"
           @update:name="signInViewModel.setName($event)"
-          @update:email="signInViewModel.setEmail($event)"
           @update:password="signInViewModel.setPassword($event)"
         />
         <sign-up
@@ -20,7 +19,6 @@
             }
           "
           @update:name="signUpViewModel.setName($event)"
-          @update:email="signUpViewModel.setEmail($event)"
           @update:password="signUpViewModel.setPassword($event)"
         />
       </div>

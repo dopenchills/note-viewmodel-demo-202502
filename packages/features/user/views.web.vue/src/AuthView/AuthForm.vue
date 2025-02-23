@@ -12,18 +12,6 @@
         @input="emit('update:name', form.name)"
       />
     </div>
-    <div v-if="mode === 'sign-up'" class="form-group">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        v-model="form.email"
-        type="email"
-        required
-        class="input"
-        placeholder="Enter your email"
-        @input="emit('update:email', form.email)"
-      />
-    </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input
@@ -62,13 +50,11 @@ const props = withDefaults(
 
 interface AuthForm {
   name: string
-  email: string
   password: string
 }
 
 const form = reactive<AuthForm>({
   name: '',
-  email: '',
   password: '',
 })
 
@@ -77,14 +63,12 @@ const submitText = computed(() => (props.mode === 'sign-up' ? 'Sign Up' : 'Sign 
 const emit = defineEmits<{
   (e: 'submit', form: AuthForm): void
   (e: 'update:name', value: string): void
-  (e: 'update:email', value: string): void
   (e: 'update:password', value: string): void
 }>()
 
 const handleSubmit = () => {
   emit('submit', {
     name: form.name,
-    email: form.email,
     password: form.password,
   })
 }

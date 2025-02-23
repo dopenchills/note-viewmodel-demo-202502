@@ -4,12 +4,10 @@ import type { IAuthApi } from '../interface/IAuthApi'
 export class MockedAuthApi implements IAuthApi {
   private readonly authStore: Set<{
     name: string
-    email: string
     password: string
   }> = new Set([
     {
       name: 'やまだたろう',
-      email: 'yamada.taro@exmample.com',
       password: 'pass',
     },
   ])
@@ -26,8 +24,8 @@ export class MockedAuthApi implements IAuthApi {
     return new Ok(undefined)
   }
 
-  async signUp(name: string, email: string, password: string): Promise<IResult<void>> {
-    this.authStore.add({ name, email, password })
+  async signUp(name: string, password: string): Promise<IResult<void>> {
+    this.authStore.add({ name, password })
     return new Ok(undefined)
   }
 }

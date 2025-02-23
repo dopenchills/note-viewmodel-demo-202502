@@ -2,7 +2,6 @@ import type { IPubSubEvent } from 'shared__event-aggregator'
 
 export interface SignedUpPayload {
   name: string
-  email: string
   password: string
 }
 
