@@ -20,6 +20,7 @@
     "features__top__views.web.vue": "workspace:*",
     "features__user__views.web.vue": "workspace:*",
     "features__user__view-models": "workspace:*",
+    "features__note__views.web.vue": "workspace:*",
     "shared__constants": "workspace:*"
   },
   "devDependencies": {

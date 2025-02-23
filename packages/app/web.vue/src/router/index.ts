@@ -8,6 +8,8 @@ import {
 } from 'vue-router'
 
 import { diContainer } from 'di'
+import { ListNoteView } from 'features__note__views.web.vue'
+import CreateNoteView from 'features__note__views.web.vue/src/CreateNoteView/CreateNoteView.vue'
 import { type IAuthViewModel, UserTypes } from 'features__user__view-models'
 import { AuthView } from 'features__user__views.web.vue'
 import { paths } from 'shared__constants'
@@ -23,6 +25,14 @@ const router = createRouter({
       path: paths.auth,
       name: 'auth',
       component: AuthView,
+    },
+    {
+      path: paths.notes,
+      component: ListNoteView,
+    },
+    {
+      path: paths.createNote,
+      component: CreateNoteView,
     },
   ],
 })

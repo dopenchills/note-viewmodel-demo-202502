@@ -1,0 +1,15 @@
+{
+  "name": "features__note__views.web.vue",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "di": "workspace:*",
+    "features__note__view-models": "workspace:*",
+    "features__shared__views.web.vue": "workspace:*",
+    "shared__constants": "workspace:*",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  }
+}
