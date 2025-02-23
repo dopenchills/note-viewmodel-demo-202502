@@ -1,20 +1,19 @@
 import { injectable } from 'inversify'
+import { BehaviorSubject } from 'rxjs'
 import type { IEventAggregator, IPubSubEvent, ISubscription } from 'shared__event-aggregator'
 import type { IViewModel } from '../interface/IViewModel'
 
 @injectable()
 export abstract class ViewModelBase implements IViewModel {
-  private _isBusy: boolean = false
-  private _subscriptions: ISubscription[] = []
+  private _isBusy: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  public isBusy$ = this._isBusy.asObservable()
 
-  get isBusy(): boolean {
-    return this._isBusy
-  }
+  private _subscriptions: ISubscription[] = []
 
   constructor(protected readonly ea: IEventAggregator) {}
 
-  setIsBusy(isBusy: boolean): void {
-    this._isBusy = isBusy
+  setIsBusy(value: boolean): void {
+    this._isBusy.next(value)
   }
 
   load(): Promise<void> {
