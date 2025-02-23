@@ -1,4 +1,4 @@
-import { IPubSubEvent } from '../../../event-aggregator/src'
+import { IPubSubEvent } from 'shared__event-aggregator'
 
 export interface IViewModel {
   readonly isBusy: boolean

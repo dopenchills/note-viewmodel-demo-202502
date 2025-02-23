@@ -355,6 +355,9 @@ importers:
       rxjs:
         specifier: 'catalog:'
         version: 7.8.2
+      shared__event-aggregator:
+        specifier: workspace:*
+        version: link:../event-aggregator
     devDependencies:
       typescript:
         specifier: 'catalog:'

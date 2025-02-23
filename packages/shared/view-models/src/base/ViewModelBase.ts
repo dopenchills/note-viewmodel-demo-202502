@@ -1,5 +1,5 @@
 import { injectable } from 'inversify'
-import { IEventAggregator, IPubSubEvent, ISubscription } from '../../../event-aggregator/src'
+import { IEventAggregator, IPubSubEvent, ISubscription } from 'shared__event-aggregator'
 import { IViewModel } from '../interface/IViewModel'
 
 @injectable()

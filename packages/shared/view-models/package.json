@@ -10,6 +10,7 @@
   "dependencies": {
     "rxjs": "catalog:",
     "inversify": "catalog:",
+    "shared__event-aggregator": "workspace:*",
     "di": "workspace:*"
   },
   "devDependencies": {

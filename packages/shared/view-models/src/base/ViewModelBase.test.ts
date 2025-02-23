@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { IEventAggregator, IPubSubEvent, ISubscription } from 'shared__event-aggregator'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ViewModelBase } from './ViewModelBase'
-import { IEventAggregator, IPubSubEvent, ISubscription } from '../../../event-aggregator/src'
 
 // Mock event aggregator
 const createMockEventAggregator = () => {
