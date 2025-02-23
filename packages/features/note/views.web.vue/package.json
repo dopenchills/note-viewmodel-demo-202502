@@ -9,7 +9,7 @@
     "features__note__view-models": "workspace:*",
     "features__shared__views.web.vue": "workspace:*",
     "shared__constants": "workspace:*",
-    "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue": "catalog:",
+    "vue-router": "catalog:"
   }
 }

@@ -15,6 +15,9 @@ catalogs:
     '@types/jsdom':
       specifier: ^21.1.7
       version: 21.1.7
+    '@types/json-schema':
+      specifier: ^7.0.15
+      version: 7.0.15
     '@types/node':
       specifier: ^22.13.4
       version: 22.13.4
@@ -43,7 +46,7 @@ catalogs:
       specifier: ^9.32.0
       version: 9.32.0
     inversify:
-      specifier: ^6.2.2
+      specifier: ^6.0.1
       version: 6.2.2
     jiti:
       specifier: ^2.4.2
@@ -61,7 +64,7 @@ catalogs:
       specifier: ^0.1.13
       version: 0.1.14
     rxjs:
-      specifier: ^7.8.2
+      specifier: ^7.8.1
       version: 7.8.2
     typescript:
       specifier: ~5.7.2
@@ -76,13 +79,13 @@ catalogs:
       specifier: ^3.0.5
       version: 3.0.6
     vue:
-      specifier: ^3.5.13
+      specifier: ^3.3.4
       version: 3.5.13
     vue-eslint-parser:
       specifier: ^9.4.3
       version: 9.4.3
     vue-router:
-      specifier: ^4.5.0
+      specifier: ^4.2.4
       version: 4.5.0
     vue-tsc:
       specifier: ^2.2.2
@@ -239,10 +242,10 @@ importers:
   packages/features/note/viewModels:
     dependencies:
       inversify:
-        specifier: ^6.0.1
+        specifier: 'catalog:'
         version: 6.2.2(reflect-metadata@0.1.14)
       rxjs:
-        specifier: ^7.8.1
+        specifier: 'catalog:'
         version: 7.8.2
       shared__api:
         specifier: workspace:*
@@ -269,16 +272,16 @@ importers:
         specifier: workspace:*
         version: link:../../../shared/constants
       vue:
-        specifier: ^3.3.4
+        specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
       vue-router:
-        specifier: ^4.2.4
+        specifier: 'catalog:'
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
 
   packages/features/shared/views.ai.voice:
     devDependencies:
       '@types/json-schema':
-        specifier: ^7.0.15
+        specifier: 'catalog:'
         version: 7.0.15
 
   packages/features/shared/views.web.vue:
@@ -357,7 +360,7 @@ importers:
         version: link:../../../shared/constants
     devDependencies:
       '@types/json-schema':
-        specifier: ^7.0.15
+        specifier: 'catalog:'
         version: 7.0.15
 
   packages/features/user/views.web.vue:

@@ -8,7 +8,7 @@
     "shared__api": "workspace:*",
     "shared__view-models": "workspace:*",
     "shared__event-aggregator": "workspace:*",
-    "inversify": "^6.0.1",
-    "rxjs": "^7.8.1"
+    "inversify": "catalog:",
+    "rxjs": "catalog:"
   }
 }
