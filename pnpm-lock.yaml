@@ -122,15 +122,9 @@ importers:
 
   packages/app/ai.voice:
     dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../di
       features__shared__views.ai.voice:
         specifier: workspace:*
         version: link:../../features/shared/views.ai.voice
-      features__user__view-models:
-        specifier: workspace:*
-        version: link:../../features/user/view-models
       features__user__views.ai.voice:
         specifier: workspace:*
         version: link:../../features/user/views.ai.voice
@@ -319,9 +313,6 @@ importers:
 
   packages/shared/api:
     dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../di
       inversify:
         specifier: 'catalog:'
         version: 6.2.2(reflect-metadata@0.1.14)
