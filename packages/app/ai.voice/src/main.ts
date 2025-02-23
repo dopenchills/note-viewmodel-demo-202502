@@ -39,7 +39,12 @@ class VoiceChat {
       const message = JSON.parse(event.data)
       if (message.type === 'response.function_call_arguments.done') {
         try {
+          console.log('Received function call:', message.name, message.arguments)
+
           const result = await this.currentPage.runTool(message.name, JSON.parse(message.arguments))
+
+          console.log('Result:', result)
+
           this.sendToDataChannel({
             type: 'conversation.item.create',
             item: {
