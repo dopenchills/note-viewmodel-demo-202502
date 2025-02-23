@@ -24,7 +24,7 @@ export class VoiceChat {
     this.voiceConnection = new VoiceConnection()
     this.dataChannelHandler = new DataChannelHandler(this.voiceConnection.getDataChannel())
     this.logger = new Logger('#logs')
-    this.openAIClient = new OpenAIClient(import.meta.env.VITE_OPENAI_API_KEY)
+    this.openAIClient = new OpenAIClient(import.meta.env.OPENAI_API_KEY)
 
     // Setup handlers
     this.setupDataChannelHandler()
