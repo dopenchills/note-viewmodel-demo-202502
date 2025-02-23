@@ -147,6 +147,9 @@ importers:
       di:
         specifier: workspace:*
         version: link:../../di
+      features__note__views.web.vue:
+        specifier: workspace:*
+        version: link:../../features/note/views.web.vue
       features__top__views.web.vue:
         specifier: workspace:*
         version: link:../../features/top/views.web.vue
@@ -230,6 +233,45 @@ importers:
         specifier: workspace:*
         version: link:../shared/event-aggregator
 
+  packages/features/note/viewModels:
+    dependencies:
+      inversify:
+        specifier: ^6.0.1
+        version: 6.2.2(reflect-metadata@0.1.14)
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.2
+      shared__api:
+        specifier: workspace:*
+        version: link:../../../shared/api
+      shared__event-aggregator:
+        specifier: workspace:*
+        version: link:../../../shared/event-aggregator
+      shared__view-models:
+        specifier: workspace:*
+        version: link:../../../shared/view-models
+
+  packages/features/note/views.web.vue:
+    dependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../../di
+      features__note__view-models:
+        specifier: workspace:*
+        version: link:../viewModels
+      features__shared__views.web.vue:
+        specifier: workspace:*
+        version: link:../../shared/views.web.vue
+      shared__constants:
+        specifier: workspace:*
+        version: link:../../../shared/constants
+      vue:
+        specifier: ^3.3.4
+        version: 3.5.13(typescript@5.7.3)
+      vue-router:
+        specifier: ^4.2.4
+        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
+
   packages/features/shared/views.ai.voice:
     devDependencies:
       '@types/json-schema':
@@ -257,7 +299,17 @@ importers:
         specifier: workspace:*
         version: link:../../../shared/constants
 
-  packages/features/top/views.web.vue: {}
+  packages/features/top/views.web.vue:
+    dependencies:
+      shared__constants:
+        specifier: workspace:*
+        version: link:../../../shared/constants
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.7.3)
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
 
   packages/features/user/view-models:
     dependencies:
