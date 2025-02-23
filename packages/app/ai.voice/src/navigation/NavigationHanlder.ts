@@ -1,6 +1,7 @@
 import type { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
 import { HomePage } from 'features__top__views.ai.voice/pages'
 import { AuthPage } from 'features__user__views.ai.voice/pages'
+import { paths } from 'shared__constants'
 
 interface INavigationHandler {
   /**
@@ -37,10 +38,10 @@ export class NavigationHandler implements INavigationHandler {
 
   runNavigationTool(): { result: 'success' } | { result: 'failure'; error: string } {
     switch (this._currentPage.id) {
-      case 'home':
+      case paths.top:
         this._currentPage = new AuthPage()
         return { result: 'success' }
-      case 'auth':
+      case paths.auth:
         this._currentPage = new AuthPage()
         return { result: 'success' }
       default:

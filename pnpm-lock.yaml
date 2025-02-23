@@ -131,6 +131,9 @@ importers:
       features__user__views.ai.voice:
         specifier: workspace:*
         version: link:../../features/user/views.ai.voice
+      shared__constants:
+        specifier: workspace:*
+        version: link:../../shared/constants
     devDependencies:
       typescript:
         specifier: 'catalog:'

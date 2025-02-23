@@ -11,7 +11,8 @@
   "dependencies": {
     "features__shared__views.ai.voice": "workspace:*",
     "features__user__views.ai.voice": "workspace:*",
-    "features__top__views.ai.voice": "workspace:*"
+    "features__top__views.ai.voice": "workspace:*",
+    "shared__constants": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",
