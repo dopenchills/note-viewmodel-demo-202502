@@ -1,4 +1,4 @@
-import { IViewModel, ObservableProps } from 'shared__view-models'
+import type { IViewModel, ObservableProps } from 'shared__view-models'
 
 export interface ISignInViewModelProps {
   name: string

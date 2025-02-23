@@ -1,12 +1,11 @@
 import { userModule } from './di/userModule'
-import { IAuthViewModel } from './interfaces/IAuthViewModel'
-import { ISignInViewModel } from './interfaces/ISignInViewModel'
-import { ISignUpViewModel } from './interfaces/ISignUpViewModel'
+import { UserTypes } from './di/UserTypes'
 import { AuthViewModel } from './impl/AuthViewModel'
 import { SignInViewModel } from './impl/SignInViewModel'
 import { SignUpViewModel } from './impl/SignUpViewModel'
-import { UserTypes } from './di/UserTypes'
+import type { IAuthViewModel } from './interfaces/IAuthViewModel'
+import type { ISignInViewModel } from './interfaces/ISignInViewModel'
+import type { ISignUpViewModel } from './interfaces/ISignUpViewModel'
 
-export { userModule, UserTypes, AuthViewModel, SignInViewModel, SignUpViewModel }
-
+export { AuthViewModel, SignInViewModel, SignUpViewModel, userModule, UserTypes }
 export type { IAuthViewModel, ISignInViewModel, ISignUpViewModel }

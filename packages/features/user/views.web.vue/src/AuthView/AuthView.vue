@@ -32,12 +32,12 @@
 import { diContainer } from 'di'
 import { useObservableProps } from 'features__shared__views.web.vue/composables'
 import { TopBarLayout } from 'features__shared__views.web.vue/layouts'
-import {
+import type {
   IAuthViewModel,
   ISignInViewModel,
   ISignUpViewModel,
-  UserTypes,
 } from 'features__user__view-models'
+import { UserTypes } from 'features__user__view-models'
 import { paths } from 'shared__constants'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'

@@ -1,4 +1,4 @@
-import { IPubSubEvent } from 'shared__event-aggregator'
+import type { IPubSubEvent } from 'shared__event-aggregator'
 
 export interface SignedInPayload {
   name: string
