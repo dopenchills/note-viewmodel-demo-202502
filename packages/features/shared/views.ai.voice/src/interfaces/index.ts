@@ -1,3 +1,3 @@
-import { IPage } from './IPage'
+import type { IPage, Tool } from './IPage'
 
-export type { IPage }
+export type { IPage, Tool }

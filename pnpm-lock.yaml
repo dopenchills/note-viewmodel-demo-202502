@@ -274,6 +274,22 @@ importers:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
 
+  packages/features/user/views.ai.voice:
+    dependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../../di
+      features__shared__views.ai.voice:
+        specifier: workspace:*
+        version: link:../../shared/views.ai.voice
+      features__user__view-models:
+        specifier: workspace:*
+        version: link:../view-models
+    devDependencies:
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
+
   packages/features/user/views.web.vue:
     dependencies:
       di:

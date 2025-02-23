@@ -1,0 +1,22 @@
+{
+  "name": "features__user__views.ai.voice",
+  "version": "1.0.0",
+  "description": "",
+  "exports": {
+    "./pages": "./src/pages/index.ts"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "di": "workspace:*",
+    "features__user__view-models": "workspace:*",
+    "features__shared__views.ai.voice": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/json-schema": "^7.0.15"
+  }
+}
