@@ -18,14 +18,9 @@ export class AuthViewModel extends ViewModelBase implements IAuthViewModel {
     this.subscribe<SignedInEvent>(SignedInEvent, async () => {
       this._isSignedIn.next(true)
     })
-  }
 
-  signIn(): void {
-    this._isSignedIn.next(true)
-  }
-
-  signOut(): void {
-    this._isSignedIn.next(false)
-    this.ea.publish(new SignedOutEvent())
+    this.subscribe<SignedOutEvent>(SignedOutEvent, async () => {
+      this._isSignedIn.next(false)
+    })
   }
 }

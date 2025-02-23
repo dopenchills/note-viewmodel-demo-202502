@@ -4,6 +4,7 @@ import { commonInstruction } from 'features__shared__views.ai.voice/pages'
 import {
   IAuthViewModel,
   ISignInViewModel,
+  ISignOutViewModel,
   ISignUpViewModel,
   UserTypes,
 } from 'features__user__view-models'
@@ -16,6 +17,7 @@ export class AuthPage implements IPage {
   private authViewModel: IAuthViewModel
   private signInViewModel: ISignInViewModel
   private signUpViewModel: ISignUpViewModel
+  private signOutViewModel: ISignOutViewModel
   private userName: string = ''
   private email: string = ''
   private isSignedIn: boolean = false
@@ -24,6 +26,7 @@ export class AuthPage implements IPage {
     this.authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
     this.signInViewModel = diContainer.get<ISignInViewModel>(UserTypes.SignInViewModel)
     this.signUpViewModel = diContainer.get<ISignUpViewModel>(UserTypes.SignUpViewModel)
+    this.signOutViewModel = diContainer.get<ISignOutViewModel>(UserTypes.SignOutViewModel)
 
     this.authViewModel.isSignedIn$.subscribe((isSignedIn) => {
       this.isSignedIn = isSignedIn
@@ -160,7 +163,7 @@ export class AuthPage implements IPage {
       }
 
       case 'signOut': {
-        this.authViewModel.signOut()
+        await this.signOutViewModel.signOut()
         return {
           success: true,
         }
