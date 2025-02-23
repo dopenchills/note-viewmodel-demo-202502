@@ -94,7 +94,9 @@ export class AuthPage implements IPage {
       }
 
       default:
-        throw new Error(`Unknown tool: ${name}`)
+        return {
+          error: `Tool ${name} not found`,
+        }
     }
   }
 }
