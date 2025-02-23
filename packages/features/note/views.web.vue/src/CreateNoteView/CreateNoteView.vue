@@ -8,11 +8,14 @@
           <label for="title">Title</label>
           <input
             id="title"
-            :model-value="title"
+            :value="title"
             type="text"
             :disabled="isBusy"
             class="form-control"
-            @update:model-value="createNoteViewModel.setTitle($event)"
+            @input="
+              (event: Event) =>
+                createNoteViewModel.setTitle((event.target as HTMLInputElement).value)
+            "
           />
         </div>
 
@@ -20,11 +23,14 @@
           <label for="content">Content</label>
           <textarea
             id="content"
-            :model-value="content"
+            :value="content"
             :disabled="isBusy"
             class="form-control"
             rows="6"
-            @update:model-value="createNoteViewModel.setContent($event)"
+            @input="
+              (event: Event) =>
+                createNoteViewModel.setContent((event.target as HTMLTextAreaElement).value)
+            "
           ></textarea>
         </div>
 
