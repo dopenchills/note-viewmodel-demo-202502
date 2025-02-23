@@ -8,12 +8,14 @@ class VoiceChat {
   private isRecording: boolean = false
   private recordButton: HTMLButtonElement
   private audioContainer: HTMLDivElement
+  private logsContainer: HTMLDivElement
   private currentPage: IPage
 
   constructor() {
     this.currentPage = new AuthPage()
     this.recordButton = document.querySelector<HTMLButtonElement>('#recordButton')!
     this.audioContainer = document.querySelector<HTMLDivElement>('#audioContainer')!
+    this.logsContainer = document.querySelector<HTMLDivElement>('#logs')!
 
     this.peerConnection = new RTCPeerConnection()
     this.dataChannel = this.peerConnection.createDataChannel('oai-events')
@@ -34,16 +36,55 @@ class VoiceChat {
     }
   }
 
+  private addLogEntry(functionName: string, args: string, result?: unknown) {
+    const logEntry = document.createElement('div')
+    logEntry.className = 'log-entry'
+
+    const timestamp = document.createElement('div')
+    timestamp.className = 'timestamp'
+    timestamp.textContent = new Date().toLocaleTimeString()
+
+    const name = document.createElement('div')
+    name.className = 'function-name'
+    name.textContent = `Function: ${functionName}`
+
+    const argsElement = document.createElement('pre')
+    argsElement.textContent = `Arguments: ${args}`
+
+    logEntry.appendChild(timestamp)
+    logEntry.appendChild(name)
+    logEntry.appendChild(argsElement)
+
+    if (result !== undefined) {
+      const resultElement = document.createElement('pre')
+      resultElement.className = 'result'
+      resultElement.textContent = `Result: ${JSON.stringify(result, null, 2)}`
+      logEntry.appendChild(resultElement)
+    }
+
+    this.logsContainer.insertBefore(logEntry, this.logsContainer.firstChild)
+    console.log('Function call:', functionName, args) // Keep console.log for debugging
+  }
+
   private setupDataChannel() {
     this.dataChannel.addEventListener('message', async (event) => {
       const message = JSON.parse(event.data)
       if (message.type === 'response.function_call_arguments.done') {
         try {
-          console.log('Received function call:', message.name, message.arguments)
+          this.addLogEntry(message.name, message.arguments)
 
           const result = await this.currentPage.runTool(message.name, JSON.parse(message.arguments))
 
-          console.log('Result:', result)
+          // Update log entry with result
+          const lastEntry = this.logsContainer.firstChild as HTMLElement
+          if (lastEntry) {
+            const resultElement = document.createElement('pre')
+            resultElement.className = 'result'
+            resultElement.textContent = `Result: ${JSON.stringify(result, null, 2)}`
+            lastEntry.appendChild(resultElement)
+          }
+
+          console.log('Result:', result) // Keep console.log for debugging
 
           this.sendToDataChannel({
             type: 'conversation.item.create',
@@ -56,6 +97,14 @@ class VoiceChat {
           this.sendToDataChannel({ type: 'response.create' })
         } catch (error) {
           console.error('Error running tool:', error)
+          // Add error to log entry
+          const lastEntry = this.logsContainer.firstChild as HTMLElement
+          if (lastEntry) {
+            const errorElement = document.createElement('pre')
+            errorElement.className = 'result error'
+            errorElement.textContent = `Error: ${error}`
+            lastEntry.appendChild(errorElement)
+          }
         }
       }
     })
@@ -70,6 +119,7 @@ class VoiceChat {
       this.dataChannel.send(JSON.stringify(data))
     } else {
       console.warn('Data channel not ready, message not sent:', data)
+      this.addLogEntry('Warning', 'Data channel not ready, message not sent')
     }
   }
 
@@ -136,6 +186,7 @@ class VoiceChat {
       })
     } catch (error) {
       console.error('Error starting recording:', error)
+      this.addLogEntry('Error', 'Failed to start recording')
       alert('Failed to start recording. Please check console for details.')
     }
   }

@@ -33,6 +33,12 @@ h1 {
   color: #333;
 }
 
+h2 {
+  font-size: 1.5em;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
 .controls {
   margin-bottom: 2rem;
 }
@@ -65,4 +71,50 @@ h1 {
 audio {
   width: 100%;
   margin-top: 1rem;
+}
+
+.log-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.logs {
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.9em;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+}
+
+.log-entry {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-left: 3px solid #646cff;
+  background-color: white;
+}
+
+.log-entry pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.log-entry .timestamp {
+  color: #666;
+  font-size: 0.8em;
+}
+
+.log-entry .function-name {
+  color: #646cff;
+  font-weight: bold;
+}
+
+.log-entry .result {
+  color: #2a9d8f;
 }
