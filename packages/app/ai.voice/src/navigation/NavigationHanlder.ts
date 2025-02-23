@@ -1,4 +1,5 @@
 import type { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
+import { HomePage } from 'features__top__views.ai.voice/pages'
 import { AuthPage } from 'features__user__views.ai.voice/pages'
 
 interface INavigationHandler {
@@ -19,7 +20,7 @@ interface INavigationHandler {
 }
 
 export class NavigationHandler implements INavigationHandler {
-  private _currentPage: IPage = new AuthPage()
+  private _currentPage: IPage = new HomePage()
 
   getCurrentPage(): IPage {
     return this._currentPage
@@ -29,7 +30,7 @@ export class NavigationHandler implements INavigationHandler {
     return {
       type: 'function',
       name: 'next-page',
-      description: '次のページに移動する。各ページの目的が果たされたら実行する',
+      description: '次のページに移動する。各ページの目的が果たされたら即時実行する',
       parameters: {},
     }
   }

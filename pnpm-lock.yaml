@@ -125,6 +125,9 @@ importers:
       features__shared__views.ai.voice:
         specifier: workspace:*
         version: link:../../features/shared/views.ai.voice
+      features__top__views.ai.voice:
+        specifier: workspace:*
+        version: link:../../features/top/views.ai.chat
       features__user__views.ai.voice:
         specifier: workspace:*
         version: link:../../features/user/views.ai.voice

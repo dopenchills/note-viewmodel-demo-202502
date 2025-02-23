@@ -11,7 +11,7 @@ export class HomePage implements IPage {
 ユーザーからの入力を受け取り、AIチャットを開始します。
 </page>
 <objective>
-ユーザーがAIチャットを開始すること。
+ユーザーがAIチャットを開始すること。ユーザーから理解可能な言葉を受け取った瞬間、目的は達成される。
 </objective>
 `
   }

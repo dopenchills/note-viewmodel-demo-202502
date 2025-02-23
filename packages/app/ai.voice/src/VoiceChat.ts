@@ -1,7 +1,6 @@
-import { IPage } from 'features__shared__views.ai.voice/interfaces'
-import { AuthPage } from 'features__user__views.ai.voice/pages'
 import { OpenAIClient } from './api/OpenAIClient'
 import { DataChannelHandler } from './messaging/DataChannelHandler'
+import { NavigationHandler } from './navigation/NavigationHanlder'
 import { Logger } from './utils/Logger'
 import { VoiceConnection } from './webrtc/VoiceConnection'
 
@@ -10,18 +9,18 @@ export class VoiceChat {
   private dataChannelHandler: DataChannelHandler
   private logger: Logger
   private openAIClient: OpenAIClient
+  private navigationHandler: NavigationHandler
   private isRecording: boolean = false
   private recordButton: HTMLButtonElement
   private audioContainer: HTMLDivElement
-  private currentPage: IPage
 
   constructor() {
     // Initialize DOM elements
     this.recordButton = document.querySelector<HTMLButtonElement>('#recordButton')!
     this.audioContainer = document.querySelector<HTMLDivElement>('#audioContainer')!
-    this.currentPage = new AuthPage()
 
     // Initialize services
+    this.navigationHandler = new NavigationHandler()
     this.voiceConnection = new VoiceConnection()
     this.dataChannelHandler = new DataChannelHandler(this.voiceConnection.getDataChannel())
     this.logger = new Logger('#logs')
@@ -38,10 +37,30 @@ export class VoiceChat {
       if (message.type === 'response.function_call_arguments.done') {
         try {
           this.logger.log(message.name!, message.arguments!)
-          const result = await this.currentPage.runTool(
-            message.name!,
-            JSON.parse(message.arguments!)
-          )
+
+          // Handle navigation tool separately
+          if (message.name === 'next-page') {
+            const result = this.navigationHandler.runNavigationTool()
+            this.logger.addResult(result)
+
+            if (result.result === 'success') {
+              // Update session with new page tools after navigation
+              const sessionUpdate = this.dataChannelHandler.updateSession(this.getTools())
+              this.dataChannelHandler.sendMessage(sessionUpdate)
+            }
+
+            const responses = this.dataChannelHandler.createFunctionCallResponse(
+              message.call_id!,
+              result
+            )
+            responses.forEach((response) => this.dataChannelHandler.sendMessage(response))
+            return
+          }
+
+          // Handle page-specific tools
+          const result = await this.navigationHandler
+            .getCurrentPage()
+            .runTool(message.name!, JSON.parse(message.arguments!))
           this.logger.addResult(result)
 
           const responses = this.dataChannelHandler.createFunctionCallResponse(
@@ -55,6 +74,11 @@ export class VoiceChat {
         }
       }
     })
+  }
+
+  private getTools() {
+    const currentPage = this.navigationHandler.getCurrentPage()
+    return [...currentPage.getTools(), this.navigationHandler.getNavigationTool()]
   }
 
   private setupRecordButton() {
@@ -75,13 +99,13 @@ export class VoiceChat {
     try {
       const offer = await this.voiceConnection.startStream()
       const { client_secret } = await this.openAIClient.createSession(
-        this.currentPage.getInstructions()
+        this.navigationHandler.getCurrentPage().getInstructions()
       )
       const answer = await this.openAIClient.getAnswer(client_secret.value, offer.sdp!)
       await this.voiceConnection.setRemoteDescription(answer)
 
       this.dataChannelHandler.onOpen(() => {
-        const sessionUpdate = this.dataChannelHandler.updateSession(this.currentPage.getTools())
+        const sessionUpdate = this.dataChannelHandler.updateSession(this.getTools())
         this.dataChannelHandler.sendMessage(sessionUpdate)
       })
     } catch (error) {
