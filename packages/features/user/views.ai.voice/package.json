@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "rxjs": "catalog:",
     "di": "workspace:*",
     "features__user__view-models": "workspace:*",
     "features__shared__views.ai.voice": "workspace:*",

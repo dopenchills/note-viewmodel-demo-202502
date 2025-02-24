@@ -125,6 +125,9 @@ importers:
 
   packages/app/ai.voice:
     dependencies:
+      features__note__views.ai.voice:
+        specifier: workspace:*
+        version: link:../../features/note/views.ai.voice
       features__shared__views.ai.voice:
         specifier: workspace:*
         version: link:../../features/shared/views.ai.voice
@@ -257,6 +260,27 @@ importers:
         specifier: workspace:*
         version: link:../../../shared/view-models
 
+  packages/features/note/views.ai.voice:
+    dependencies:
+      di:
+        specifier: workspace:*
+        version: link:../../../di
+      features__note__view-models:
+        specifier: workspace:*
+        version: link:../viewModels
+      features__shared__views.ai.voice:
+        specifier: workspace:*
+        version: link:../../shared/views.ai.voice
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
+      shared__api:
+        specifier: workspace:*
+        version: link:../../../shared/api
+      shared__constants:
+        specifier: workspace:*
+        version: link:../../../shared/constants
+
   packages/features/note/views.web.vue:
     dependencies:
       di:
@@ -355,6 +379,9 @@ importers:
       features__user__view-models:
         specifier: workspace:*
         version: link:../view-models
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
       shared__constants:
         specifier: workspace:*
         version: link:../../../shared/constants

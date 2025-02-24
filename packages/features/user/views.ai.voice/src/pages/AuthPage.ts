@@ -8,6 +8,7 @@ import {
   ISignUpViewModel,
   UserTypes,
 } from 'features__user__view-models'
+import { Subscription } from 'rxjs'
 import { paths } from 'shared__constants'
 
 export class AuthPage implements IPage {
@@ -20,19 +21,13 @@ export class AuthPage implements IPage {
   private signOutViewModel: ISignOutViewModel
   private userName: string = ''
   private isSignedIn: boolean = false
+  private subscriptions: Subscription[] = []
 
   constructor() {
     this.authViewModel = diContainer.get<IAuthViewModel>(UserTypes.AuthViewModel)
     this.signInViewModel = diContainer.get<ISignInViewModel>(UserTypes.SignInViewModel)
     this.signUpViewModel = diContainer.get<ISignUpViewModel>(UserTypes.SignUpViewModel)
     this.signOutViewModel = diContainer.get<ISignOutViewModel>(UserTypes.SignOutViewModel)
-
-    this.authViewModel.isSignedIn$.subscribe((isSignedIn) => {
-      this.isSignedIn = isSignedIn
-    })
-    this.signInViewModel.name$.subscribe((name) => {
-      this.userName = name
-    })
   }
 
   async load(): Promise<void> {
@@ -40,6 +35,19 @@ export class AuthPage implements IPage {
     await this.signInViewModel.load()
     await this.signUpViewModel.load()
     await this.signOutViewModel.load()
+
+    this.subscriptions = [
+      this.authViewModel.isSignedIn$.subscribe((isSignedIn) => {
+        this.isSignedIn = isSignedIn
+      }),
+      this.signInViewModel.name$.subscribe((name) => {
+        this.userName = name
+      }),
+    ]
+  }
+
+  async unload(): Promise<void> {
+    this.subscriptions.forEach((s) => s.unsubscribe())
   }
 
   getInstructions(): string {

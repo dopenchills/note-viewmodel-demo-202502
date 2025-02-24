@@ -30,4 +30,8 @@ export class HomePage implements IPage {
   load(): Promise<void> {
     return Promise.resolve()
   }
+
+  unload(): Promise<void> {
+    return Promise.resolve()
+  }
 }

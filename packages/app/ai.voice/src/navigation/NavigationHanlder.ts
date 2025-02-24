@@ -1,3 +1,4 @@
+import { CreateNotePage, ListNotePage } from 'features__note__views.ai.voice/pages'
 import type { IPage, Tool } from 'features__shared__views.ai.voice/interfaces'
 import { HomePage } from 'features__top__views.ai.voice/pages'
 import { AuthPage } from 'features__user__views.ai.voice/pages'
@@ -64,6 +65,12 @@ export class NavigationHandler implements INavigationHandler {
         case paths.auth:
           this._currentPage = new AuthPage()
           return { result: 'success' }
+        case paths.notes:
+          this._currentPage = new ListNotePage()
+          return { result: 'success' }
+        case paths.createNote:
+          this._currentPage = new CreateNotePage()
+          return { result: 'success' }
         default:
           return { result: 'failure', error: 'Navigation rule is not defined' }
       }
@@ -74,6 +81,12 @@ export class NavigationHandler implements INavigationHandler {
           return { result: 'success' }
         case paths.auth:
           this._currentPage = new AuthPage()
+          return { result: 'success' }
+        case paths.notes:
+          this._currentPage = new ListNotePage()
+          return { result: 'success' }
+        case paths.createNote:
+          this._currentPage = new CreateNotePage()
           return { result: 'success' }
         default:
           return { result: 'failure', error: 'Navigation rule is not defined' }
