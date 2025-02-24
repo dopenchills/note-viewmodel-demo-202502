@@ -1,11 +1,4 @@
-export type Paths = {
-  top: string
-  auth: string
-  notes: string
-  createNote: string
-}
-
-export const paths: Paths = {
+export const paths = {
   top: '/',
   auth: '/auth',
   notes: '/notes',
