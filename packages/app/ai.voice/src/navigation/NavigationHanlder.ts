@@ -61,16 +61,16 @@ export class NavigationHandler implements INavigationHandler {
       switch (paths[nextPagePath]) {
         case paths.top:
           this._currentPage = new HomePage()
-          return { result: 'success' }
+          break
         case paths.auth:
           this._currentPage = new AuthPage()
-          return { result: 'success' }
+          break
         case paths.notes:
           this._currentPage = new ListNotePage()
-          return { result: 'success' }
+          break
         case paths.createNote:
           this._currentPage = new CreateNotePage()
-          return { result: 'success' }
+          break
         default:
           return { result: 'failure', error: 'Navigation rule is not defined' }
       }
@@ -78,20 +78,21 @@ export class NavigationHandler implements INavigationHandler {
       switch (this._currentPage.id) {
         case paths.top:
           this._currentPage = new AuthPage()
-          return { result: 'success' }
+          break
         case paths.auth:
           this._currentPage = new AuthPage()
-          return { result: 'success' }
+          break
         case paths.notes:
           this._currentPage = new ListNotePage()
-          return { result: 'success' }
+          break
         case paths.createNote:
           this._currentPage = new CreateNotePage()
-          return { result: 'success' }
+          break
         default:
           return { result: 'failure', error: 'Navigation rule is not defined' }
       }
     }
+    return { result: 'success' }
   }
 
   async load(): Promise<void> {
