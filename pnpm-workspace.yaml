@@ -7,17 +7,17 @@ packages:
   - packages/shared/*
   - packages/di
 catalog:
-  "@eslint/js": ^9.21.0
-  "@tsconfig/node22": ^22.0.0
-  "@types/jsdom": ^21.1.7
-  "@types/json-schema": ^7.0.15
-  "@types/node": ^22.13.4
-  "@typescript-eslint/eslint-plugin": ^8.24.1
-  "@typescript-eslint/parser": ^8.24.1
-  "@vitejs/plugin-vue": ^5.2.1
-  "@vue/eslint-config-typescript": ^14.4.0
-  "@vue/test-utils": ^2.4.6
-  "@vue/tsconfig": ^0.7.0
+  '@eslint/js': ^9.21.0
+  '@tsconfig/node22': ^22.0.0
+  '@types/jsdom': ^21.1.7
+  '@types/json-schema': ^7.0.15
+  '@types/node': ^22.13.4
+  '@typescript-eslint/eslint-plugin': ^8.24.1
+  '@typescript-eslint/parser': ^8.24.1
+  '@vitejs/plugin-vue': ^5.2.1
+  '@vue/eslint-config-typescript': ^14.4.0
+  '@vue/test-utils': ^2.4.6
+  '@vue/tsconfig': ^0.7.0
   eslint: ^9.21.0
   eslint-plugin-vue: ^9.32.0
   inversify: ^6.0.1
@@ -25,7 +25,7 @@ catalog:
   jsdom: ^26.0.0
   npm-run-all2: ^7.0.2
   prettier: ^3.5.2
-  reflect-metadata: ^0.1.13
+  reflect-metadata: ^0.2.2
   rxjs: ^7.8.1
   sass-embedded: ^1.85.0
   typescript: ~5.7.2
