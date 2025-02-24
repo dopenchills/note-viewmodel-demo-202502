@@ -16,7 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "vue": "catalog:",
+    "vue-router": "catalog:",
     "rxjs": "catalog:",
+    "shared__constants": "workspace:*",
     "shared__view-models": "workspace:*"
   }
 }
