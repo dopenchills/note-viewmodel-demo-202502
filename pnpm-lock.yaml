@@ -337,6 +337,9 @@ importers:
 
   packages/features/top/views.web.vue:
     dependencies:
+      features__shared__views.web.vue:
+        specifier: workspace:*
+        version: link:../../shared/views.web.vue
       shared__constants:
         specifier: workspace:*
         version: link:../../../shared/constants
