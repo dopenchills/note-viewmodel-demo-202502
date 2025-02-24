@@ -1,9 +1,6 @@
-import { eventAggregatorModule } from './di/eventAggregatorModule'
-import { EventAggregatorTypes } from './di/EventAggregatorTypes'
-import { EventAggregator } from './EventAggregator'
-import type { IEventAggregator } from './interfaces/IEventAggregator'
-import type { IPubSubEvent } from './interfaces/IPubSubEvent'
-import type { ISubscription } from './interfaces/ISubscription'
-
-export { eventAggregatorModule, EventAggregatorTypes }
-export type { EventAggregator, IEventAggregator, IPubSubEvent, ISubscription }
+export { eventAggregatorModule } from './di/eventAggregatorModule'
+export { EventAggregatorTypes } from './di/EventAggregatorTypes'
+export { EventAggregator } from './EventAggregator'
+export type { IEventAggregator } from './interfaces/IEventAggregator'
+export type { IPubSubEvent } from './interfaces/IPubSubEvent'
+export type { ISubscription } from './interfaces/ISubscription'
