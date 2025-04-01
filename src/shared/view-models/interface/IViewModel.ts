@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs'
-import type { IPubSubEvent } from 'src/shared/event-aggregator'
+import type { IPubSubEvent } from 'src/shared/event-aggregator/interfaces/IPubSubEvent'
 
 export interface IViewModel {
   isBusy$: Observable<boolean>

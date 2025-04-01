@@ -1,6 +1,8 @@
 import { injectable } from 'inversify'
 import { BehaviorSubject } from 'rxjs'
-import type { IEventAggregator, IPubSubEvent, ISubscription } from 'src/shared/event-aggregator'
+import type { IEventAggregator } from 'src/shared/event-aggregator/interfaces/IEventAggregator'
+import type { IPubSubEvent } from 'src/shared/event-aggregator/interfaces/IPubSubEvent'
+import type { ISubscription } from 'src/shared/event-aggregator/interfaces/ISubscription'
 import type { IViewModel } from 'src/shared/view-models/interface/IViewModel'
 
 @injectable()

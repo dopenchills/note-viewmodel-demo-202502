@@ -1,6 +1,0 @@
-export { eventAggregatorModule } from 'src/shared/event-aggregator/di/eventAggregatorModule'
-export { EventAggregatorTypes } from 'src/shared/event-aggregator/di/EventAggregatorTypes'
-export { EventAggregator } from 'src/shared/event-aggregator/EventAggregator'
-export type { IEventAggregator } from 'src/shared/event-aggregator/interfaces/IEventAggregator'
-export type { IPubSubEvent } from 'src/shared/event-aggregator/interfaces/IPubSubEvent'
-export type { ISubscription } from 'src/shared/event-aggregator/interfaces/ISubscription'

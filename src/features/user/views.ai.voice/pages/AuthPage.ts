@@ -1,15 +1,13 @@
 import { Subscription } from 'rxjs'
 import { diContainer } from 'src/di/inversify.config.ts'
-import { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces'
-import { commonInstruction } from 'src/features/shared/views.ai.voice/pages'
-import {
-  IAuthViewModel,
-  ISignInViewModel,
-  ISignOutViewModel,
-  ISignUpViewModel,
-  UserTypes,
-} from 'src/features/user/view-models'
-import { paths } from 'src/shared/constants'
+import type { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces/IPage'
+import { commonInstruction } from 'src/features/shared/views.ai.voice/pages/commonInstruction'
+import { UserTypes } from 'src/features/user/view-models/di/UserTypes'
+import type { IAuthViewModel } from 'src/features/user/view-models/interfaces/IAuthViewModel'
+import type { ISignInViewModel } from 'src/features/user/view-models/interfaces/ISignInViewModel'
+import type { ISignOutViewModel } from 'src/features/user/view-models/interfaces/ISignOutViewModel'
+import type { ISignUpViewModel } from 'src/features/user/view-models/interfaces/ISignUpViewModel'
+import { paths } from 'src/shared/constants/paths'
 
 export class AuthPage implements IPage {
   readonly id = paths.auth

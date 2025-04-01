@@ -36,11 +36,10 @@
 
 <script setup lang="ts">
 import { diContainer } from 'src/di/inversify.config.ts'
-import type { IListNoteViewModel } from 'src/features/note/view-models'
-import { NoteTypes } from 'src/features/note/view-models'
-import { useObservableProps } from 'src/features/shared/views.web.vue/composables'
-import { TopBarLayout } from 'src/features/shared/views.web.vue/layouts'
-import { paths } from 'src/shared/constants'
+import { NoteTypes } from 'src/features/note/view-models/di/NoteTypes'
+import { IListNoteViewModel } from 'src/features/note/view-models/interfaces/IListNoteViewModel'
+import { useObservableProps } from 'src/features/shared/views.web.vue/composables/useObservableProps'
+import { paths } from 'src/shared/constants/paths'
 import { onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 

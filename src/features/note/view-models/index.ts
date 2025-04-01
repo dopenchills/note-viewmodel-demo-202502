@@ -1,6 +1,0 @@
-export * from 'src/features/note/view-models/di/noteModule'
-export * from 'src/features/note/view-models/di/NoteTypes'
-export * from 'src/features/note/view-models/impl/CreateNoteViewModel'
-export * from 'src/features/note/view-models/impl/ListNoteViewModel'
-export * from 'src/features/note/view-models/interfaces/ICreateNoteViewModel'
-export * from 'src/features/note/view-models/interfaces/IListNoteViewModel'

@@ -1,5 +1,5 @@
 import { firstValueFrom } from 'rxjs'
-import { HomeView } from 'src/features/top/views.web.vue'
+import HomeView from 'src/features/top/views.web.vue/HomeView.vue'
 import {
   createRouter,
   createWebHistory,
@@ -8,11 +8,12 @@ import {
 } from 'vue-router'
 
 import { diContainer } from 'src/di/inversify.config.ts'
-import { ListNoteView } from 'src/features/note/views.web.vue'
 import CreateNoteView from 'src/features/note/views.web.vue/CreateNoteView/CreateNoteView.vue'
-import { type IAuthViewModel, UserTypes } from 'src/features/user/view-models'
-import { AuthView } from 'src/features/user/views.web.vue'
-import { paths } from 'src/shared/constants'
+import ListNoteView from 'src/features/note/views.web.vue/ListNoteView/ListNoteView.vue'
+import { UserTypes } from 'src/features/user/view-models/di/UserTypes'
+import type { IAuthViewModel } from 'src/features/user/view-models/interfaces/IAuthViewModel'
+import AuthView from 'src/features/user/views.web.vue/AuthView/AuthView.vue'
+import { paths } from 'src/shared/constants/paths'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

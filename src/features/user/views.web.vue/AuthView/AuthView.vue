@@ -28,20 +28,17 @@
 
 <script setup lang="ts">
 import { diContainer } from 'src/di/inversify.config.ts'
-import { useObservableProps } from 'src/features/shared/views.web.vue/composables'
-import { TopBarLayout } from 'src/features/shared/views.web.vue/layouts'
-import type {
-  IAuthViewModel,
-  ISignInViewModel,
-  ISignUpViewModel,
-} from 'src/features/user/view-models'
-import { UserTypes } from 'src/features/user/view-models'
-import { paths } from 'src/shared/constants'
-import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useObservableProps } from 'src/features/shared/views.web.vue/composables/useObservableProps'
+import { UserTypes } from 'src/features/user/view-models/di/UserTypes'
+import { IAuthViewModel } from 'src/features/user/view-models/interfaces/IAuthViewModel'
+import { ISignInViewModel } from 'src/features/user/view-models/interfaces/ISignInViewModel'
+import { ISignUpViewModel } from 'src/features/user/view-models/interfaces/ISignUpViewModel'
 import SignIn from 'src/features/user/views.web.vue/AuthView/SignIn.vue'
 import SignUp from 'src/features/user/views.web.vue/AuthView/SignUp.vue'
 import TabGroup from 'src/features/user/views.web.vue/AuthView/TabGroup.vue'
+import { paths } from 'src/shared/constants/paths'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 type AuthType = 'sign-in' | 'sign-up'
 const type = ref<AuthType>('sign-in')

@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs'
 import { diContainer } from 'src/di/inversify.config.ts'
-import type { IListNoteViewModel } from 'src/features/note/view-models'
-import { NoteTypes } from 'src/features/note/view-models'
-import { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces'
-import { commonInstruction } from 'src/features/shared/views.ai.voice/pages'
-import type { Note } from 'src/shared/api'
-import { paths } from 'src/shared/constants'
+import { NoteTypes } from 'src/features/note/view-models/di/NoteTypes'
+import type { IListNoteViewModel } from 'src/features/note/view-models/interfaces/IListNoteViewModel'
+import type { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces/IPage'
+import { commonInstruction } from 'src/features/shared/views.ai.voice/pages/commonInstruction'
+import type { Note } from 'src/shared/api/interface/INoteApi'
+import { paths } from 'src/shared/constants/paths'
 
 export class ListNotePage implements IPage {
   readonly id = paths.notes

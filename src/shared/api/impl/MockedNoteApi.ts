@@ -1,7 +1,11 @@
 import { injectable } from 'inversify'
-import type { IResult } from 'src/shared/result'
-import { Ok } from 'src/shared/result'
-import type { CreateNoteRequest, INoteApi, Note, SearchNotesRequest } from 'src/shared/api/interface/INoteApi'
+import type {
+  CreateNoteRequest,
+  INoteApi,
+  Note,
+  SearchNotesRequest,
+} from 'src/shared/api/interface/INoteApi'
+import { Ok, type IResult } from 'src/shared/result'
 
 @injectable()
 export class MockedNoteApi implements INoteApi {

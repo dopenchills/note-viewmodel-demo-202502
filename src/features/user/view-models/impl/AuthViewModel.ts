@@ -1,11 +1,11 @@
 import { inject, injectable } from 'inversify'
 import { BehaviorSubject } from 'rxjs'
-import type { IEventAggregator } from 'src/shared/event-aggregator'
-import { EventAggregatorTypes } from 'src/shared/event-aggregator'
-import { ViewModelBase } from 'src/shared/view-models'
 import { SignedInEvent } from 'src/features/user/view-models/events/SignedInEvent'
 import { SignedOutEvent } from 'src/features/user/view-models/events/SignedOutEvent'
 import type { IAuthViewModel } from 'src/features/user/view-models/interfaces/IAuthViewModel'
+import { EventAggregatorTypes } from 'src/shared/event-aggregator/di/EventAggregatorTypes'
+import type { IEventAggregator } from 'src/shared/event-aggregator/interfaces/IEventAggregator'
+import { ViewModelBase } from 'src/shared/view-models/base/ViewModelBase'
 
 @injectable()
 export class AuthViewModel extends ViewModelBase implements IAuthViewModel {
