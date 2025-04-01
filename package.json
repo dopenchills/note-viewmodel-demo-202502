@@ -9,13 +9,7 @@
     "format": "prettier --write \"**/*.{js,ts,json,vue,css,md}\"",
     "format:check": "prettier --check \"**/*.{js,ts,json,vue,css,md}\"",
     "lint": "eslint . --ext .ts,.vue",
-    "lint:fix": "eslint . --ext .ts,.vue --fix",
-    "dev:web.vue": "pnpm -F \"src/apps/web.vue\" dev",
-    "dev:ai.voice": "pnpm -F \"src/apps/ai.voice\" dev",
-    "build:web.vue": "pnpm -F \"src/apps/web.vue\" build",
-    "build:ai.voice": "pnpm -F \"src/apps/ai.voice\" build",
-    "preview:web.vue": "pnpm -F \"src/apps/web.vue\" preview",
-    "preview:ai.voice": "pnpm -F \"src/apps/ai.voice\" preview"
+    "lint:fix": "eslint . --ext .ts,.vue --fix"
   },
   "keywords": [],
   "author": "",
