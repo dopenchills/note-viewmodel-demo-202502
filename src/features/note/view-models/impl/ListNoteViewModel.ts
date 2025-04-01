@@ -5,7 +5,7 @@ import { ApiType } from 'src/shared/api'
 import type { IEventAggregator } from 'src/shared/event-aggregator'
 import { EventAggregatorTypes } from 'src/shared/event-aggregator'
 import { ViewModelBase } from 'src/shared/view-models'
-import type { IListNoteViewModel } from '../interfaces/IListNoteViewModel'
+import type { IListNoteViewModel } from 'src/features/note/view-models/interfaces/IListNoteViewModel'
 
 @injectable()
 export class ListNoteViewModel extends ViewModelBase implements IListNoteViewModel {

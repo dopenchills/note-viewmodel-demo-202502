@@ -1,1 +1,1 @@
-export { paths } from './paths'
+export { paths } from 'src/shared/constants/paths'

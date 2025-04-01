@@ -1,1 +1,1 @@
-export { HomePage } from './HomePage'
+export { HomePage } from 'src/features/top/views.ai.voice/pages/HomePage'

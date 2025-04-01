@@ -1,7 +1,7 @@
 import { injectable } from 'inversify'
-import type { IEventAggregator } from './interfaces/IEventAggregator'
-import type { IPubSubEvent } from './interfaces/IPubSubEvent'
-import type { ISubscription } from './interfaces/ISubscription'
+import type { IEventAggregator } from 'src/shared/event-aggregator/interfaces/IEventAggregator'
+import type { IPubSubEvent } from 'src/shared/event-aggregator/interfaces/IPubSubEvent'
+import type { ISubscription } from 'src/shared/event-aggregator/interfaces/ISubscription'
 
 @injectable()
 export class EventAggregator implements IEventAggregator {

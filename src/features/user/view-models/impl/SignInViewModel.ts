@@ -7,7 +7,7 @@ import { EventAggregatorTypes } from 'src/shared/event-aggregator'
 import { ViewModelBase } from 'src/shared/view-models'
 import { SignedInEvent } from 'src/features/user/view-models/events/SignedInEvent'
 import { SignedOutEvent } from 'src/features/user/view-models/events/SignedOutEvent'
-import type { ISignInViewModel } from '../interfaces/ISignInViewModel'
+import type { ISignInViewModel } from 'src/features/user/view-models/interfaces/ISignInViewModel'
 
 @injectable()
 export class SignInViewModel extends ViewModelBase implements ISignInViewModel {

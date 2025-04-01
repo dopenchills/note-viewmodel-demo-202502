@@ -1,1 +1,1 @@
-export type { IPage, Tool } from './IPage'
+export type { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces/IPage'
