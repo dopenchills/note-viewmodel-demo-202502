@@ -15,9 +15,6 @@ catalogs:
     '@types/jsdom':
       specifier: ^21.1.7
       version: 21.1.7
-    '@types/json-schema':
-      specifier: ^7.0.15
-      version: 7.0.15
     '@types/node':
       specifier: ^22.13.4
       version: 22.13.4
@@ -94,19 +91,53 @@ catalogs:
 importers:
 
   .:
+    dependencies:
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata:
+        specifier: 'catalog:'
+        version: 0.2.2
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.7.3)
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
     devDependencies:
       '@eslint/js':
         specifier: 'catalog:'
         version: 9.21.0
+      '@tsconfig/node22':
+        specifier: 'catalog:'
+        version: 22.0.0
+      '@types/jsdom':
+        specifier: 'catalog:'
+        version: 21.1.7
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.13.4
       '@typescript-eslint/eslint-plugin':
         specifier: 'catalog:'
         version: 8.24.1(@typescript-eslint/parser@8.24.1(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3)
       '@typescript-eslint/parser':
         specifier: 'catalog:'
         version: 8.24.1(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3)
+      '@vitejs/plugin-vue':
+        specifier: 'catalog:'
+        version: 5.2.1(vite@6.1.1(@types/node@22.13.4)(jiti@2.4.2)(sass-embedded@1.85.0)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))
       '@vue/eslint-config-typescript':
         specifier: 'catalog:'
         version: 14.4.0(eslint-plugin-vue@9.32.0(eslint@9.21.0(jiti@2.4.2)))(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3)
+      '@vue/test-utils':
+        specifier: 'catalog:'
+        version: 2.4.6
+      '@vue/tsconfig':
+        specifier: 'catalog:'
+        version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       eslint:
         specifier: 'catalog:'
         version: 9.21.0(jiti@2.4.2)
@@ -116,30 +147,51 @@ importers:
       jiti:
         specifier: 'catalog:'
         version: 2.4.2
+      jsdom:
+        specifier: 'catalog:'
+        version: 26.0.0
+      npm-run-all2:
+        specifier: 'catalog:'
+        version: 7.0.2
       prettier:
         specifier: 'catalog:'
         version: 3.5.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
+      vite:
+        specifier: 'catalog:'
+        version: 6.1.1(@types/node@22.13.4)(jiti@2.4.2)(sass-embedded@1.85.0)(sass@1.85.0)
+      vite-plugin-vue-devtools:
+        specifier: 'catalog:'
+        version: 7.7.2(rollup@4.34.8)(vite@6.1.1(@types/node@22.13.4)(jiti@2.4.2)(sass-embedded@1.85.0)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))
+      vitest:
+        specifier: 'catalog:'
+        version: 3.0.6(@types/node@22.13.4)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.85.0)(sass@1.85.0)
       vue-eslint-parser:
         specifier: 'catalog:'
         version: 9.4.3(eslint@9.21.0(jiti@2.4.2))
+      vue-tsc:
+        specifier: 'catalog:'
+        version: 2.2.2(typescript@5.7.3)
 
-  packages/app/ai.voice:
+  src/apps/ai.voice:
     dependencies:
-      features__note__views.ai.voice:
-        specifier: workspace:*
-        version: link:../../features/note/views.ai.voice
-      features__shared__views.ai.voice:
-        specifier: workspace:*
-        version: link:../../features/shared/views.ai.voice
-      features__top__views.ai.voice:
-        specifier: workspace:*
-        version: link:../../features/top/views.ai.chat
-      features__user__views.ai.voice:
-        specifier: workspace:*
-        version: link:../../features/user/views.ai.voice
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../shared/constants
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata:
+        specifier: 'catalog:'
+        version: 0.2.2
+      rxjs:
+        specifier: 'catalog:'
+        version: 7.8.2
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.7.3)
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
     devDependencies:
       typescript:
         specifier: 'catalog:'
@@ -148,32 +200,17 @@ importers:
         specifier: 'catalog:'
         version: 6.1.1(@types/node@22.13.4)(jiti@2.4.2)(sass-embedded@1.85.0)(sass@1.85.0)
 
-  packages/app/web.vue:
+  src/apps/web.vue:
     dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../di
-      features__note__views.web.vue:
-        specifier: workspace:*
-        version: link:../../features/note/views.web.vue
-      features__top__views.web.vue:
-        specifier: workspace:*
-        version: link:../../features/top/views.web.vue
-      features__user__view-models:
-        specifier: workspace:*
-        version: link:../../features/user/view-models
-      features__user__views.web.vue:
-        specifier: workspace:*
-        version: link:../../features/user/views.web.vue
+      inversify:
+        specifier: 'catalog:'
+        version: 6.2.2(reflect-metadata@0.2.2)
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
       rxjs:
         specifier: 'catalog:'
         version: 7.8.2
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../shared/constants
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
@@ -220,250 +257,6 @@ importers:
       vue-tsc:
         specifier: 'catalog:'
         version: 2.2.2(typescript@5.7.3)
-
-  packages/di:
-    dependencies:
-      features__note__view-models:
-        specifier: workspace:*
-        version: link:../features/note/view-models
-      features__user__view-models:
-        specifier: workspace:*
-        version: link:../features/user/view-models
-      inversify:
-        specifier: 'catalog:'
-        version: 6.2.2(reflect-metadata@0.2.2)
-      reflect-metadata:
-        specifier: 'catalog:'
-        version: 0.2.2
-      shared__api:
-        specifier: workspace:*
-        version: link:../shared/api
-      shared__event-aggregator:
-        specifier: workspace:*
-        version: link:../shared/event-aggregator
-
-  packages/features/note/view-models:
-    dependencies:
-      inversify:
-        specifier: 'catalog:'
-        version: 6.2.2(reflect-metadata@0.2.2)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
-      shared__api:
-        specifier: workspace:*
-        version: link:../../../shared/api
-      shared__event-aggregator:
-        specifier: workspace:*
-        version: link:../../../shared/event-aggregator
-      shared__view-models:
-        specifier: workspace:*
-        version: link:../../../shared/view-models
-
-  packages/features/note/views.ai.voice:
-    dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../../di
-      features__note__view-models:
-        specifier: workspace:*
-        version: link:../view-models
-      features__shared__views.ai.voice:
-        specifier: workspace:*
-        version: link:../../shared/views.ai.voice
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
-      shared__api:
-        specifier: workspace:*
-        version: link:../../../shared/api
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../../shared/constants
-
-  packages/features/note/views.web.vue:
-    dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../../di
-      features__note__view-models:
-        specifier: workspace:*
-        version: link:../view-models
-      features__shared__views.web.vue:
-        specifier: workspace:*
-        version: link:../../shared/views.web.vue
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../../shared/constants
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.13(typescript@5.7.3)
-      vue-router:
-        specifier: 'catalog:'
-        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
-
-  packages/features/shared/views.ai.voice:
-    devDependencies:
-      '@types/json-schema':
-        specifier: 'catalog:'
-        version: 7.0.15
-
-  packages/features/shared/views.web.vue:
-    dependencies:
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../../shared/constants
-      shared__view-models:
-        specifier: workspace:*
-        version: link:../../../shared/view-models
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.13(typescript@5.7.3)
-      vue-router:
-        specifier: 'catalog:'
-        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
-
-  packages/features/top/views.ai.chat:
-    dependencies:
-      features__shared__views.ai.voice:
-        specifier: workspace:*
-        version: link:../../shared/views.ai.voice
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../../shared/constants
-
-  packages/features/top/views.web.vue:
-    dependencies:
-      features__shared__views.web.vue:
-        specifier: workspace:*
-        version: link:../../shared/views.web.vue
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../../shared/constants
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.13(typescript@5.7.3)
-      vue-router:
-        specifier: 'catalog:'
-        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
-
-  packages/features/user/view-models:
-    dependencies:
-      features__shared__views.web.vue:
-        specifier: workspace:*
-        version: link:../../shared/views.web.vue
-      inversify:
-        specifier: 'catalog:'
-        version: 6.2.2(reflect-metadata@0.2.2)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
-      shared__api:
-        specifier: workspace:*
-        version: link:../../../shared/api
-      shared__event-aggregator:
-        specifier: workspace:*
-        version: link:../../../shared/event-aggregator
-      shared__result:
-        specifier: workspace:*
-        version: link:../../../shared/result
-      shared__view-models:
-        specifier: workspace:*
-        version: link:../../../shared/view-models
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.13(typescript@5.7.3)
-
-  packages/features/user/views.ai.voice:
-    dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../../di
-      features__shared__views.ai.voice:
-        specifier: workspace:*
-        version: link:../../shared/views.ai.voice
-      features__user__view-models:
-        specifier: workspace:*
-        version: link:../view-models
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../../shared/constants
-    devDependencies:
-      '@types/json-schema':
-        specifier: 'catalog:'
-        version: 7.0.15
-
-  packages/features/user/views.web.vue:
-    dependencies:
-      di:
-        specifier: workspace:*
-        version: link:../../../di
-      features__shared__views.web.vue:
-        specifier: workspace:*
-        version: link:../../shared/views.web.vue
-      features__user__view-models:
-        specifier: workspace:*
-        version: link:../view-models
-      shared__constants:
-        specifier: workspace:*
-        version: link:../../../shared/constants
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.13(typescript@5.7.3)
-      vue-router:
-        specifier: 'catalog:'
-        version: 4.5.0(vue@3.5.13(typescript@5.7.3))
-
-  packages/shared/api:
-    dependencies:
-      inversify:
-        specifier: 'catalog:'
-        version: 6.2.2(reflect-metadata@0.2.2)
-      shared__result:
-        specifier: workspace:*
-        version: link:../result
-
-  packages/shared/constants: {}
-
-  packages/shared/event-aggregator:
-    dependencies:
-      inversify:
-        specifier: 'catalog:'
-        version: 6.2.2(reflect-metadata@0.2.2)
-    devDependencies:
-      typescript:
-        specifier: 'catalog:'
-        version: 5.7.3
-      vitest:
-        specifier: 'catalog:'
-        version: 3.0.6(@types/node@22.13.4)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.85.0)(sass@1.85.0)
-
-  packages/shared/result: {}
-
-  packages/shared/view-models:
-    dependencies:
-      inversify:
-        specifier: 'catalog:'
-        version: 6.2.2(reflect-metadata@0.2.2)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
-      shared__event-aggregator:
-        specifier: workspace:*
-        version: link:../event-aggregator
-    devDependencies:
-      typescript:
-        specifier: 'catalog:'
-        version: 5.7.3
-      vitest:
-        specifier: 'catalog:'
-        version: 3.0.6(@types/node@22.13.4)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.85.0)(sass@1.85.0)
 
 packages:
 

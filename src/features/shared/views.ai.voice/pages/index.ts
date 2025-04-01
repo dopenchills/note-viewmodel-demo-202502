@@ -1,0 +1,1 @@
+export { commonInstruction } from './commonInstruction'

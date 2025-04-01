@@ -1,0 +1,22 @@
+{
+  "name": "app__ai.voice",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "catalog:",
+    "vue-router": "catalog:",
+    "reflect-metadata": "catalog:",
+    "rxjs": "catalog:",
+    "inversify": "catalog:"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

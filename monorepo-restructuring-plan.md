@@ -146,7 +146,7 @@ graph TD
 
 ```mermaid
 graph TD
-    A[Move DI configuration] --> B[Centralize in src/di]
+    A[Move DI configuration] --> B[Centralize in src/di/inversify.config.ts]
     B --> C[Update imports in both entry points]
 ```
 
@@ -176,7 +176,7 @@ To implement this restructuring efficiently, we'll use CLI commands rather than 
 
 ```bash
 # 1. Create the new directory structure
-mkdir -p src/apps/ai.voice src/apps/web.vue src/features src/shared src/di
+mkdir -p src/apps/ai.voice src/apps/web.vue src/features src/shared src/di/inversify.config.ts
 
 # 2. Move files from packages to the new structure
 # Example for moving AI Voice app

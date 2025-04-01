@@ -1,0 +1,6 @@
+export { eventAggregatorModule } from './di/eventAggregatorModule'
+export { EventAggregatorTypes } from './di/EventAggregatorTypes'
+export { EventAggregator } from './EventAggregator'
+export type { IEventAggregator } from './interfaces/IEventAggregator'
+export type { IPubSubEvent } from './interfaces/IPubSubEvent'
+export type { ISubscription } from './interfaces/ISubscription'
