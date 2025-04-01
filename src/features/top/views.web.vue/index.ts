@@ -1,2 +1,2 @@
-import HomeView from './HomeView.vue'
+import HomeView from 'src/features/top/views.web.vue/HomeView.vue'
 export { HomeView }

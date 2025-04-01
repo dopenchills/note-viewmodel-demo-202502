@@ -39,9 +39,9 @@ import { UserTypes } from 'src/features/user/view-models'
 import { paths } from 'src/shared/constants'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import SignIn from './SignIn.vue'
-import SignUp from './SignUp.vue'
-import TabGroup from './TabGroup.vue'
+import SignIn from 'src/features/user/views.web.vue/AuthView/SignIn.vue'
+import SignUp from 'src/features/user/views.web.vue/AuthView/SignUp.vue'
+import TabGroup from 'src/features/user/views.web.vue/AuthView/TabGroup.vue'
 
 type AuthType = 'sign-in' | 'sign-up'
 const type = ref<AuthType>('sign-in')

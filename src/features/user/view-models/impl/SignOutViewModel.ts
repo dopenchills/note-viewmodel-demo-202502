@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify'
 import type { IEventAggregator } from 'src/shared/event-aggregator'
 import { EventAggregatorTypes } from 'src/shared/event-aggregator'
 import { ViewModelBase } from 'src/shared/view-models'
-import { SignedOutEvent } from '../events/SignedOutEvent'
+import { SignedOutEvent } from 'src/features/user/view-models/events/SignedOutEvent'
 import type { ISignOutViewModel } from '../interfaces/ISignOutViewModel'
 
 @injectable()

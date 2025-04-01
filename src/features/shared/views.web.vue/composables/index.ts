@@ -1,2 +1,2 @@
-import { useObservableProps } from './useObservableProps'
+import { useObservableProps } from 'src/features/shared/views.web.vue/composables/useObservableProps'
 export { useObservableProps }

@@ -5,8 +5,8 @@ import { ApiType } from 'src/shared/api'
 import type { IEventAggregator } from 'src/shared/event-aggregator'
 import { EventAggregatorTypes } from 'src/shared/event-aggregator'
 import { ViewModelBase } from 'src/shared/view-models'
-import { SignedOutEvent } from '../events/SignedOutEvent'
-import { SignedUpEvent } from '../events/SignedUpEvent'
+import { SignedOutEvent } from 'src/features/user/view-models/events/SignedOutEvent'
+import { SignedUpEvent } from 'src/features/user/view-models/events/SignedUpEvent'
 import type { ISignUpViewModel } from '../interfaces/ISignUpViewModel'
 
 @injectable()

@@ -1,8 +1,8 @@
-import { OpenAIClient } from './api/OpenAIClient'
-import { DataChannelHandler } from './messaging/DataChannelHandler'
-import { NavigationHandler } from './navigation/NavigationHanlder'
-import { Logger } from './utils/Logger'
-import { VoiceConnection } from './webrtc/VoiceConnection'
+import { OpenAIClient } from 'src/apps/ai.voice/api/OpenAIClient'
+import { DataChannelHandler } from 'src/apps/ai.voice/messaging/DataChannelHandler'
+import { NavigationHandler } from 'src/apps/ai.voice/navigation/NavigationHanlder'
+import { Logger } from 'src/apps/ai.voice/utils/Logger'
+import { VoiceConnection } from 'src/apps/ai.voice/webrtc/VoiceConnection'
 
 export class VoiceChat {
   private voiceConnection: VoiceConnection

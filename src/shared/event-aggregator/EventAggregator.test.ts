@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { EventAggregator } from './EventAggregator'
-import { IPubSubEvent } from './interfaces/IPubSubEvent'
+import { EventAggregator } from 'src/shared/event-aggregator/EventAggregator'
+import { IPubSubEvent } from 'src/shared/event-aggregator/interfaces/IPubSubEvent'
 
 class TestEvent<P = string> implements IPubSubEvent<P> {
   constructor(public payload: P) {}

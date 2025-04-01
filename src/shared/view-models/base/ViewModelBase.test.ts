@@ -1,6 +1,6 @@
 import { IEventAggregator, IPubSubEvent, ISubscription } from 'src/shared/event-aggregator'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { ViewModelBase } from './ViewModelBase'
+import { ViewModelBase } from 'src/shared/view-models/base/ViewModelBase'
 
 // Mock event class for testing
 class TestEvent implements IPubSubEvent<string> {

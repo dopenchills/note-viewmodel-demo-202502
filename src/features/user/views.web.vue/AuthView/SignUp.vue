@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import AuthForm from './AuthForm.vue'
+import AuthForm from 'src/features/user/views.web.vue/AuthView/AuthForm.vue'
 
 interface SignUpForm {
   name: string

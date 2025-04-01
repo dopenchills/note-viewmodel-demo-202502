@@ -1,4 +1,4 @@
-import { ViewModelBase } from './base/ViewModelBase'
+import { ViewModelBase } from 'src/shared/view-models/base/ViewModelBase'
 import type { IViewModel } from './interface/IViewModel'
 import type { ObservableProps } from './interface/ObservableProps'
 

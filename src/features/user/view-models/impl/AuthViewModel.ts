@@ -3,8 +3,8 @@ import { BehaviorSubject } from 'rxjs'
 import type { IEventAggregator } from 'src/shared/event-aggregator'
 import { EventAggregatorTypes } from 'src/shared/event-aggregator'
 import { ViewModelBase } from 'src/shared/view-models'
-import { SignedInEvent } from '../events/SignedInEvent'
-import { SignedOutEvent } from '../events/SignedOutEvent'
+import { SignedInEvent } from 'src/features/user/view-models/events/SignedInEvent'
+import { SignedOutEvent } from 'src/features/user/view-models/events/SignedOutEvent'
 import type { IAuthViewModel } from '../interfaces/IAuthViewModel'
 
 @injectable()
