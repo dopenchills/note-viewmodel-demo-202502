@@ -1,11 +1,5 @@
 packages:
-  - packages/app/*
-  - packages/features/top/*
-  - packages/features/note/*
-  - packages/features/user/*
-  - packages/features/shared/*
-  - packages/shared/*
-  - packages/di
+  - src/apps/*
 catalog:
   '@eslint/js': ^9.21.0
   '@tsconfig/node22': ^22.0.0

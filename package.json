@@ -2,31 +2,48 @@
   "private": true,
   "name": "note-vm-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Note VM Demo with AI Voice and Vue.js Web UI",
   "type": "module",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "format": "prettier --write \"**/*.{js,ts,json,vue,css,md}\"",
     "format:check": "prettier --check \"**/*.{js,ts,json,vue,css,md}\"",
     "lint": "eslint . --ext .ts,.vue",
-    "lint:fix": "eslint . --ext .ts,.vue --fix",
-    "web.vue": "pnpm -F \"app__web.vue\"",
-    "ai.voice": "pnpm -F \"app__ai.voice\""
+    "lint:fix": "eslint . --ext .ts,.vue --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
+  "dependencies": {
+    "vue": "catalog:",
+    "vue-router": "catalog:",
+    "reflect-metadata": "catalog:",
+    "rxjs": "catalog:",
+    "inversify": "catalog:"
+  },
   "devDependencies": {
     "@eslint/js": "catalog:",
+    "@tsconfig/node22": "catalog:",
+    "@types/jsdom": "catalog:",
+    "@types/node": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "jiti": "catalog:",
+    "jsdom": "catalog:",
+    "npm-run-all2": "catalog:",
     "prettier": "catalog:",
-    "vue-eslint-parser": "catalog:"
-  }
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-vue-devtools": "catalog:",
+    "vitest": "catalog:",
+    "vue-eslint-parser": "catalog:",
+    "vue-tsc": "catalog:"
+  },
+  "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
 }
