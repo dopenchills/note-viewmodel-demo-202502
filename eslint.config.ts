@@ -65,7 +65,7 @@ export default [
     },
   },
 
-  // TypeScript rules (for .ts files)
+  // TypeScript rules (for all .ts files)
   {
     files: ['**/*.ts'],
     plugins: {
@@ -86,6 +86,25 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/prefer-as-const': 'error',
       'no-undef': 'off', // TypeScript handles this
+    },
+  },
+
+  // Additional rules for TypeScript files (excluding *.config.ts)
+  {
+    files: ['**/*.ts', '**/*.vue'],
+    ignores: ['**/*.config.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['./', '../'],
+              message: 'Relative imports are not allowed.',
+            },
+          ],
+        },
+      ],
     },
   },
 
