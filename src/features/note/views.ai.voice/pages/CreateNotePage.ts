@@ -1,10 +1,10 @@
 import { Subscription } from 'rxjs'
 import { diContainer } from 'src/di/inversify.config.ts'
-import type { ICreateNoteViewModel } from 'src/features/note/view-models'
-import { NoteTypes } from 'src/features/note/view-models'
-import type { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces'
-import { commonInstruction } from 'src/features/shared/views.ai.voice/pages'
-import { paths } from 'src/shared/constants'
+import { NoteTypes } from 'src/features/note/view-models/di/NoteTypes'
+import type { ICreateNoteViewModel } from 'src/features/note/view-models/interfaces/ICreateNoteViewModel'
+import type { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces/IPage'
+import { commonInstruction } from 'src/features/shared/views.ai.voice/pages/commonInstruction'
+import { paths } from 'src/shared/constants/paths'
 
 export class CreateNotePage implements IPage {
   readonly id = paths.createNote

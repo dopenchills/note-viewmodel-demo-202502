@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { paths } from 'src/shared/constants'
+import { paths } from 'src/shared/constants/paths'
 
 const router = useRouter()
 

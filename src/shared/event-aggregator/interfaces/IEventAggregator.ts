@@ -1,5 +1,5 @@
-import type { IPubSubEvent } from './IPubSubEvent'
-import type { ISubscription } from './ISubscription'
+import type { IPubSubEvent } from 'src/shared/event-aggregator/interfaces/IPubSubEvent'
+import type { ISubscription } from 'src/shared/event-aggregator/interfaces/ISubscription'
 
 export interface IEventAggregator {
   subscribe<Payload>(

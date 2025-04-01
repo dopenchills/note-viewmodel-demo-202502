@@ -1,11 +1,11 @@
 import { inject, injectable } from 'inversify'
 import { BehaviorSubject } from 'rxjs'
-import type { INoteApi } from 'src/shared/api'
-import { ApiType } from 'src/shared/api'
-import type { IEventAggregator } from 'src/shared/event-aggregator'
-import { EventAggregatorTypes } from 'src/shared/event-aggregator'
-import { ViewModelBase } from 'src/shared/view-models'
-import type { ICreateNoteViewModel } from '../interfaces/ICreateNoteViewModel'
+import type { ICreateNoteViewModel } from 'src/features/note/view-models/interfaces/ICreateNoteViewModel'
+import { ApiType } from 'src/shared/api/di/ApiType'
+import type { INoteApi } from 'src/shared/api/interface/INoteApi'
+import { EventAggregatorTypes } from 'src/shared/event-aggregator/di/EventAggregatorTypes'
+import type { IEventAggregator } from 'src/shared/event-aggregator/interfaces/IEventAggregator'
+import { ViewModelBase } from 'src/shared/view-models/base/ViewModelBase'
 
 @injectable()
 export class CreateNoteViewModel extends ViewModelBase implements ICreateNoteViewModel {

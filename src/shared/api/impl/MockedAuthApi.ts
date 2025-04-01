@@ -1,5 +1,5 @@
-import { type IResult, NotOk, Ok } from 'src/shared/result'
-import type { IAuthApi } from '../interface/IAuthApi'
+import type { IAuthApi } from 'src/shared/api/interface/IAuthApi'
+import { NotOk, Ok, type IResult } from 'src/shared/result'
 
 export class MockedAuthApi implements IAuthApi {
   private readonly authStore: Set<{

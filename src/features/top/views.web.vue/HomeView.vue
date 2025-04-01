@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { TopBarLayout } from 'src/features/shared/views.web.vue/layouts'
-import { paths } from 'src/shared/constants'
+import TopBarLayout from 'src/features/shared/views.web.vue/layouts/TopBarLayout.vue'
+import { paths } from 'src/shared/constants/paths'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

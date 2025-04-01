@@ -1,4 +1,4 @@
-import type { IPubSubEvent } from 'src/shared/event-aggregator'
+import type { IPubSubEvent } from 'src/shared/event-aggregator/interfaces/IPubSubEvent'
 
 export class SignedOutEvent implements IPubSubEvent<void> {
   readonly payload: void

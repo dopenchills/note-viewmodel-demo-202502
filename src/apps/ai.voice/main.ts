@@ -1,4 +1,4 @@
-import { VoiceChat } from './VoiceChat'
-import './style.css'
+import { VoiceChat } from 'src/apps/ai.voice/VoiceChat'
+import 'src/apps/ai.voice/style.css'
 
 new VoiceChat()

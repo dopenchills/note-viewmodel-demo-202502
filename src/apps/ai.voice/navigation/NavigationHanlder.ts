@@ -1,8 +1,9 @@
-import { CreateNotePage, ListNotePage } from 'src/features/note/views.ai.voice/pages'
-import type { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces'
-import { HomePage } from 'src/features/top/views.ai.voice/pages'
-import { AuthPage } from 'src/features/user/views.ai.voice/pages'
-import { paths } from 'src/shared/constants'
+import { CreateNotePage } from 'src/features/note/views.ai.voice/pages/CreateNotePage'
+import { ListNotePage } from 'src/features/note/views.ai.voice/pages/ListNotePage'
+import type { IPage, Tool } from 'src/features/shared/views.ai.voice/interfaces/IPage'
+import { HomePage } from 'src/features/top/views.ai.voice/pages/HomePage'
+import { AuthPage } from 'src/features/user/views.ai.voice/pages/AuthPage'
+import { paths } from 'src/shared/constants/paths'
 
 interface INavigationHandler {
   /**
